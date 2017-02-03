@@ -2,6 +2,6 @@
 
 <html>
 <body>
-<H2>Test pages</H2>
+<H2>Test page</H2>
 </body>
 </html>

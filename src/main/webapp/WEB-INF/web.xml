@@ -15,4 +15,15 @@
         <servlet-name>testServlet</servlet-name>
         <url-pattern>/test</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>productServlet</servlet-name>
+        <servlet-class>mixey.agent.web.productServlet</servlet-class>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>productServlet</servlet-name>
+        <url-pattern>/products</url-pattern>
+    </servlet-mapping>
 </web-app>
