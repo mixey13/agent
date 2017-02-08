@@ -1,8 +1,5 @@
 package mixey.agent.model;
 
-/**
- * Created by s_adm on 03.02.2017.
- */
 public class Product {
     protected Integer id;
     protected String title;

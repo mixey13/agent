@@ -4,17 +4,6 @@
          id="WebApp_ID" version="2.5">
 
     <display-name>Agent</display-name>
-    
-    <servlet>
-        <servlet-name>testServlet</servlet-name>
-        <servlet-class>mixey.agent.web.testServlet</servlet-class>
-        <load-on-startup>0</load-on-startup>
-    </servlet>
-    
-    <servlet-mapping>
-        <servlet-name>testServlet</servlet-name>
-        <url-pattern>/test</url-pattern>
-    </servlet-mapping>
 
     <servlet>
         <servlet-name>productServlet</servlet-name>
