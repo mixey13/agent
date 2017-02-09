@@ -30,6 +30,6 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> getAll() {
-        return repository.getAll().stream().collect(Collectors.toList());
+        return repository.getAll();
     }
 }

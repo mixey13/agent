@@ -5,6 +5,7 @@ import mixey.agent.repository.ProductRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -15,7 +16,7 @@ public class MockProductRepository implements ProductRepository {
     private AtomicInteger counter = new AtomicInteger(0);
 
     {
-        save(new Product("Колбаса", "Описание колбасы"));
+        save(new Product("Колбаса123", "Описание колбасы"));
         save(new Product("Ветчина", "Описание ветчины"));
         save(new Product("Сосиски", "Описание Сосисок"));
     }
@@ -39,7 +40,7 @@ public class MockProductRepository implements ProductRepository {
     }
 
     @Override
-    public Collection<Product> getAll() {
-        return repository.values();
+    public List<Product> getAll() {
+        return null;
     }
 }
