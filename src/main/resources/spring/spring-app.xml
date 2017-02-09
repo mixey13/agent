@@ -6,7 +6,6 @@
 
     <context:annotation-config/>
 
-    <context:component-scan base-package="mixey.**.repository.jdbc"/>
     <context:component-scan base-package="mixey.**.service"/>
     <context:component-scan base-package="mixey.**.web"/>
 </beans>

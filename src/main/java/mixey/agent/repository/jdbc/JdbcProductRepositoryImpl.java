@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
+import java.util.Collection;
 import java.util.List;
 
 @Repository
@@ -25,6 +26,7 @@ public class JdbcProductRepositoryImpl implements ProductRepository {
 
     private SimpleJdbcInsert insertProduct;
 
+    @Autowired
     public JdbcProductRepositoryImpl(DataSource dataSource) {
         this.insertProduct = new SimpleJdbcInsert(dataSource)
             .withTableName("products")
@@ -58,7 +60,7 @@ public class JdbcProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
-    public List<Product> getAll() {
+    public Collection<Product> getAll() {
         return jdbcTemplate.query("SELECT * FROM products", ROW_MAPPER);
     }
 }
