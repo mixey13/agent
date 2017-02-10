@@ -11,7 +11,6 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
-import java.util.Collection;
 import java.util.List;
 
 @Repository
@@ -60,7 +59,7 @@ public class JdbcProductRepositoryImpl implements ProductRepository {
     }
 
     @Override
-    public Collection<Product> getAll() {
+    public List<Product> getAll() {
         return jdbcTemplate.query("SELECT * FROM products", ROW_MAPPER);
     }
 }

@@ -24,8 +24,8 @@
         <constructor-arg ref="dataSource"/>
     </bean>
 
-    <context:component-scan base-package="mixey.**.repository.jdbc"/>
-    <!--<context:component-scan base-package="mixey.**.repository.jpa"/>-->
+    <!--<context:component-scan base-package="mixey.**.repository.jdbc"/>-->
+    <context:component-scan base-package="mixey.**.repository.jpa"/>
 
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
           p:dataSource-ref="dataSource"
