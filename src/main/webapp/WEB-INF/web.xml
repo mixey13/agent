@@ -18,6 +18,20 @@
     </listener>
 
     <servlet>
+        <servlet-name>mvc-dispatcher</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:spring/spring-mvc.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>mvc-dispatcher</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+<!--    <servlet>
         <servlet-name>productServlet</servlet-name>
         <servlet-class>mixey.agent.web.productServlet</servlet-class>
         <load-on-startup>0</load-on-startup>
@@ -26,5 +40,5 @@
     <servlet-mapping>
         <servlet-name>productServlet</servlet-name>
         <url-pattern>/products</url-pattern>
-    </servlet-mapping>
+    </servlet-mapping>-->
 </web-app>
