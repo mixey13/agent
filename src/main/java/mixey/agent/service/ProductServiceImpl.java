@@ -18,6 +18,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public Product update(Product product) {
+        return repository.save(product);
+    }
+
+    @Override
     public boolean delete(Integer id) {
         return repository.delete(id);
     }
