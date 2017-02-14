@@ -39,7 +39,7 @@ public class ProductAjaxController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public boolean delete(@RequestParam("id") int id) {
+    public boolean delete(@PathVariable("id") int id) {
         return service.delete(id);
     }
 }
