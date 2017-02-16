@@ -30,9 +30,7 @@ function save() {
 function updateRow(id) {
     $.get(ajaxUrl + id, function (data) {
         $.each(data, function (key, value) {
-            form.find("input[name='" + key + "']").val(
-                key === "dateTime" ? value.replace('T', ' ').substr(0, 16) : value
-            );
+            form.find("input[name='" + key + "']").val(value);
         });
         $('#editRow').modal();
     });
