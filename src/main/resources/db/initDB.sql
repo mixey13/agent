@@ -1,6 +1,9 @@
 DROP TABLE IF EXISTS user_roles;
 DROP TABLE IF EXISTS products;
 DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS organizations;
+DROP TABLE IF EXISTS clients;
+DROP TABLE IF EXISTS prices;
 DROP SEQUENCE IF EXISTS global_seq;
 
 CREATE SEQUENCE global_seq START 100000;
@@ -26,3 +29,31 @@ CREATE TABLE products
   title       VARCHAR NOT NULL,
   description      VARCHAR NOT NULL
 );
+
+CREATE TABLE organizations
+(
+  id         INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+  name       VARCHAR NOT NULL,
+  inn        INTEGER NOT NULL,
+  address      VARCHAR NOT NULL
+);
+
+CREATE TABLE prices
+(
+  id         INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+  name       VARCHAR NOT NULL,
+  description      VARCHAR NOT NULL
+);
+
+CREATE TABLE clients
+(
+  id         INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+  name       VARCHAR NOT NULL,
+  inn        INTEGER NOT NULL,
+  address    VARCHAR NOT NULL,
+  price_id      INTEGER NOT NULL,
+  FOREIGN KEY (price_id) REFERENCES prices (id)
+);
+
+
+

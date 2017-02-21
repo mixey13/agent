@@ -15,4 +15,9 @@ public class RootController {
     public String userList() {
         return "userList";
     }
+
+    @RequestMapping(value = "/prices", method = RequestMethod.GET)
+    public String priceList() {
+        return "priceList";
+    }
 }
