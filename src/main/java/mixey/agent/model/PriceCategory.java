@@ -1,12 +1,10 @@
 package mixey.agent.model;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
-@Table(name = "prices")
-public class Price {
+@Table(name = "price_categories")
+public class PriceCategory {
     @Id
     @SequenceGenerator(name = "global_seq", sequenceName = "global_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
@@ -18,19 +16,19 @@ public class Price {
     @Column(name = "description")
     protected String description;
 
-   /* @OneToMany(mappedBy = "price")
+   /* @OneToMany(mappedBy = "priceCategory")
     protected Set<Client> clients = new HashSet<>();*/
 
-    public Price() {
+    public PriceCategory() {
     }
 
-    public Price(Integer id, String name, String description) {
+    public PriceCategory(Integer id, String name, String description) {
         this.id = id;
         this.name = name;
         this.description = description;
     }
 
-    public Price(String name, String description) {
+    public PriceCategory(String name, String description) {
         this(null, name, description);
     }
 
@@ -72,7 +70,7 @@ public class Price {
 
     @Override
     public String toString() {
-        return "Price{" +
+        return "PriceCategory{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +

@@ -1,7 +1,7 @@
 package mixey.agent.web;
 
-import mixey.agent.model.Price;
-import mixey.agent.service.PriceService;
+import mixey.agent.model.PriceCategory;
+import mixey.agent.service.PriceCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -9,19 +9,19 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/ajax/prices")
-public class PriceAjaxController {
+@RequestMapping("/ajax/pc")
+public class PriceCategoryAjaxController {
     @Autowired
-    private PriceService service;
+    private PriceCategoryService service;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Price get(@PathVariable("id") Integer id) {
+    public PriceCategory get(@PathVariable("id") Integer id) {
         return service.get(id);
     }
 
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Price> getAll() {
+    public List<PriceCategory> getAll() {
         return service.getAll();
     }
 
@@ -30,11 +30,11 @@ public class PriceAjaxController {
                                @RequestParam("name") String name,
                                @RequestParam("description") String description
     ) {
-        Price price = new Price(id, name, description);
+        PriceCategory priceCategory = new PriceCategory(id, name, description);
         if (id == 0) {
-            service.save(price);
+            service.save(priceCategory);
         } else {
-            service.update(price);
+            service.update(priceCategory);
         }
     }
 

@@ -7,14 +7,14 @@ import javax.persistence.*;
 public class Client extends Organization {
 
     @ManyToOne//(fetch = FetchType.LAZY)
-    @JoinColumn(name = "price_id")
-    protected Price price;
+    @JoinColumn(name = "pc_id")
+    protected PriceCategory priceCategory;
 
-    public Price getPrice() {
-        return price;
+    public PriceCategory getPriceCategory() {
+        return priceCategory;
     }
 
-    public void setPrice(Price price) {
-        this.price = price;
+    public void setPriceCategory(PriceCategory priceCategory) {
+        this.priceCategory = priceCategory;
     }
 }

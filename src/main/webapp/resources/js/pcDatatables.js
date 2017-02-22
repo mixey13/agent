@@ -1,4 +1,4 @@
-var ajaxUrl = 'ajax/prices/';
+var ajaxUrl = 'ajax/pc/';
 var datatableApi;
 
 function updateTable() {

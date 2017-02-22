@@ -16,8 +16,8 @@ public class RootController {
         return "userList";
     }
 
-    @RequestMapping(value = "/prices", method = RequestMethod.GET)
+    @RequestMapping(value = "/pc", method = RequestMethod.GET)
     public String priceList() {
-        return "priceList";
+        return "pcList";
     }
 }

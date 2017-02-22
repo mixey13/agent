@@ -15,7 +15,7 @@ public class Organization {
     protected String name;
 
     @Column(name = "inn")
-    protected Integer password;
+    protected Integer inn;
 
     @Column(name = "address")
     protected String address;
@@ -36,12 +36,12 @@ public class Organization {
         this.name = name;
     }
 
-    public Integer getPassword() {
-        return password;
+    public Integer getInn() {
+        return inn;
     }
 
-    public void setPassword(Integer password) {
-        this.password = password;
+    public void setInn(Integer inn) {
+        this.inn = inn;
     }
 
     public String getAddress() {
@@ -52,12 +52,16 @@ public class Organization {
         this.address = address;
     }
 
+    public boolean isNew() {
+        return id == null;
+    }
+
     @Override
     public String toString() {
         return "Organization{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", password=" + password +
+                ", inn=" + inn +
                 ", address='" + address + '\'' +
                 '}';
     }
