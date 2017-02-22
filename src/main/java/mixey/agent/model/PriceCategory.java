@@ -1,6 +1,8 @@
 package mixey.agent.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "price_categories")
@@ -16,8 +18,8 @@ public class PriceCategory {
     @Column(name = "description")
     protected String description;
 
-   /* @OneToMany(mappedBy = "priceCategory")
-    protected Set<Client> clients = new HashSet<>();*/
+   @OneToMany(mappedBy = "priceCategory")
+   protected Set<Price> prices = new HashSet<>();
 
     public PriceCategory() {
     }
@@ -56,13 +58,13 @@ public class PriceCategory {
         this.description = description;
     }
 
-   /* public Set<Client> getClients() {
-        return clients;
+    public Set<Price> getPrices() {
+        return prices;
     }
 
-    public void setClients(Set<Client> clients) {
-        this.clients = clients;
-    }*/
+    public void setPrices(Set<Price> prices) {
+        this.prices = prices;
+    }
 
     public boolean isNew() {
         return id == null;

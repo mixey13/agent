@@ -1,4 +1,5 @@
 DROP TABLE IF EXISTS user_roles;
+DROP TABLE IF EXISTS prices;
 DROP TABLE IF EXISTS products;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS organizations;
@@ -45,6 +46,25 @@ CREATE TABLE price_categories
   description      VARCHAR NOT NULL
 );
 
+CREATE TABLE prices
+(
+  id         INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+  number      INTEGER NOT NULL,
+  pc_id      INTEGER NOT NULL,
+  date_time    TIMESTAMP NOT NULL,
+  FOREIGN KEY (pc_id) REFERENCES price_categories (id)
+);
+
+CREATE TABLE price_product
+(
+  id         INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+  price_id      INTEGER NOT NULL,
+  product_id      INTEGER NOT NULL,
+  value      INTEGER NOT NULL,
+  FOREIGN KEY (price_id) REFERENCES prices (id),
+  FOREIGN KEY (product_id) REFERENCES products (id)
+);
+
 CREATE TABLE clients
 (
   id         INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
@@ -55,15 +75,7 @@ CREATE TABLE clients
   FOREIGN KEY (pc_id) REFERENCES price_categories (id)
 );
 
-CREATE TABLE prices
-(
-  id         INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
-  pc_id      INTEGER NOT NULL,
-  product_id      INTEGER NOT NULL,
-  value      INTEGER NOT NULL,
-  FOREIGN KEY (pc_id) REFERENCES price_categories (id),
-  FOREIGN KEY (product_id) REFERENCES products (id)
-);
+
 
 
 
