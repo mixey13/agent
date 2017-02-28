@@ -2,10 +2,12 @@ package mixey.agent.web;
 
 import mixey.agent.model.PriceCategory;
 import mixey.agent.service.PriceCategoryService;
+import mixey.agent.to.PriceCategoryTo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -15,14 +17,14 @@ public class PriceCategoryAjaxController {
     private PriceCategoryService service;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public PriceCategory get(@PathVariable("id") Integer id) {
-        return service.get(id);
+    public PriceCategoryTo get(@PathVariable("id") Integer id) {
+        return PriceCategoryTo.asTo(service.get(id));
     }
 
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<PriceCategory> getAll() {
-        return service.getAll();
+    public List<PriceCategoryTo> getAll() {
+        return PriceCategoryTo.listAsTo(service.getAll());
     }
 
     @RequestMapping(method = RequestMethod.POST)

@@ -17,7 +17,12 @@ public class RootController {
     }
 
     @RequestMapping(value = "/pc", method = RequestMethod.GET)
-    public String priceList() {
+    public String priceCategoryList() {
         return "pcList";
+    }
+
+    @RequestMapping(value = "/prices", method = RequestMethod.GET)
+    public String priceList() {
+        return "priceList";
     }
 }

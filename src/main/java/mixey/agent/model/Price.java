@@ -18,18 +18,30 @@ public class Price {
     @Column(name = "number")
     protected Integer number;
 
+
     @ManyToOne//(fetch = FetchType.LAZY)
     @JoinColumn(name = "pc_id")
     protected PriceCategory priceCategory;
 
     @Column(name = "date_time", nullable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
-    private LocalDateTime dateTime;
+    protected LocalDateTime dateTime;
 
     @OneToMany(mappedBy = "price")
     protected Set<PriceProduct> priceProducts = new HashSet<>();
 
     public Price() {
+    }
+
+    public Price(Integer number, PriceCategory priceCategory, LocalDateTime dateTime) {
+        this(null, number, priceCategory, dateTime);
+    }
+
+    public Price(Integer id, Integer number, PriceCategory priceCategory, LocalDateTime dateTime) {
+        this.id = id;
+        this.number = number;
+        this.priceCategory = priceCategory;
+        this.dateTime = dateTime;
     }
 
     public Integer getId() {

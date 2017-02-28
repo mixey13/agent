@@ -2,6 +2,7 @@ DELETE FROM user_roles;
 DELETE FROM products;
 DELETE FROM users;
 DELETE FROM price_categories;
+DELETE FROM prices;
 ALTER SEQUENCE global_seq RESTART WITH 100000;
 
 INSERT INTO users (name, password) VALUES
@@ -22,3 +23,8 @@ INSERT INTO products (title, description) VALUES
 INSERT INTO price_categories (name, description) VALUES
   ('ИП', 'Прайс для индивидуального предпринимателя'),
   ('ЮЛ', 'Прайс для юридического лица');
+
+
+INSERT INTO prices (number, pc_id, date_time) VALUES
+  (1, 100006, '2017-02-28 00:00');
+

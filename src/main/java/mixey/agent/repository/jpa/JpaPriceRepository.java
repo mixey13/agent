@@ -38,6 +38,8 @@ public class JpaPriceRepository {
 
     public List<Price> getAll() {
         TypedQuery<Price> query = em.createQuery("SELECT pr FROM Price pr", Price.class);
-        return query.getResultList();
+        List<Price> list = query.getResultList();
+        System.out.println(list);
+        return list;
     }
 }
