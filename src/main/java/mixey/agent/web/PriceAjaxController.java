@@ -5,6 +5,7 @@ import mixey.agent.model.PriceCategory;
 import mixey.agent.service.PriceService;
 import mixey.agent.to.PriceTo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,28 +24,30 @@ public class PriceAjaxController {
         return PriceTo.asTo(service.get(id));
     }
 
-/*
+
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<PriceTo> getAll() {
-        return PriceTo.listAsTo(service.getAll());
+        List<PriceTo> list = PriceTo.listAsTo(service.getAll());
+        System.out.println(list);
+        return list;
     }
 
     @RequestMapping(method = RequestMethod.POST)
     public void updateOrCreate(@RequestParam("id") int id,
                                @RequestParam("number") Integer number,
-                               @RequestParam("priceCategory") PriceCategory priceCategory,
-                               @RequestParam("date") LocalDateTime dateTime
-    ) {
-        Price price = new Price(id, number, priceCategory, dateTime);
+                               @RequestParam("priceCategory") Integer pc_id,
+                               @RequestParam("dateTime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateTime
+                               ) {
+        Price price = new Price(id, number, dateTime);
         if (id == 0) {
-            service.save(price);
+            service.save(price, pc_id);
         } else {
-            service.update(price);
+            service.update(price, pc_id);
         }
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public boolean delete(@PathVariable("id") int id) {
         return service.delete(id);
-    }*/
+    }
 }

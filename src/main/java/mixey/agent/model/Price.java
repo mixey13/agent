@@ -33,14 +33,13 @@ public class Price {
     public Price() {
     }
 
-    public Price(Integer number, PriceCategory priceCategory, LocalDateTime dateTime) {
-        this(null, number, priceCategory, dateTime);
+    public Price(Integer number, LocalDateTime dateTime) {
+        this(null, number, dateTime);
     }
 
-    public Price(Integer id, Integer number, PriceCategory priceCategory, LocalDateTime dateTime) {
+    public Price(Integer id, Integer number, LocalDateTime dateTime) {
         this.id = id;
         this.number = number;
-        this.priceCategory = priceCategory;
         this.dateTime = dateTime;
     }
 

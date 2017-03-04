@@ -1,6 +1,7 @@
 package mixey.agent.repository.jpa;
 
 import mixey.agent.model.Price;
+import mixey.agent.model.PriceCategory;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,7 +17,8 @@ public class JpaPriceRepository {
     private EntityManager em;
 
     @Transactional
-    public Price save(Price price) {
+    public Price save(Price price, Integer pc_id) {
+        price.setPriceCategory(em.getReference(PriceCategory.class, pc_id));
         if(price.isNew()) {
             em.persist(price);
             return price;

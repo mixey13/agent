@@ -1,4 +1,5 @@
 var ajaxUrl = 'ajax/prices/';
+var ajaxUrl2 = 'ajax/pc/';
 var datatableApi;
 
 function updateTable() {
@@ -6,6 +7,14 @@ function updateTable() {
 }
 
 $(function () {
+    var str = $.getJSON(ajaxUrl2, function (data) {
+        var option = '';
+        $.each(data, function (key, value) {
+            option += '<option value="' + value.id + '">' + value.name + '</option>';
+        });
+        $('#dropdownPC').append(option);
+    });
+
     datatableApi = $('#datatable').DataTable({
         "ajax": {
             "url": ajaxUrl,
