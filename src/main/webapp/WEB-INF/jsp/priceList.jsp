@@ -5,6 +5,7 @@
 <html>
 <jsp:include page="fragments/headTag.jsp"/>
 <link rel="stylesheet" href="webjars/datatables/1.10.12/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="webjars/datetimepicker/2.5.4/jquery.datetimepicker.css">
 
 <body>
 <jsp:include page="fragments/bodyHeader.jsp"/>
@@ -65,9 +66,18 @@
                         <label for="dateTime" class="control-label col-xs-3">DateTime</label>
 
                         <div class="col-xs-9">
-                            <input type="datetime" class="form-control" id="dateTime" name="dateTime" placeholder="dateTime">
+                            <input type="text" class="form-control" id="dateTime" name="dateTime" placeholder="dateTime">
                         </div>
                     </div>
+
+                    <table class="table table-striped display" id="productsTable">
+                        <thead>
+                        <tr>
+                            <th>Наименование</th>
+                            <th>Цена</th>
+                        </tr>
+                        </thead>
+                    </table>
 
                     <div class="form-group">
                         <div class="col-xs-offset-3 col-xs-9">
