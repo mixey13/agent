@@ -58,7 +58,7 @@
                         <label for="dropdownPC" class="control-label col-xs-3">PriceCategory</label>
 
                         <div class="col-xs-9">
-                            <select class="dropdown" id="dropdownPC" name="priceCategory"></select>
+                            <select class="dropdown form-control" id="dropdownPC" name="priceCategory"></select>
                         </div>
                     </div>
 
@@ -66,7 +66,7 @@
                         <label for="dateTime" class="control-label col-xs-3">DateTime</label>
 
                         <div class="col-xs-9">
-                            <input type="text" class="form-control" id="dateTime" name="dateTime" placeholder="dateTime">
+                            <input type="datetime-local" class="form-control" id="dateTime" name="dateTime" placeholder="dateTime">
                         </div>
                     </div>
 
@@ -93,7 +93,9 @@
 <script type="text/javascript" src="webjars/jquery/2.2.4/jquery.min.js"></script>
 <script type="text/javascript" src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="webjars/datatables/1.10.12/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="webjars/datatables/1.10.12/js/dataTables.bootstrap.min.js"></script>
 <script type="text/javascript" src="webjars/noty/2.3.8/js/noty/packaged/jquery.noty.packaged.min.js"></script>
+<script type="text/javascript" src="webjars/datetimepicker/2.5.4/build/jquery.datetimepicker.full.min.js"></script>
 <script type="text/javascript" src="resources/js/datatablesUtil.js"></script>
 <script type="text/javascript" src="resources/js/priceDatatables.js"></script>
 </html>
