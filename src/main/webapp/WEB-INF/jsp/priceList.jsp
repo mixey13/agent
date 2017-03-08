@@ -63,10 +63,10 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="dateTime" class="control-label col-xs-3">DateTime</label>
+                        <label for="datePicker" class="control-label col-xs-3">Date</label>
 
                         <div class="col-xs-9">
-                            <input type="datetime-local" class="form-control" id="dateTime" name="dateTime" placeholder="dateTime">
+                            <input type="date" class="form-control" id="datePicker" name="date" placeholder="date">
                         </div>
                     </div>
 

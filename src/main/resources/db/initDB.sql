@@ -51,7 +51,7 @@ CREATE TABLE prices
   id         INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   number      INTEGER NOT NULL,
   pc_id      INTEGER NOT NULL,
-  date_time    TIMESTAMP NOT NULL,
+  date    DATE NOT NULL,
   FOREIGN KEY (pc_id) REFERENCES price_categories (id)
 );
 

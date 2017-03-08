@@ -24,19 +24,12 @@ $(function () {
          var td = '';
          for(var i = 0; i < prod.length; i++) {
              td += '<tr>';
-             td += '<td>' + prod[i].title + '</td>';
-             td += '<td><input type="text" class="form-control" name="priceProducts[' + prod[i].id + '][' + i + ']"></td>';
+             td += '<td>' + prod[i].title + '<input type="hidden" name="priceProducts[productId]" value="' + prod[i].id + '"></td>';
+             td += '<td><input type="text" class="form-control" name="priceProducts[value]"></td>';
              td += '</tr>';
          }
          $('#productsTable').append(td);
     });
-
-    // $('#dateTime').datetimepicker({
-    //     timepicker: false,
-    //     format: 'Y-m-d',
-    //     lang: 'ru',
-    //     formatDate: 'Y-m-d'
-    // });
 
     datatableApi = $('#datatable').DataTable({
         "ajax": {
@@ -56,7 +49,7 @@ $(function () {
                 "data": "priceCategory"
             },
             {
-                "data": "dateTime"
+                "data": "date"
             },
             {
                 "orderable": false,
@@ -76,5 +69,11 @@ $(function () {
             ]
         ],
         "initComplete": makeEditable
+    });
+
+    $('#datePicker').datetimepicker({
+        timepicker: false,
+        lang: 'ru',
+        format: 'Y-m-d'
     });
 });

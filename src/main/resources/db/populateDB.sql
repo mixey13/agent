@@ -25,6 +25,11 @@ INSERT INTO price_categories (name, description) VALUES
   ('ЮЛ', 'Прайс для юридического лица');
 
 
-INSERT INTO prices (number, pc_id, date_time) VALUES
-  (1, 100006, '2017-02-28 00:00');
+INSERT INTO prices (number, pc_id, date) VALUES
+  (1, 100006, '2017-02-28');
+
+/*INSERT INTO price_product (price_id, product_id, value) VALUES
+  (100008, 100003, 150),
+  (100008, 100004, 180),
+  (100008, 100005, 120);*/
 

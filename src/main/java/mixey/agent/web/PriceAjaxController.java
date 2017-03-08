@@ -4,14 +4,18 @@ import mixey.agent.model.Price;
 import mixey.agent.model.PriceCategory;
 import mixey.agent.service.PriceService;
 import mixey.agent.to.PriceTo;
+import mixey.agent.to.ProductValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 
 @RestController
 @RequestMapping("/ajax/prices")
@@ -32,18 +36,24 @@ public class PriceAjaxController {
         return list;
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    /*@RequestMapping(method = RequestMethod.POST)
     public void updateOrCreate(@RequestParam("id") int id,
                                @RequestParam("number") Integer number,
                                @RequestParam("priceCategory") Integer pc_id,
-                               @RequestParam("dateTime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateTime
+                               @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date
                                ) {
-        Price price = new Price(id, number, dateTime);
+        Price price = new Price(id, number, date);
         if (id == 0) {
             service.save(price, pc_id);
         } else {
             service.update(price, pc_id);
         }
+    }*/
+
+    @RequestMapping(method = RequestMethod.POST)
+    public void updateOrCreate(@RequestBody String str) {
+        System.out.println("Hello");
+        System.out.println(str);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)

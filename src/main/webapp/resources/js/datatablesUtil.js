@@ -10,7 +10,10 @@ function makeEditable() {
 }
 
 function add() {
-    form.find(":input").val("");
+    // form.find(":input").val("");
+    form.find("input[type='text']").val("");
+    form.find("input[type='date']").val("");
+
     $('#id').val(0);
     $('#editRow').modal();
 }
@@ -20,6 +23,7 @@ function save() {
         type: "POST",
         url: ajaxUrl,
         data: form.serialize(),
+        datetype: "json",
         success: function () {
             $('#editRow').modal('hide');
             updateTable();

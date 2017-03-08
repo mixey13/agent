@@ -1,10 +1,8 @@
 package mixey.agent.to;
 
 import mixey.agent.model.Price;
-import mixey.agent.model.PriceCategory;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,20 +13,20 @@ public class PriceTo implements Serializable{
 
     protected String priceCategory;
 
-    private LocalDateTime dateTime;
+    private String date;
 
     public PriceTo() {
     }
 
-    public PriceTo(Integer id, Integer number, String priceCategory, LocalDateTime dateTime) {
+    public PriceTo(Integer id, Integer number, String priceCategory, String date) {
         this.id = id;
         this.number = number;
         this.priceCategory = priceCategory;
-        this.dateTime = dateTime;
+        this.date = date;
     }
 
     public static PriceTo asTo(Price price) {
-        return new PriceTo(price.getId(), price.getNumber(), price.getPriceCategory().getName(), price.getDateTime());
+        return new PriceTo(price.getId(), price.getNumber(), price.getPriceCategory().getName(), price.getDate().toString());
     }
 
     public static List<PriceTo> listAsTo (List<Price> list) {
@@ -63,12 +61,12 @@ public class PriceTo implements Serializable{
         this.priceCategory = priceCategory;
     }
 
-    public LocalDateTime getDateTime() {
-        return dateTime;
+    public String getDate() {
+        return date;
     }
 
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
+    public void setDate(String date) {
+        this.date = date;
     }
 
     @Override
@@ -77,7 +75,7 @@ public class PriceTo implements Serializable{
                 "id=" + id +
                 ", number=" + number +
                 ", priceCategory='" + priceCategory + '\'' +
-                ", dateTime=" + dateTime +
+                ", date='" + date + '\'' +
                 '}';
     }
 }

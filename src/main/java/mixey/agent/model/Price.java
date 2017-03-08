@@ -3,7 +3,7 @@ package mixey.agent.model;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,9 +23,9 @@ public class Price {
     @JoinColumn(name = "pc_id")
     protected PriceCategory priceCategory;
 
-    @Column(name = "date_time", nullable = false)
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
-    protected LocalDateTime dateTime;
+    @Column(name = "date", nullable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    protected LocalDate date;
 
     @OneToMany(mappedBy = "price")
     protected Set<PriceProduct> priceProducts = new HashSet<>();
@@ -33,14 +33,14 @@ public class Price {
     public Price() {
     }
 
-    public Price(Integer number, LocalDateTime dateTime) {
-        this(null, number, dateTime);
+    public Price(Integer number, LocalDate date) {
+        this(null, number, date);
     }
 
-    public Price(Integer id, Integer number, LocalDateTime dateTime) {
+    public Price(Integer id, Integer number, LocalDate date) {
         this.id = id;
         this.number = number;
-        this.dateTime = dateTime;
+        this.date = date;
     }
 
     public Integer getId() {
@@ -67,12 +67,12 @@ public class Price {
         this.priceCategory = priceCategory;
     }
 
-    public LocalDateTime getDateTime() {
-        return dateTime;
+    public LocalDate getDate() {
+        return date;
     }
 
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
     public Set<PriceProduct> getPriceProducts() {
@@ -93,7 +93,7 @@ public class Price {
                 "id=" + id +
                 ", number=" + number +
                 ", priceCategory=" + priceCategory +
-                ", dateTime=" + dateTime +
+                ", date=" + date +
                 ", priceProducts=" + priceProducts +
                 '}';
     }
