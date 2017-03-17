@@ -13,6 +13,7 @@ function add() {
     // form.find(":input").val("");
     form.find("input[type='text']").val("");
     form.find("input[type='date']").val("");
+    form.find("select").val("");
 
     $('#id').val(0);
     $('#editRow').modal();
@@ -23,7 +24,6 @@ function save() {
         type: "POST",
         url: ajaxUrl,
         data: form.serialize(),
-        datetype: "json",
         success: function () {
             $('#editRow').modal('hide');
             updateTable();
@@ -35,6 +35,7 @@ function updateRow(id) {
     $.get(ajaxUrl + id, function (data) {
         $.each(data, function (key, value) {
             form.find("input[name='" + key + "']").val(value);
+            form.find("select[name='" + key + "']").val(value);
         });
         $('#editRow').modal();
     });

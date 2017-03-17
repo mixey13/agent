@@ -1,20 +1,13 @@
 package mixey.agent.web;
 
-import mixey.agent.model.Price;
-import mixey.agent.model.PriceCategory;
 import mixey.agent.service.PriceService;
 import mixey.agent.to.PriceTo;
-import mixey.agent.to.ProductValue;
+import mixey.agent.to.PriceView;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 
 @RestController
@@ -24,36 +17,39 @@ public class PriceAjaxController {
     private PriceService service;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public PriceTo get(@PathVariable("id") Integer id) {
-        return PriceTo.asTo(service.get(id));
+    public PriceView get(@PathVariable("id") Integer id) {
+        return PriceView.asView(service.get(id));
     }
 
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<PriceTo> getAll() {
-        List<PriceTo> list = PriceTo.listAsTo(service.getAll());
-        System.out.println(list);
-        return list;
+    public List<PriceView> getAll() {
+        return PriceView.listAsView(service.getAll());
     }
 
     /*@RequestMapping(method = RequestMethod.POST)
     public void updateOrCreate(@RequestParam("id") int id,
                                @RequestParam("number") Integer number,
                                @RequestParam("priceCategory") Integer pc_id,
-                               @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date
+                               @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
+                               @RequestParam("priceProducts[]") Map<Integer, Integer> productValues
                                ) {
-        Price price = new Price(id, number, date);
+        System.out.println(productValues);
+        *//*Price price = new Price(id, number, date);
         if (id == 0) {
-            service.save(price, pc_id);
+            service.save(price, pc_id, productValues);
         } else {
-            service.update(price, pc_id);
-        }
+            service.update(price, pc_id, productValues);
+        }*//*
     }*/
 
     @RequestMapping(method = RequestMethod.POST)
-    public void updateOrCreate(@RequestBody String str) {
-        System.out.println("Hello");
-        System.out.println(str);
+    public void updateOrCreate(PriceTo priceTo) {
+        System.out.println();
+        System.out.println();
+        System.out.println(priceTo);
+        System.out.println();
+        System.out.println();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)

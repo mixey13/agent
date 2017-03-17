@@ -24,8 +24,8 @@ $(function () {
          var td = '';
          for(var i = 0; i < prod.length; i++) {
              td += '<tr>';
-             td += '<td>' + prod[i].title + '<input type="hidden" name="priceProducts[productId]" value="' + prod[i].id + '"></td>';
-             td += '<td><input type="text" class="form-control" name="priceProducts[value]"></td>';
+             td += '<td>' + prod[i].title + '</td>';
+             td += '<td><input type="text" class="form-control" name="productValue[' + prod[i].id + ']"></td>';
              td += '</tr>';
          }
          $('#productsTable').append(td);
@@ -46,7 +46,7 @@ $(function () {
                 "data": "number"
             },
             {
-                "data": "priceCategory"
+                "data": "priceCategoryName"
             },
             {
                 "data": "date"

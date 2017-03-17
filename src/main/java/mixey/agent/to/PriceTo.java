@@ -1,40 +1,23 @@
 package mixey.agent.to;
 
-import mixey.agent.model.Price;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDate;
+import java.util.Map;
 
-public class PriceTo implements Serializable{
-    protected Integer id;
+public class PriceTo {
+    private Integer id;
 
-    protected Integer number;
+    private Integer number;
 
-    protected String priceCategory;
+    private Integer priceCategory;
 
-    private String date;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    private LocalDate date;
+
+    private Map<Integer, Integer> productValue;
 
     public PriceTo() {
-    }
-
-    public PriceTo(Integer id, Integer number, String priceCategory, String date) {
-        this.id = id;
-        this.number = number;
-        this.priceCategory = priceCategory;
-        this.date = date;
-    }
-
-    public static PriceTo asTo(Price price) {
-        return new PriceTo(price.getId(), price.getNumber(), price.getPriceCategory().getName(), price.getDate().toString());
-    }
-
-    public static List<PriceTo> listAsTo (List<Price> list) {
-        List<PriceTo> newList = new ArrayList<>();
-        for (Price l : list) {
-            newList.add(asTo(l));
-        }
-        return newList;
     }
 
     public Integer getId() {
@@ -53,20 +36,28 @@ public class PriceTo implements Serializable{
         this.number = number;
     }
 
-    public String getPriceCategory() {
+    public Integer getPriceCategory() {
         return priceCategory;
     }
 
-    public void setPriceCategory(String priceCategory) {
+    public void setPriceCategory(Integer priceCategory) {
         this.priceCategory = priceCategory;
     }
 
-    public String getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    public Map<Integer, Integer> getProductValue() {
+        return productValue;
+    }
+
+    public void setProductValue(Map<Integer, Integer> productValue) {
+        this.productValue = productValue;
     }
 
     @Override
@@ -74,9 +65,9 @@ public class PriceTo implements Serializable{
         return "PriceTo{" +
                 "id=" + id +
                 ", number=" + number +
-                ", priceCategory='" + priceCategory + '\'' +
-                ", date='" + date + '\'' +
+                ", priceCategory=" + priceCategory +
+                ", date=" + date +
+                ", productValue=" + productValue +
                 '}';
     }
 }
-

@@ -18,7 +18,7 @@ public class PriceCategory {
     @Column(name = "description")
     protected String description;
 
-   @OneToMany(mappedBy = "priceCategory")
+   @OneToMany(mappedBy = "priceCategory", cascade = CascadeType.ALL)
    protected Set<Price> prices = new HashSet<>();
 
     public PriceCategory() {

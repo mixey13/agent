@@ -24,6 +24,11 @@ public class PriceProduct {
     public PriceProduct() {
     }
 
+    public PriceProduct(Product product, Integer value) {
+        this.product = product;
+        this.value = value;
+    }
+
     public Integer getId() {
         return id;
     }
