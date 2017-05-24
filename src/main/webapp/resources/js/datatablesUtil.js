@@ -36,8 +36,15 @@ function updateRow(id) {
         $.each(data, function (key, value) {
             form.find("input[name='" + key + "']").val(value);
             form.find("select[name='" + key + "']").val(value);
+            if (key == 'productValue') myEach(value);
         });
         $('#editRow').modal();
+    });
+}
+
+function myEach(data) {
+    $.each(data, function (key, value) {
+        form.find("input[name='productValue[" + key + "]']").val(value);
     });
 }
 

@@ -61,7 +61,7 @@ CREATE TABLE price_product
   price_id      INTEGER NOT NULL,
   product_id      INTEGER NOT NULL,
   value      INTEGER NOT NULL,
-  FOREIGN KEY (price_id) REFERENCES prices (id),
+  FOREIGN KEY (price_id) REFERENCES prices (id) ON DELETE CASCADE,
   FOREIGN KEY (product_id) REFERENCES products (id)
 );
 

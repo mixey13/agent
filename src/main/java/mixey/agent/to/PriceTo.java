@@ -1,9 +1,11 @@
 package mixey.agent.to;
 
+import mixey.agent.model.Price;
+import mixey.agent.model.PriceProduct;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
-import java.util.Map;
+import java.util.*;
 
 public class PriceTo {
     private Integer id;
@@ -12,12 +14,38 @@ public class PriceTo {
 
     private Integer priceCategory;
 
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    private LocalDate date;
+    private String priceCategoryName;
+
+    private String date;
 
     private Map<Integer, Integer> productValue;
 
     public PriceTo() {
+    }
+
+    public PriceTo(Integer id, Integer number, Integer priceCategory, String priceCategoryName, String date) {
+        this(id, number, priceCategory, priceCategoryName, date, null);
+    }
+
+    public PriceTo(Integer id, Integer number, Integer priceCategory, String priceCategoryName, String date, Map<Integer, Integer> productValue) {
+        this.id = id;
+        this.number = number;
+        this.priceCategory = priceCategory;
+        this.priceCategoryName = priceCategoryName;
+        this.date = date;
+        this.productValue = productValue;
+    }
+
+    public static PriceTo asTo(Price price) {
+        return new PriceTo(price.getId(), price.getNumber(), price.getPriceCategory().getId(), price.getPriceCategory().getName(), price.getDate().toString());
+    }
+
+    public static List<PriceTo> listAsTo(List<Price> list) {
+        List<PriceTo> newList = new ArrayList<>();
+        for (Price p : list) {
+            newList.add(asTo(p));
+        }
+        return newList;
     }
 
     public Integer getId() {
@@ -44,11 +72,19 @@ public class PriceTo {
         this.priceCategory = priceCategory;
     }
 
-    public LocalDate getDate() {
+    public String getPriceCategoryName() {
+        return priceCategoryName;
+    }
+
+    public void setPriceCategoryName(String priceCategoryName) {
+        this.priceCategoryName = priceCategoryName;
+    }
+
+    public String getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
@@ -66,7 +102,8 @@ public class PriceTo {
                 "id=" + id +
                 ", number=" + number +
                 ", priceCategory=" + priceCategory +
-                ", date=" + date +
+                ", priceCategoryName='" + priceCategoryName + '\'' +
+                ", date='" + date + '\'' +
                 ", productValue=" + productValue +
                 '}';
     }

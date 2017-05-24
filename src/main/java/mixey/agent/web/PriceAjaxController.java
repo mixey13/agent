@@ -2,7 +2,6 @@ package mixey.agent.web;
 
 import mixey.agent.service.PriceService;
 import mixey.agent.to.PriceTo;
-import mixey.agent.to.PriceView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -17,14 +16,14 @@ public class PriceAjaxController {
     private PriceService service;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public PriceView get(@PathVariable("id") Integer id) {
-        return PriceView.asView(service.get(id));
+    public PriceTo get(@PathVariable("id") Integer id) {
+        return service.get(id);
     }
 
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<PriceView> getAll() {
-        return PriceView.listAsView(service.getAll());
+    public List<PriceTo> getAll() {
+        return service.getAll();
     }
 
     /*@RequestMapping(method = RequestMethod.POST)
@@ -45,11 +44,7 @@ public class PriceAjaxController {
 
     @RequestMapping(method = RequestMethod.POST)
     public void updateOrCreate(PriceTo priceTo) {
-        System.out.println();
-        System.out.println();
-        System.out.println(priceTo);
-        System.out.println();
-        System.out.println();
+        service.save(priceTo);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)

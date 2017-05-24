@@ -27,7 +27,7 @@ public class Price {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     protected LocalDate date;
 
-    @OneToMany(mappedBy = "price")
+    @OneToMany(mappedBy = "price", cascade = CascadeType.ALL, orphanRemoval = true)
     protected Set<PriceProduct> priceProducts = new HashSet<>();
 
     public Price() {
@@ -87,14 +87,14 @@ public class Price {
         return id == null;
     }
 
-    @Override
-    public String toString() {
-        return "Price{" +
-                "id=" + id +
-                ", number=" + number +
-                ", priceCategory=" + priceCategory +
-                ", date=" + date +
-                ", priceProducts=" + priceProducts +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Price{" +
+//                "id=" + id +
+//                ", number=" + number +
+//                ", priceCategory=" + priceCategory +
+//                ", date=" + date +
+//                ", priceProducts=" + priceProducts +
+//                '}';
+//    }
 }
