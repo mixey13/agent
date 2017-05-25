@@ -33,3 +33,8 @@ INSERT INTO price_product (price_id, product_id, value) VALUES
   (100008, 100004, 180),
   (100008, 100005, 120);
 
+INSERT INTO organizations (name, full_name, inn, address) VALUES
+  ('ООО "Рога и Копыта"', 'Общество с ограниченной ответственностью "Рога и Копыта"', 8888888888, 'г.Нижний Новгород');
+
+INSERT INTO clients (name, full_name, inn, address, pc_id) VALUES
+  ('ИП Иванов И.И.', 'Индивидуальный предприниматель Иванов Иван Иванович', 111111111111, 'г.Нижний Новгород', 100006);

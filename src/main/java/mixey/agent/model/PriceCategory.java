@@ -18,8 +18,8 @@ public class PriceCategory {
     @Column(name = "description")
     protected String description;
 
-   @OneToMany(mappedBy = "priceCategory", cascade = CascadeType.ALL)
-   protected Set<Price> prices = new HashSet<>();
+//   @OneToMany(mappedBy = "priceCategory", cascade = CascadeType.ALL)
+//   protected Set<Price> prices = new HashSet<>();
 
     public PriceCategory() {
     }
@@ -56,14 +56,6 @@ public class PriceCategory {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Set<Price> getPrices() {
-        return prices;
-    }
-
-    public void setPrices(Set<Price> prices) {
-        this.prices = prices;
     }
 
     public boolean isNew() {

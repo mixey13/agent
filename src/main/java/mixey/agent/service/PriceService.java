@@ -11,7 +11,6 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 @Service
 public class PriceService {
@@ -40,7 +39,6 @@ public class PriceService {
             map.put(p.getProduct().getId(), p.getValue());
         }
         priceTo.setProductValue(map);
-        System.out.println(priceTo);
         return priceTo;
     }
 

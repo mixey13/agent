@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PriceCategoryTo {
-    protected Integer id;
-    protected String name;
-    protected String description;
+    private Integer id;
+    private String name;
+    private String description;
 
     public PriceCategoryTo() {
     }

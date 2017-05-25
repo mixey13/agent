@@ -13,7 +13,6 @@ import java.util.List;
 @Repository
 @Transactional(readOnly = true)
 public class JpaProductRepository implements ProductRepository{
-
     @PersistenceContext
     private EntityManager em;
 
@@ -31,8 +30,6 @@ public class JpaProductRepository implements ProductRepository{
     @Override
     @Transactional
     public boolean delete(Integer id) {
-//        TypedQuery<Product> query = em.createQuery("DELETE FROM Product p WHERE p.id=:id", Product.class);
-//        return query.setParameter("id", id).executeUpdate() != 0;
         return em.createQuery("DELETE FROM Product p WHERE p.id=:id")
                 .setParameter("id", id).executeUpdate() != 0;
     }

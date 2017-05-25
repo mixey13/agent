@@ -3,7 +3,6 @@ package mixey.agent.model;
 import javax.persistence.*;
 
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Table(name = "organizations")
 public class Organization {
     @Id
@@ -14,11 +13,29 @@ public class Organization {
     @Column(name = "name")
     protected String name;
 
+    @Column(name = "full_name")
+    protected String fullName;
+
     @Column(name = "inn")
-    protected Integer inn;
+    protected Long inn;
 
     @Column(name = "address")
     protected String address;
+
+    public Organization() {
+    }
+
+    public Organization(Integer id, String name, String fullName, Long inn, String address) {
+        this.id = id;
+        this.name = name;
+        this.fullName = fullName;
+        this.inn = inn;
+        this.address = address;
+    }
+
+    public Organization(String name, String fullName, Long inn, String address) {
+        this(null, name, fullName, inn, address);
+    }
 
     public Integer getId() {
         return id;
@@ -36,11 +53,19 @@ public class Organization {
         this.name = name;
     }
 
-    public Integer getInn() {
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public Long getInn() {
         return inn;
     }
 
-    public void setInn(Integer inn) {
+    public void setInn(Long inn) {
         this.inn = inn;
     }
 
@@ -61,6 +86,7 @@ public class Organization {
         return "Organization{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", fullName='" + fullName + '\'' +
                 ", inn=" + inn +
                 ", address='" + address + '\'' +
                 '}';

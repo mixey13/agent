@@ -25,4 +25,14 @@ public class RootController {
     public String priceList() {
         return "priceList";
     }
+
+    @RequestMapping(value = "/organizations", method = RequestMethod.GET)
+    public String organizationList() {
+        return "orgList";
+    }
+
+    @RequestMapping(value = "/clients", method = RequestMethod.GET)
+    public String clientList() {
+        return "clientList";
+    }
 }

@@ -35,7 +35,8 @@ CREATE TABLE organizations
 (
   id         INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   name       VARCHAR NOT NULL,
-  inn        INTEGER NOT NULL,
+  full_name       VARCHAR NOT NULL,
+  inn        BIGINT NOT NULL,
   address      VARCHAR NOT NULL
 );
 
@@ -69,7 +70,8 @@ CREATE TABLE clients
 (
   id         INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   name       VARCHAR NOT NULL,
-  inn        INTEGER NOT NULL,
+  full_name       VARCHAR NOT NULL,
+  inn        BIGINT NOT NULL,
   address    VARCHAR NOT NULL,
   pc_id      INTEGER NOT NULL,
   FOREIGN KEY (pc_id) REFERENCES price_categories (id)
