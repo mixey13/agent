@@ -25,7 +25,7 @@ public class Order {
     private Client client;
 
     @Column(name = "total")
-    private double total;
+    private Double total;
 
     @Column(name = "date", nullable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -41,7 +41,7 @@ public class Order {
     public Order() {
     }
 
-    public Order(Integer id, Organization organization, Client client, double total, LocalDate date, LocalTime time) {
+    public Order(Integer id, Organization organization, Client client, Double total, LocalDate date, LocalTime time) {
         this.id = id;
         this.organization = organization;
         this.client = client;
@@ -50,11 +50,9 @@ public class Order {
         this.time = time;
     }
 
-    public Order(Organization organization, Client client, double total, LocalDate date, LocalTime time) {
+    public Order(Organization organization, Client client, Double total, LocalDate date, LocalTime time) {
         this(null, organization, client, total, date, time);
     }
-
-
 
     public Integer getId() {
         return id;
@@ -80,11 +78,11 @@ public class Order {
         this.client = client;
     }
 
-    public double getTotal() {
+    public Double getTotal() {
         return total;
     }
 
-    public void setTotal(double total) {
+    public void setTotal(Double total) {
         this.total = total;
     }
 

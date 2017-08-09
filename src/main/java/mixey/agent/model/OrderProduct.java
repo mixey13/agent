@@ -19,15 +19,15 @@ public class OrderProduct {
     private Product product;
 
     @Column(name = "cost")
-    private double cost;
+    private Double cost;
 
     @Column(name = "amount")
-    private double amount;
+    private Double amount;
 
     public OrderProduct() {
     }
 
-    public  OrderProduct(Product product, double cost, double amount) {
+    public  OrderProduct(Product product, Double cost, Double amount) {
         this.product = product;
         this.cost = cost;
         this.amount = amount;
@@ -57,19 +57,19 @@ public class OrderProduct {
         this.product = product;
     }
 
-    public double getCost() {
+    public Double getCost() {
         return cost;
     }
 
-    public void setCost(double cost) {
+    public void setCost(Double cost) {
         this.cost = cost;
     }
 
-    public double getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(double amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 }
