@@ -40,4 +40,8 @@ public class JpaPriceCategoryRepository {
         TypedQuery<PriceCategory> query = em.createQuery("SELECT pc FROM PriceCategory pc", PriceCategory.class);
         return query.getResultList();
     }
+
+    public PriceCategory getRef(Integer id) {
+        return em.getReference(PriceCategory.class, id);
+    }
 }

@@ -1,10 +1,6 @@
 package mixey.agent.to;
 
 import mixey.agent.model.Price;
-import mixey.agent.model.PriceProduct;
-import org.springframework.format.annotation.DateTimeFormat;
-
-import java.time.LocalDate;
 import java.util.*;
 
 public class PriceTo {
@@ -18,7 +14,7 @@ public class PriceTo {
 
     private String date;
 
-    private Map<Integer, Integer> productValue;
+    private List<PriceProductTo> priceProductTos;
 
     public PriceTo() {
     }
@@ -27,25 +23,13 @@ public class PriceTo {
         this(id, number, priceCategory, priceCategoryName, date, null);
     }
 
-    public PriceTo(Integer id, Integer number, Integer priceCategory, String priceCategoryName, String date, Map<Integer, Integer> productValue) {
+    public PriceTo(Integer id, Integer number, Integer priceCategory, String priceCategoryName, String date, List<PriceProductTo> priceProductTos) {
         this.id = id;
         this.number = number;
         this.priceCategory = priceCategory;
         this.priceCategoryName = priceCategoryName;
         this.date = date;
-        this.productValue = productValue;
-    }
-
-    public static PriceTo asTo(Price price) {
-        return new PriceTo(price.getId(), price.getNumber(), price.getPriceCategory().getId(), price.getPriceCategory().getName(), price.getDate().toString());
-    }
-
-    public static List<PriceTo> listAsTo(List<Price> list) {
-        List<PriceTo> newList = new ArrayList<>();
-        for (Price p : list) {
-            newList.add(asTo(p));
-        }
-        return newList;
+        this.priceProductTos = priceProductTos;
     }
 
     public Integer getId() {
@@ -88,12 +72,12 @@ public class PriceTo {
         this.date = date;
     }
 
-    public Map<Integer, Integer> getProductValue() {
-        return productValue;
+    public List<PriceProductTo> getPriceProductTos() {
+        return priceProductTos;
     }
 
-    public void setProductValue(Map<Integer, Integer> productValue) {
-        this.productValue = productValue;
+    public void setPriceProductTos(List<PriceProductTo> priceProductTos) {
+        this.priceProductTos = priceProductTos;
     }
 
     @Override
@@ -104,7 +88,7 @@ public class PriceTo {
                 ", priceCategory=" + priceCategory +
                 ", priceCategoryName='" + priceCategoryName + '\'' +
                 ", date='" + date + '\'' +
-                ", productValue=" + productValue +
+                ", priceProductTos=" + priceProductTos +
                 '}';
     }
 }

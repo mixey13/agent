@@ -10,7 +10,6 @@ function makeEditable() {
 }
 
 function add() {
-    // form.find(":input").val("");
     form.find("input[type='text']").val("");
     form.find("input[type='date']").val("");
     form.find("select").val("");
@@ -23,7 +22,8 @@ function save() {
     $.ajax({
         type: "POST",
         url: ajaxUrl,
-        data: form.serialize(),
+        contentType: 'application/json; charset=utf-8',
+        data: createJSON(),
         success: function () {
             $('#editRow').modal('hide');
             updateTable();
@@ -36,15 +36,17 @@ function updateRow(id) {
         $.each(data, function (key, value) {
             form.find("input[name='" + key + "']").val(value);
             form.find("select[name='" + key + "']").val(value);
-            if (key == 'productValue') myEach(value);
+            if (key == 'priceProductTos') myEach(value);
         });
         $('#editRow').modal();
     });
 }
 
 function myEach(data) {
+    var priceProductTos = [];
     $.each(data, function (key, value) {
-        form.find("input[name='productValue[" + key + "]']").val(value);
+        // form.find("input[name='priceProductTos[" + value.product + "]']").val(value.value);
+        form.find("input[id='" + value.product + "']").val(value.value);
     });
 }
 

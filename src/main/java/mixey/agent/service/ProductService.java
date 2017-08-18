@@ -1,7 +1,7 @@
 package mixey.agent.service;
 
 import mixey.agent.model.Product;
-import mixey.agent.repository.ProductRepository;
+import mixey.agent.repository.jpa.JpaProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +10,7 @@ import java.util.List;
 @Service
 public class ProductService{
     @Autowired
-    private ProductRepository repository;
+    private JpaProductRepository repository;
 
     public Product save(Product product) {
         return repository.save(product);

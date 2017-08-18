@@ -1,7 +1,6 @@
 package mixey.agent.repository.jpa;
 
 import mixey.agent.model.Product;
-import mixey.agent.repository.ProductRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,11 +11,10 @@ import java.util.List;
 
 @Repository
 @Transactional(readOnly = true)
-public class JpaProductRepository implements ProductRepository{
+public class JpaProductRepository {
     @PersistenceContext
     private EntityManager em;
 
-    @Override
     @Transactional
     public Product save(Product product) {
         if(product.isNew()) {
@@ -27,22 +25,23 @@ public class JpaProductRepository implements ProductRepository{
         }
     }
 
-    @Override
     @Transactional
     public boolean delete(Integer id) {
         return em.createQuery("DELETE FROM Product p WHERE p.id=:id")
                 .setParameter("id", id).executeUpdate() != 0;
     }
 
-    @Override
     public Product get(Integer id) {
         TypedQuery<Product> query = em.createQuery("SELECT p FROM Product p WHERE p.id=:id", Product.class);
         return query.setParameter("id", id).getSingleResult();
     }
 
-    @Override
     public List<Product> getAll() {
         TypedQuery<Product> query = em.createQuery("SELECT p FROM Product p", Product.class);
         return query.getResultList();
+    }
+
+    public Product getRef(Integer id) {
+        return em.getReference(Product.class, id);
     }
 }
