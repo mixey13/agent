@@ -1,8 +1,6 @@
 package mixey.agent.model;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name = "price_categories")
@@ -17,9 +15,6 @@ public class PriceCategory {
 
     @Column(name = "description")
     protected String description;
-
-//   @OneToMany(mappedBy = "priceCategory", cascade = CascadeType.ALL)
-//   protected Set<Price> prices = new HashSet<>();
 
     public PriceCategory() {
     }

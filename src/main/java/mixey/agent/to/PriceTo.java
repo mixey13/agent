@@ -1,6 +1,8 @@
 package mixey.agent.to;
 
 import mixey.agent.model.Price;
+import mixey.agent.model.PriceProduct;
+
 import java.util.*;
 
 public class PriceTo {
@@ -30,6 +32,29 @@ public class PriceTo {
         this.priceCategoryName = priceCategoryName;
         this.date = date;
         this.priceProductTos = priceProductTos;
+    }
+
+    public static PriceTo asTo(Price price) {
+        return new PriceTo(price.getId(), price.getNumber(), price.getPriceCategory().getId(), price.getPriceCategory().getName(), price.getDate().toString());
+    }
+
+    public static PriceTo asToFull(Price price) {
+        PriceTo priceTo = asTo(price);
+        List<PriceProductTo> list = new ArrayList<>();
+        for (PriceProduct pp : price.getPriceProducts()) {
+            PriceProductTo priceProductTo = new PriceProductTo(pp.getProduct().getId(), pp.getValue());
+            list.add(priceProductTo);
+        }
+        priceTo.setPriceProductTos(list);
+        return priceTo;
+    }
+
+    public static List<PriceTo> listAsTo(List<Price> list) {
+        List<PriceTo> newList = new ArrayList<>();
+        for (Price p : list) {
+            newList.add(asTo(p));
+        }
+        return newList;
     }
 
     public Integer getId() {

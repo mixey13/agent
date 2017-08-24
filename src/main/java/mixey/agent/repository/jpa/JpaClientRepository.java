@@ -1,7 +1,6 @@
 package mixey.agent.repository.jpa;
 
 import mixey.agent.model.Client;
-import mixey.agent.model.PriceCategory;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,8 +16,7 @@ public class JpaClientRepository {
     private EntityManager em;
 
     @Transactional
-    public Client save(Client client, Integer pc_id) {
-        client.setPriceCategory(em.getReference(PriceCategory.class, pc_id));
+    public Client save(Client client) {
         if(client.isNew()) {
             em.persist(client);
             return client;

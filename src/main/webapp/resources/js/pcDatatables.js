@@ -5,6 +5,14 @@ function updateTable() {
     $.get(ajaxUrl, updateTableByData);
 }
 
+function createJSON() {
+    var priceCategory = {};
+    priceCategory.id = form.find("input[name='id']").val();
+    priceCategory.name = form.find("input[name='name']").val();
+    priceCategory.description = form.find("input[name='description']").val();
+    return JSON.stringify(priceCategory);
+}
+
 $(function () {
     datatableApi = $('#datatable').DataTable({
         "ajax": {

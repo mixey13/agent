@@ -26,12 +26,8 @@ public class ProductAjaxController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public void updateOrCreate(@RequestParam("id") int id,
-                               @RequestParam("title") String title,
-                               @RequestParam("description") String description
-                               ) {
-        Product product = new Product(id, title, description);
-        if (id == 0) {
+    public void updateOrCreate(@RequestBody Product product) {
+        if (product.getId() == 0) {
             service.save(product);
         } else {
             service.update(product);

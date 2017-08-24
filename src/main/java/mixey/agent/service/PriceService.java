@@ -8,7 +8,6 @@ import mixey.agent.repository.jpa.JpaPriceRepository;
 import mixey.agent.repository.jpa.JpaProductRepository;
 import mixey.agent.to.PriceProductTo;
 import mixey.agent.to.PriceTo;
-import mixey.agent.util.TOUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -49,10 +48,10 @@ public class PriceService {
     }
 
     public PriceTo get(Integer id) {
-        return TOUtil.asToFull(priceRepository.get(id));
+        return PriceTo.asToFull(priceRepository.get(id));
     }
 
     public List<PriceTo> getAll() {
-        return TOUtil.listAsTo(priceRepository.getAll());
+        return PriceTo.listAsTo(priceRepository.getAll());
     }
 }

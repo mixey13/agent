@@ -4,10 +4,7 @@ import mixey.agent.model.Organization;
 import mixey.agent.service.OrganizationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,7 +25,7 @@ public class OrganizationAjaxController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public void updateOrCreate(Organization org) {
+    public void updateOrCreate(@RequestBody Organization org) {
         service.save(org);
     }
 

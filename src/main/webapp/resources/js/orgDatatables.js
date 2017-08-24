@@ -5,6 +5,16 @@ function updateTable() {
     $.get(ajaxUrl, updateTableByData);
 }
 
+function createJSON() {
+    var clientTo = {};
+    clientTo.id = form.find("input[name='id']").val();
+    clientTo.name = form.find("input[name='name']").val();
+    clientTo.fullName = form.find("input[name='fullName']").val();
+    clientTo.inn = form.find("input[name='inn']").val();
+    clientTo.address = form.find("input[name='address']").val();
+    return JSON.stringify(clientTo);
+}
+
 $(function () {
     datatableApi = $('#datatable').DataTable({
         "ajax": {
