@@ -1,13 +1,22 @@
+ALTER TABLE user_roles DROP CONSTRAINT IF EXISTS user_roles_user_id_fkey;
+ALTER TABLE price_product DROP CONSTRAINT IF EXISTS price_product_price_id_fkey;
+ALTER TABLE price_product DROP CONSTRAINT IF EXISTS price_product_product_id_fkey;
+ALTER TABLE order_product DROP CONSTRAINT IF EXISTS order_product_order_id_fkey;
+ALTER TABLE order_product DROP CONSTRAINT IF EXISTS order_product_product_id_fkey;
+ALTER TABLE orders DROP CONSTRAINT IF EXISTS orders_org_id_fkey;
+ALTER TABLE orders DROP CONSTRAINT IF EXISTS orders_cli_id_fkey;
+ALTER TABLE prices DROP CONSTRAINT IF EXISTS prices_pc_id_fkey;
+ALTER TABLE clients DROP CONSTRAINT IF EXISTS clients_pc_id_fkey;
 DROP TABLE IF EXISTS user_roles;
+DROP TABLE IF EXISTS price_product;
 DROP TABLE IF EXISTS order_product;
 DROP TABLE IF EXISTS orders;
-DROP TABLE IF EXISTS price_product;
 DROP TABLE IF EXISTS prices;
-DROP TABLE IF EXISTS products;
-DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS organizations;
 DROP TABLE IF EXISTS clients;
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS products;
 DROP TABLE IF EXISTS price_categories;
+DROP TABLE IF EXISTS organizations;
 DROP SEQUENCE IF EXISTS global_seq;
 
 CREATE SEQUENCE global_seq START 100000;

@@ -38,3 +38,11 @@ INSERT INTO organizations (name, full_name, inn, address) VALUES
 
 INSERT INTO clients (name, full_name, inn, address, pc_id) VALUES
   ('ИП Иванов И.И.', 'Индивидуальный предприниматель Иванов Иван Иванович', 111111111111, 'г.Нижний Новгород', 100006);
+
+INSERT INTO orders (org_id, cli_id, total, date, time) VALUES
+  (100012, 100013, 750, '2017-02-28', '12:00:00');
+
+INSERT INTO order_product (order_id, product_id, cost, amount) VALUES
+  (100014, 100003, 150, 3),
+  (100014, 100004, 180, 1),
+  (100014, 100005, 120, 1);

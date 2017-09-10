@@ -35,4 +35,9 @@ public class RootController {
     public String clientList() {
         return "clientList";
     }
+
+    @RequestMapping(value = "/orders", method = RequestMethod.GET)
+    public String orderList() {
+        return "orderList";
+    }
 }

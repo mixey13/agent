@@ -21,20 +21,20 @@ public class OrderTo {
 
     private Double total;
 
-    private LocalDate date;
+    private String date;
 
-    private LocalTime time;
+    private String time;
 
     private List<OrderProductTo> orderProductTos;
 
     public OrderTo() {
     }
 
-    public OrderTo(Integer id, Integer organization, String organizationName, Integer client, String clientName, Double total, LocalDate date, LocalTime time) {
+    public OrderTo(Integer id, Integer organization, String organizationName, Integer client, String clientName, Double total, String date, String time) {
         this(id, organization, organizationName, client, clientName, total, date, time, null);
     }
 
-    public OrderTo(Integer id, Integer organization, String organizationName, Integer client, String clientName, Double total, LocalDate date, LocalTime time, List<OrderProductTo> orderProductTos) {
+    public OrderTo(Integer id, Integer organization, String organizationName, Integer client, String clientName, Double total, String date, String time, List<OrderProductTo> orderProductTos) {
         this.id = id;
         this.organization = organization;
         this.organizationName = organizationName;
@@ -47,7 +47,7 @@ public class OrderTo {
     }
 
     public static OrderTo asTo(Order order) {
-        return new OrderTo(order.getId(), order.getOrganization().getId(), order.getOrganization().getName(), order.getClient().getId(), order.getClient().getName(), order.getTotal(), order.getDate(), order.getTime());
+        return new OrderTo(order.getId(), order.getOrganization().getId(), order.getOrganization().getName(), order.getClient().getId(), order.getClient().getName(), order.getTotal(), order.getDate().toString(), order.getTime().toString());
     }
 
     public static OrderTo asToFull(Order order) {
@@ -117,19 +117,19 @@ public class OrderTo {
         this.total = total;
     }
 
-    public LocalDate getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
-    public LocalTime getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(LocalTime time) {
+    public void setTime(String time) {
         this.time = time;
     }
 

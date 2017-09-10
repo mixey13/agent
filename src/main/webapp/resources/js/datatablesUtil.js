@@ -40,6 +40,11 @@ function updateRow(id) {
                 form.find("input[name='value']").val("");
                 myEach(value);
             }
+            if (key == 'orderProductTos') {
+                form.find("input[name='cost']").val("");
+                form.find("input[name='amount']").val("");
+                myEach2(value);
+            }
         });
         $('#editRow').modal();
     });
@@ -49,6 +54,14 @@ function myEach(data) {
     $.each(data, function (key, value) {
         var tabl = form.find("tr[id='" + value.product + "']");
         $(tabl).find("input[name = 'value']").val(value.value);
+    });
+}
+
+function myEach2(data) {
+    $.each(data, function (key, value) {
+        var tabl = form.find("tr[id='" + value.product + "']");
+        $(tabl).find("input[name = 'cost']").val(value.cost);
+        $(tabl).find("input[name = 'amount']").val(value.amount);
     });
 }
 
