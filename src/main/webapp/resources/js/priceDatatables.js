@@ -12,10 +12,10 @@ function createJSON() {
     priceTo.priceCategory = form.find("select[name='priceCategory']").val();
     priceTo.date = form.find("input[name='date']").val();
     priceTo.priceProductTos = [];
-    $.each(form.find("input[name='priceProductTos']"), function () {
+    $.each(form.find('tr.priceProductTos'), function () {
         var p = {};
         p.product = this.id;
-        p.value = this.value;
+        p.value = $(this).find("input[name='value']").val();
         priceTo.priceProductTos.push(p);
     });
     return JSON.stringify(priceTo);
@@ -37,9 +37,9 @@ $(function () {
         });
         var td = '';
         for(var i = 0; i < prod.length; i++) {
-            td += '<tr>';
+            td += '<tr class="priceProductTos" id="' + prod[i].id + '">';
             td += '<td>' + prod[i].title + '</td>';
-            td += '<td><input type="text" class="form-control" name="priceProductTos" id="' + prod[i].id + '"></td>';
+            td += '<td><input type="text" class="form-control" name="value"></td>';
             td += '</tr>';
         }
         $('#productsTable').append(td);

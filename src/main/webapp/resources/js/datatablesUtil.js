@@ -37,7 +37,7 @@ function updateRow(id) {
             form.find("input[name='" + key + "']").val(value);
             form.find("select[name='" + key + "']").val(value);
             if (key == 'priceProductTos') {
-                form.find("input[name='" + key + "']").val("");
+                form.find("input[name='value']").val("");
                 myEach(value);
             }
         });
@@ -46,10 +46,9 @@ function updateRow(id) {
 }
 
 function myEach(data) {
-    var priceProductTos = [];
     $.each(data, function (key, value) {
-        // form.find("input[name='priceProductTos[" + value.product + "]']").val(value.value);
-        form.find("input[id='" + value.product + "']").val(value.value);
+        var tabl = form.find("tr[id='" + value.product + "']");
+        $(tabl).find("input[name = 'value']").val(value.value);
     });
 }
 
