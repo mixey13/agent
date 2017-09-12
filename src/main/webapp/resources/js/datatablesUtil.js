@@ -12,6 +12,7 @@ function makeEditable() {
 function add() {
     form.find("input[type='text']").val("");
     form.find("input[type='date']").val("");
+    form.find("input[type='time']").val("");
     form.find("select").val("");
 
     $('#id').val(0);
