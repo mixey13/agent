@@ -40,4 +40,8 @@ public class JpaOrganizationRepository {
         TypedQuery<Organization> query = em.createQuery("SELECT o FROM Organization o", Organization.class);
         return query.getResultList();
     }
+
+    public Organization getRef(Integer id) {
+        return em.getReference(Organization.class, id);
+    }
 }

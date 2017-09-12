@@ -45,6 +45,10 @@ function updateRow(id) {
                 form.find("input[name='amount']").val("");
                 myEach2(value);
             }
+            if (key == 'productionProductTos') {
+                form.find("input[name='amount']").val("");
+                myEach3(value);
+            }
         });
         $('#editRow').modal();
     });
@@ -61,6 +65,13 @@ function myEach2(data) {
     $.each(data, function (key, value) {
         var tabl = form.find("tr[id='" + value.product + "']");
         $(tabl).find("input[name = 'cost']").val(value.cost);
+        $(tabl).find("input[name = 'amount']").val(value.amount);
+    });
+}
+
+function myEach3(data) {
+    $.each(data, function (key, value) {
+        var tabl = form.find("tr[id='" + value.product + "']");
         $(tabl).find("input[name = 'amount']").val(value.amount);
     });
 }

@@ -46,3 +46,11 @@ INSERT INTO order_product (order_id, product_id, cost, amount) VALUES
   (100014, 100003, 150, 3),
   (100014, 100004, 180, 1),
   (100014, 100005, 120, 1);
+
+INSERT INTO productions (org_id, date, time) VALUES
+  (100012, '2017-02-28', '10:00');
+
+INSERT INTO production_product (production_id, product_id, amount) VALUES
+  (100018, 100003, 5),
+  (100018, 100004, 5),
+  (100018, 100005, 5);

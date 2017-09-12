@@ -112,6 +112,25 @@ CREATE TABLE order_product
   FOREIGN KEY (product_id) REFERENCES products (id)
 );
 
+CREATE TABLE productions
+(
+  id         INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+  org_id      INTEGER NOT NULL,
+  date    DATE NOT NULL,
+  time    TIME NOT NULL,
+  FOREIGN KEY (org_id) REFERENCES organizations (id)
+);
+
+CREATE TABLE production_product
+(
+  id         INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+  production_id      INTEGER NOT NULL,
+  product_id      INTEGER NOT NULL,
+  amount        REAL NOT NULL,
+  FOREIGN KEY (production_id) REFERENCES productions (id),
+  FOREIGN KEY (product_id) REFERENCES products (id)
+);
+
 
 
 

@@ -40,4 +40,9 @@ public class RootController {
     public String orderList() {
         return "orderList";
     }
+
+    @RequestMapping(value = "/productions", method = RequestMethod.GET)
+    public String productionList() {
+        return "productionList";
+    }
 }
