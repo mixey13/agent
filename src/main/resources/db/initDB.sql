@@ -1,16 +1,23 @@
-ALTER TABLE user_roles DROP CONSTRAINT IF EXISTS user_roles_user_id_fkey;
-ALTER TABLE price_product DROP CONSTRAINT IF EXISTS price_product_price_id_fkey;
-ALTER TABLE price_product DROP CONSTRAINT IF EXISTS price_product_product_id_fkey;
-ALTER TABLE order_product DROP CONSTRAINT IF EXISTS order_product_order_id_fkey;
-ALTER TABLE order_product DROP CONSTRAINT IF EXISTS order_product_product_id_fkey;
-ALTER TABLE orders DROP CONSTRAINT IF EXISTS orders_org_id_fkey;
-ALTER TABLE orders DROP CONSTRAINT IF EXISTS orders_cli_id_fkey;
-ALTER TABLE prices DROP CONSTRAINT IF EXISTS prices_pc_id_fkey;
-ALTER TABLE clients DROP CONSTRAINT IF EXISTS clients_pc_id_fkey;
+ALTER TABLE IF EXISTS user_roles DROP CONSTRAINT IF EXISTS user_roles_user_id_fkey;
+ALTER TABLE IF EXISTS production_product DROP CONSTRAINT IF EXISTS production_product_production_id_fkey;
+ALTER TABLE IF EXISTS production_product DROP CONSTRAINT IF EXISTS production_product_product_id_fkey;
+ALTER TABLE IF EXISTS price_product DROP CONSTRAINT IF EXISTS price_product_price_id_fkey;
+ALTER TABLE IF EXISTS price_product DROP CONSTRAINT IF EXISTS price_product_product_id_fkey;
+ALTER TABLE IF EXISTS order_product DROP CONSTRAINT IF EXISTS order_product_order_id_fkey;
+ALTER TABLE IF EXISTS order_product DROP CONSTRAINT IF EXISTS order_product_product_id_fkey;
+ALTER TABLE IF EXISTS balance DROP CONSTRAINT IF EXISTS balance_product_id_fkey;
+ALTER TABLE IF EXISTS orders DROP CONSTRAINT IF EXISTS orders_org_id_fkey;
+ALTER TABLE IF EXISTS orders DROP CONSTRAINT IF EXISTS orders_cli_id_fkey;
+ALTER TABLE IF EXISTS productions DROP CONSTRAINT IF EXISTS productions_org_id_fkey;
+ALTER TABLE IF EXISTS prices DROP CONSTRAINT IF EXISTS prices_pc_id_fkey;
+ALTER TABLE IF EXISTS clients DROP CONSTRAINT IF EXISTS clients_pc_id_fkey;
 DROP TABLE IF EXISTS user_roles;
+DROP TABLE IF EXISTS production_product;
 DROP TABLE IF EXISTS price_product;
 DROP TABLE IF EXISTS order_product;
+DROP TABLE IF EXISTS balance;
 DROP TABLE IF EXISTS orders;
+DROP TABLE IF EXISTS productions;
 DROP TABLE IF EXISTS prices;
 DROP TABLE IF EXISTS clients;
 DROP TABLE IF EXISTS users;
@@ -18,6 +25,7 @@ DROP TABLE IF EXISTS products;
 DROP TABLE IF EXISTS price_categories;
 DROP TABLE IF EXISTS organizations;
 DROP SEQUENCE IF EXISTS global_seq;
+DROP FUNCTION IF EXISTS update_balance();
 
 CREATE SEQUENCE global_seq START 100000;
 
@@ -131,7 +139,31 @@ CREATE TABLE production_product
   FOREIGN KEY (product_id) REFERENCES products (id)
 );
 
+CREATE TABLE balance
+(
+  product_id       INT NOT NULL,
+  amount        REAL NOT NULL,
+  FOREIGN KEY (product_id) REFERENCES products (id)
+);
 
+CREATE FUNCTION update_balance() RETURNS TRIGGER AS $$
+BEGIN
+  DELETE FROM balance;
+  INSERT INTO balance
+    (SELECT T1.product_id, SUM(T1.amount) FROM
+      (SELECT product_id, amount FROM production_product UNION ALL SELECT product_id, -amount FROM order_product)
+        AS T1 GROUP BY T1.product_id ORDER BY T1.product_id);
+  RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER tr
+AFTER INSERT OR UPDATE OR DELETE ON production_product
+FOR EACH STATEMENT EXECUTE PROCEDURE update_balance();
+
+CREATE TRIGGER tr
+AFTER INSERT OR UPDATE OR DELETE ON order_product
+FOR EACH STATEMENT EXECUTE PROCEDURE update_balance();
 
 
 
