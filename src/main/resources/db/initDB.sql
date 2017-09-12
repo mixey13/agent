@@ -108,7 +108,7 @@ CREATE TABLE order_product
   product_id      INTEGER NOT NULL,
   cost        REAL NOT NULL,
   amount        REAL NOT NULL,
-  FOREIGN KEY (order_id) REFERENCES orders (id),
+  FOREIGN KEY (order_id) REFERENCES orders (id) ON DELETE CASCADE,
   FOREIGN KEY (product_id) REFERENCES products (id)
 );
 
@@ -127,7 +127,7 @@ CREATE TABLE production_product
   production_id      INTEGER NOT NULL,
   product_id      INTEGER NOT NULL,
   amount        REAL NOT NULL,
-  FOREIGN KEY (production_id) REFERENCES productions (id),
+  FOREIGN KEY (production_id) REFERENCES productions (id) ON DELETE CASCADE,
   FOREIGN KEY (product_id) REFERENCES products (id)
 );
 
