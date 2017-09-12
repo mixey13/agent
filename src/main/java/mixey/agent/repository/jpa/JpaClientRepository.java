@@ -40,4 +40,8 @@ public class JpaClientRepository {
         TypedQuery<Client> query = em.createQuery("SELECT c FROM Client c", Client.class);
         return query.getResultList();
     }
+
+    public Client getRef(Integer id) {
+        return em.getReference(Client.class, id);
+    }
 }

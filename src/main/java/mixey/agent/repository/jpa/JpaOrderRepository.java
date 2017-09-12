@@ -16,8 +16,13 @@ public class JpaOrderRepository {
     private EntityManager em;
 
     @Transactional
-    public Order save() {
-        return null;
+    public Order save(Order order) {
+        if(order.isNew()) {
+            em.persist(order);
+            return order;
+        } else {
+            return em.merge(order);
+        }
     }
 
     @Transactional

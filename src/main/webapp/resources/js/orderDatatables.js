@@ -111,6 +111,6 @@ $(function () {
     $('#timePicker').datetimepicker({
         datepicker: false,
         lang: 'ru',
-        format: 'H:i:s'
+        format: 'H:i'
     });
 });

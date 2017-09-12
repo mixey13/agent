@@ -60,7 +60,7 @@
                         <label for="dropdownClient" class="control-label col-xs-3">Client</label>
 
                         <div class="col-xs-9">
-                            <select class="dropdown form-control" id="dropdownClient" name="Client"></select>
+                            <select class="dropdown form-control" id="dropdownClient" name="client"></select>
                         </div>
                     </div>
 

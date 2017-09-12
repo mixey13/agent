@@ -32,7 +32,7 @@ public class Order {
     private LocalDate date;
 
     @Column(name = "time", nullable = false)
-    @DateTimeFormat(pattern = "HH:mm:ss")
+    @DateTimeFormat(pattern = "HH:mm")
     private LocalTime time;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -41,17 +41,10 @@ public class Order {
     public Order() {
     }
 
-    public Order(Integer id, Organization organization, Client client, Double total, LocalDate date, LocalTime time) {
+    public Order(Integer id, LocalDate date, LocalTime time) {
         this.id = id;
-        this.organization = organization;
-        this.client = client;
-        this.total = total;
         this.date = date;
         this.time = time;
-    }
-
-    public Order(Organization organization, Client client, Double total, LocalDate date, LocalTime time) {
-        this(null, organization, client, total, date, time);
     }
 
     public Integer getId() {
