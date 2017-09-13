@@ -141,7 +141,7 @@ CREATE TABLE production_product
 
 CREATE TABLE balance
 (
-  product_id       INT NOT NULL,
+  product_id       INT NOT NULL PRIMARY KEY,
   amount        REAL NOT NULL,
   FOREIGN KEY (product_id) REFERENCES products (id)
 );

@@ -45,4 +45,9 @@ public class RootController {
     public String productionList() {
         return "productionList";
     }
+
+    @RequestMapping(value = "/balance", method = RequestMethod.GET)
+    public String balanceList() {
+        return "balanceList";
+    }
 }
