@@ -1,16 +1,23 @@
-var ajaxUrl = 'ajax/products/';
+var ajaxUrl = 'ajax/pc/';
 var datatableApi;
 
 function updateTable() {
-     $.get(ajaxUrl, updateTableByData);
+    $.get(ajaxUrl, updateTableByData);
+}
+
+function updateRow(id) {
+    updateRowDefault(id);
+}
+
+function getAdditionalJSON() {
 }
 
 function createJSON() {
-    var product = {};
-    product.id = form.find("input[name='id']").val();
-    product.title = form.find("input[name='title']").val();
-    product.description = form.find("input[name='description']").val();
-    return JSON.stringify(product);
+    var priceCategory = {};
+    priceCategory.id = form.find("input[name='id']").val();
+    priceCategory.name = form.find("input[name='name']").val();
+    priceCategory.description = form.find("input[name='description']").val();
+    return JSON.stringify(priceCategory);
 }
 
 $(function () {
@@ -26,7 +33,7 @@ $(function () {
                 "data": "id"
             },
             {
-                "data": "title"
+                "data": "name"
             },
             {
                 "data": "description"

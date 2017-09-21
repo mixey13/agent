@@ -1,30 +1,26 @@
-var ajaxUrl = 'ajax/clients/';
+var ajaxUrl = 'ajax/products/';
 var datatableApi;
 
 function updateTable() {
-    $.get(ajaxUrl, updateTableByData);
+     $.get(ajaxUrl, updateTableByData);
+}
+
+function updateRow(id) {
+    updateRowDefault(id);
+}
+
+function getAdditionalJSON() {
 }
 
 function createJSON() {
-    var clientTo = {};
-    clientTo.id = form.find("input[name='id']").val();
-    clientTo.name = form.find("input[name='name']").val();
-    clientTo.fullName = form.find("input[name='fullName']").val();
-    clientTo.inn = form.find("input[name='inn']").val();
-    clientTo.address = form.find("input[name='address']").val();
-    clientTo.priceCategory = form.find("select[name='priceCategory']").val();
-    return JSON.stringify(clientTo);
+    var product = {};
+    product.id = form.find("input[name='id']").val();
+    product.title = form.find("input[name='title']").val();
+    product.description = form.find("input[name='description']").val();
+    return JSON.stringify(product);
 }
 
 $(function () {
-    var str = $.getJSON('ajax/pc/', function (data) {
-        var option = '';
-        $.each(data, function (key, value) {
-            option += '<option value="' + value.id + '">' + value.name + '</option>';
-        });
-        $('#dropdownPC').append(option);
-    });
-
     datatableApi = $('#datatable').DataTable({
         "ajax": {
             "url": ajaxUrl,
@@ -37,10 +33,10 @@ $(function () {
                 "data": "id"
             },
             {
-                "data": "name"
+                "data": "title"
             },
             {
-                "data": "inn"
+                "data": "description"
             },
             {
                 "orderable": false,

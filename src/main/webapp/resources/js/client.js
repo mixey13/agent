@@ -1,16 +1,33 @@
-var ajaxUrl = 'ajax/pc/';
+var ajaxUrl = 'ajax/clients/';
 var datatableApi;
 
 function updateTable() {
     $.get(ajaxUrl, updateTableByData);
 }
 
+function updateRow(id) {
+    updateRowDefault(id);
+}
+
+function getAdditionalJSON() {
+    $.getJSON('ajax/pc/', function (data) {
+        var option = '';
+        $.each(data, function (key, value) {
+            option += '<option value="' + value.id + '">' + value.name + '</option>';
+        });
+        $('#dropdownPC').empty().append(option).val("");
+    });
+}
+
 function createJSON() {
-    var priceCategory = {};
-    priceCategory.id = form.find("input[name='id']").val();
-    priceCategory.name = form.find("input[name='name']").val();
-    priceCategory.description = form.find("input[name='description']").val();
-    return JSON.stringify(priceCategory);
+    var clientTo = {};
+    clientTo.id = form.find("input[name='id']").val();
+    clientTo.name = form.find("input[name='name']").val();
+    clientTo.fullName = form.find("input[name='fullName']").val();
+    clientTo.inn = form.find("input[name='inn']").val();
+    clientTo.address = form.find("input[name='address']").val();
+    clientTo.priceCategory = form.find("select[name='priceCategory']").val();
+    return JSON.stringify(clientTo);
 }
 
 $(function () {
@@ -29,7 +46,7 @@ $(function () {
                 "data": "name"
             },
             {
-                "data": "description"
+                "data": "inn"
             },
             {
                 "orderable": false,

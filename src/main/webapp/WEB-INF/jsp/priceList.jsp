@@ -70,14 +70,7 @@
                         </div>
                     </div>
 
-                    <table class="table table-striped display" id="productsTable">
-                        <thead>
-                        <tr>
-                            <th>Наименование</th>
-                            <th>Цена</th>
-                        </tr>
-                        </thead>
-                    </table>
+                    <table class="table table-striped display" id="productsTable"></table>
 
                     <div class="form-group">
                         <div class="col-xs-offset-3 col-xs-9">
@@ -96,6 +89,6 @@
 <script type="text/javascript" src="webjars/datatables/1.10.12/js/dataTables.bootstrap.min.js"></script>
 <script type="text/javascript" src="webjars/noty/2.3.8/js/noty/packaged/jquery.noty.packaged.min.js"></script>
 <script type="text/javascript" src="webjars/datetimepicker/2.5.4/build/jquery.datetimepicker.full.min.js"></script>
-<script type="text/javascript" src="resources/js/datatablesUtil.js"></script>
-<script type="text/javascript" src="resources/js/priceDatatables.js"></script>
+<script type="text/javascript" src="resources/js/util.js"></script>
+<script type="text/javascript" src="resources/js/price.js"></script>
 </html>

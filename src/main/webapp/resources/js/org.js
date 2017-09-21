@@ -5,6 +5,13 @@ function updateTable() {
     $.get(ajaxUrl, updateTableByData);
 }
 
+function updateRow(id) {
+    updateRowDefault(id);
+}
+
+function getAdditionalJSON() {
+}
+
 function createJSON() {
     var clientTo = {};
     clientTo.id = form.find("input[name='id']").val();

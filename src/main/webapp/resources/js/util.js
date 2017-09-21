@@ -10,10 +10,8 @@ function makeEditable() {
 }
 
 function add() {
-    form.find("input[type='text']").val("");
-    form.find("input[type='date']").val("");
-    form.find("input[type='time']").val("");
-    form.find("select").val("");
+    getAdditionalJSON();
+    form.find("input").val("");
 
     $('#id').val(0);
     $('#editRow').modal();
@@ -32,48 +30,14 @@ function save() {
     });
 }
 
-function updateRow(id) {
+function updateRowDefault(id) {
+    getAdditionalJSON();
     $.get(ajaxUrl + id, function (data) {
         $.each(data, function (key, value) {
             form.find("input[name='" + key + "']").val(value);
             form.find("select[name='" + key + "']").val(value);
-            if (key == 'priceProductTos') {
-                form.find("input[name='value']").val("");
-                myEach(value);
-            }
-            if (key == 'orderProductTos') {
-                form.find("input[name='cost']").val("");
-                form.find("input[name='amount']").val("");
-                myEach2(value);
-            }
-            if (key == 'productionProductTos') {
-                form.find("input[name='amount']").val("");
-                myEach3(value);
-            }
         });
         $('#editRow').modal();
-    });
-}
-
-function myEach(data) {
-    $.each(data, function (key, value) {
-        var tabl = form.find("tr[id='" + value.product + "']");
-        $(tabl).find("input[name = 'value']").val(value.value);
-    });
-}
-
-function myEach2(data) {
-    $.each(data, function (key, value) {
-        var tabl = form.find("tr[id='" + value.product + "']");
-        $(tabl).find("input[name = 'cost']").val(value.cost);
-        $(tabl).find("input[name = 'amount']").val(value.amount);
-    });
-}
-
-function myEach3(data) {
-    $.each(data, function (key, value) {
-        var tabl = form.find("tr[id='" + value.product + "']");
-        $(tabl).find("input[name = 'amount']").val(value.amount);
     });
 }
 
