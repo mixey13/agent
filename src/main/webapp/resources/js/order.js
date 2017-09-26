@@ -59,6 +59,28 @@ function getAdditionalJSON() {
     });
 }
 
+$('#dropdownClient').change(function () {
+    getPrice();
+});
+
+function getPrice() {
+    var client = form.find("select[name='client']").val();
+    var date = form.find("input[name='date']").val();
+    if(client != null && date != "") {
+        $.getJSON('ajax/prices/' + client + '/' + date, function (data) {
+            $.each(data, function (key, value) {
+                if (key == 'priceProductTos') {
+                    form.find("input[name='cost']").val("");
+                    $.each(value, function (k, v) {
+                        var tabl = form.find("tr[id='" + v.product + "']");
+                        $(tabl).find("input[name = 'cost']").val(v.value);
+                    });
+                }
+            });
+        });
+    }
+}
+
 function createJSON() {
     var orderTo = {};
     orderTo.id = form.find("input[name='id']").val();
@@ -127,7 +149,10 @@ $(function () {
     $('#datePicker').datetimepicker({
         timepicker: false,
         lang: 'ru',
-        format: 'Y-m-d'
+        format: 'Y-m-d',
+        onSelectDate: function () {
+            getPrice();
+        }
     });
 
     $('#timePicker').datetimepicker({

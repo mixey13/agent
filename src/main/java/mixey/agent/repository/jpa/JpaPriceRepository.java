@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -34,6 +35,11 @@ public class JpaPriceRepository {
     public Price get(Integer id) {
         TypedQuery<Price> query = em.createQuery("SELECT DISTINCT pr FROM Price pr LEFT JOIN FETCH pr.priceProducts WHERE pr.id=:id", Price.class);
         return query.setParameter("id", id).getSingleResult();
+    }
+
+    public Price get(Integer pc, LocalDate date) {
+        TypedQuery<Price> query = em.createQuery("SELECT DISTINCT pr FROM Price pr LEFT JOIN FETCH pr.priceProducts LEFT JOIN FETCH pr.priceCategory WHERE pr.priceCategory.id=:pc AND pr.date<=:date ORDER BY pr.date DESC", Price.class);
+        return query.setParameter("pc", pc).setParameter("date", date).setMaxResults(1).getSingleResult();
     }
 
     public List<Price> getAll() {

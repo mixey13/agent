@@ -19,6 +19,11 @@ public class PriceAjaxController {
         return service.get(id);
     }
 
+    @RequestMapping(value = "/{id}/{date}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public PriceTo getByDate(@PathVariable("id") Integer id, @PathVariable("date") String date) {
+        return service.get(id, date);
+    }
+
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<PriceTo> getAll() {
         return service.getAll();

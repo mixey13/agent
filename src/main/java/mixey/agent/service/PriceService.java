@@ -3,6 +3,7 @@ package mixey.agent.service;
 import mixey.agent.model.Price;
 import mixey.agent.model.PriceProduct;
 import mixey.agent.model.Product;
+import mixey.agent.repository.jpa.JpaClientRepository;
 import mixey.agent.repository.jpa.JpaPriceCategoryRepository;
 import mixey.agent.repository.jpa.JpaPriceRepository;
 import mixey.agent.repository.jpa.JpaProductRepository;
@@ -22,6 +23,8 @@ public class PriceService {
     private JpaPriceRepository priceRepository;
     @Autowired
     private JpaPriceCategoryRepository priceCategoryRepository;
+    @Autowired
+    private JpaClientRepository clientRepository;
     @Autowired
     private JpaProductRepository productRepository;
 
@@ -49,6 +52,11 @@ public class PriceService {
 
     public PriceTo get(Integer id) {
         return PriceTo.asToFull(priceRepository.get(id));
+    }
+
+    public PriceTo get(Integer id, String date) {
+        Integer pc = clientRepository.get(id).getPriceCategory().getId();
+        return PriceTo.asToFull(priceRepository.get(pc, LocalDate.parse(date)));
     }
 
     public List<PriceTo> getAll() {
