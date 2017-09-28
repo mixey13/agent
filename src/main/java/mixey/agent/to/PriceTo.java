@@ -8,7 +8,9 @@ import java.util.*;
 public class PriceTo {
     private Integer id;
 
-    private Integer number;
+    private Integer organization;
+
+    private String organizationName;
 
     private Integer priceCategory;
 
@@ -21,13 +23,14 @@ public class PriceTo {
     public PriceTo() {
     }
 
-    public PriceTo(Integer id, Integer number, Integer priceCategory, String priceCategoryName, String date) {
-        this(id, number, priceCategory, priceCategoryName, date, null);
+    public PriceTo(Integer id, Integer organization, String organizationName, Integer priceCategory, String priceCategoryName, String date) {
+        this(id, organization, organizationName, priceCategory, priceCategoryName, date, null);
     }
 
-    public PriceTo(Integer id, Integer number, Integer priceCategory, String priceCategoryName, String date, List<PriceProductTo> priceProductTos) {
+    public PriceTo(Integer id, Integer organization, String organizationName, Integer priceCategory, String priceCategoryName, String date, List<PriceProductTo> priceProductTos) {
         this.id = id;
-        this.number = number;
+        this.organization = organization;
+        this.organizationName = organizationName;
         this.priceCategory = priceCategory;
         this.priceCategoryName = priceCategoryName;
         this.date = date;
@@ -35,7 +38,7 @@ public class PriceTo {
     }
 
     public static PriceTo asTo(Price price) {
-        return new PriceTo(price.getId(), price.getNumber(), price.getPriceCategory().getId(), price.getPriceCategory().getName(), price.getDate().toString());
+        return new PriceTo(price.getId(), price.getOrganization().getId(), price.getOrganization().getName(), price.getPriceCategory().getId(), price.getPriceCategory().getName(), price.getDate().toString());
     }
 
     public static PriceTo asToFull(Price price) {
@@ -65,12 +68,20 @@ public class PriceTo {
         this.id = id;
     }
 
-    public Integer getNumber() {
-        return number;
+    public Integer getOrganization() {
+        return organization;
     }
 
-    public void setNumber(Integer number) {
-        this.number = number;
+    public void setOrganization(Integer organization) {
+        this.organization = organization;
+    }
+
+    public String getOrganizationName() {
+        return organizationName;
+    }
+
+    public void setOrganizationName(String organizationName) {
+        this.organizationName = organizationName;
     }
 
     public Integer getPriceCategory() {
@@ -103,17 +114,5 @@ public class PriceTo {
 
     public void setPriceProductTos(List<PriceProductTo> priceProductTos) {
         this.priceProductTos = priceProductTos;
-    }
-
-    @Override
-    public String toString() {
-        return "PriceTo{" +
-                "id=" + id +
-                ", number=" + number +
-                ", priceCategory=" + priceCategory +
-                ", priceCategoryName='" + priceCategoryName + '\'' +
-                ", date='" + date + '\'' +
-                ", priceProductTos=" + priceProductTos +
-                '}';
     }
 }

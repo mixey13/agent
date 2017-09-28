@@ -7,23 +7,41 @@ function updateTable() {
 
 function updateRow(id) {
     getAdditionalJSON();
-    $.get(ajaxUrl + id, function (data) {
+    var ppt = [];
+    $.getJSON(ajaxUrl + id, function (data) {
         $.each(data, function (key, value) {
             form.find("input[name='" + key + "']").val(value);
-            form.find("select[name='" + key + "']").val(value);
+            form.find("select[name='" + key + "']").val(value).change();
             if (key == 'priceProductTos') {
                 form.find("input[name='value']").val("");
                 $.each(value, function (k, v) {
-                    var tabl = form.find("tr[id='" + v.product + "']");
-                    $(tabl).find("input[name = 'value']").val(v.value);
+                    ppt.push(v);
                 });
             }
         });
-        $('#editRow').modal();
+
     });
+    setTimeout(function () {
+        for(var i = 0; i < ppt.length; i++){
+            var tabl = form.find("tr[id='" + ppt[i].product + "']");
+            $(tabl).find("input[name = 'value']").val(ppt[i].value);
+            $('#editRow').modal();
+        }
+    }, 500);
 }
 
+
+
 function getAdditionalJSON() {
+    $('#productsTable').empty();
+    $.getJSON('ajax/organizations/', function (data) {
+        var option = '';
+        $.each(data, function (key, value) {
+            option += '<option value="' + value.id + '">' + value.name + '</option>';
+        });
+        $('#dropdownOrg').empty().append(option).val("");
+    });
+
     $.getJSON('ajax/pc/', function (data) {
         var option = '';
         $.each(data, function (key, value) {
@@ -31,28 +49,37 @@ function getAdditionalJSON() {
         });
         $('#dropdownPC').empty().append(option).val("");
     });
+}
 
-    $.getJSON('ajax/products/', function (data) {
-        var prod = [];
-        $.each(data, function (key, value) {
-            prod.push(value);
+$('#dropdownOrg').change(function () {
+    getProducts();
+});
+
+function getProducts() {
+    var org = form.find("select[name='organization']").val();
+    if(org != null) {
+        $.getJSON('ajax/products/org/' + org, function (data) {
+            var prod = [];
+            $.each(data, function (key, value) {
+                prod.push(value);
+            });
+            var td = '';
+            td += '<thead><tr><th>Наименование</th><th>Цена</th></tr></thead>';
+            for(var i = 0; i < prod.length; i++) {
+                td += '<tr class="priceProductTos" id="' + prod[i].id + '">';
+                td += '<td>' + prod[i].title + '</td>';
+                td += '<td><input type="text" class="form-control" name="value"></td>';
+                td += '</tr>';
+            }
+            $('#productsTable').empty().append(td);
         });
-        var td = '';
-        td += '<thead><tr><th>Наименование</th><th>Цена</th></tr></thead>';
-        for(var i = 0; i < prod.length; i++) {
-            td += '<tr class="priceProductTos" id="' + prod[i].id + '">';
-            td += '<td>' + prod[i].title + '</td>';
-            td += '<td><input type="text" class="form-control" name="value"></td>';
-            td += '</tr>';
-        }
-        $('#productsTable').empty().append(td);
-    });
+    }
 }
 
 function createJSON() {
     var priceTo = {};
     priceTo.id = form.find("input[name='id']").val();
-    priceTo.number = form.find("input[name='number']").val();
+    priceTo.organization = form.find("select[name='organization']").val();
     priceTo.priceCategory = form.find("select[name='priceCategory']").val();
     priceTo.date = form.find("input[name='date']").val();
     priceTo.priceProductTos = [];
@@ -78,7 +105,7 @@ $(function () {
                 "data": "id"
             },
             {
-                "data": "number"
+                "data": "organizationName"
             },
             {
                 "data": "priceCategoryName"

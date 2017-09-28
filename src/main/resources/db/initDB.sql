@@ -1,29 +1,31 @@
-ALTER TABLE IF EXISTS user_roles DROP CONSTRAINT IF EXISTS user_roles_user_id_fkey;
-ALTER TABLE IF EXISTS production_product DROP CONSTRAINT IF EXISTS production_product_production_id_fkey;
-ALTER TABLE IF EXISTS production_product DROP CONSTRAINT IF EXISTS production_product_product_id_fkey;
-ALTER TABLE IF EXISTS price_product DROP CONSTRAINT IF EXISTS price_product_price_id_fkey;
-ALTER TABLE IF EXISTS price_product DROP CONSTRAINT IF EXISTS price_product_product_id_fkey;
-ALTER TABLE IF EXISTS order_product DROP CONSTRAINT IF EXISTS order_product_order_id_fkey;
-ALTER TABLE IF EXISTS order_product DROP CONSTRAINT IF EXISTS order_product_product_id_fkey;
-ALTER TABLE IF EXISTS balance DROP CONSTRAINT IF EXISTS balance_product_id_fkey;
-ALTER TABLE IF EXISTS orders DROP CONSTRAINT IF EXISTS orders_org_id_fkey;
-ALTER TABLE IF EXISTS orders DROP CONSTRAINT IF EXISTS orders_cli_id_fkey;
-ALTER TABLE IF EXISTS productions DROP CONSTRAINT IF EXISTS productions_org_id_fkey;
-ALTER TABLE IF EXISTS prices DROP CONSTRAINT IF EXISTS prices_pc_id_fkey;
-ALTER TABLE IF EXISTS clients DROP CONSTRAINT IF EXISTS clients_pc_id_fkey;
-DROP TABLE IF EXISTS user_roles;
-DROP TABLE IF EXISTS production_product;
-DROP TABLE IF EXISTS price_product;
-DROP TABLE IF EXISTS order_product;
-DROP TABLE IF EXISTS balance;
-DROP TABLE IF EXISTS orders;
-DROP TABLE IF EXISTS productions;
-DROP TABLE IF EXISTS prices;
-DROP TABLE IF EXISTS clients;
-DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS products;
-DROP TABLE IF EXISTS price_categories;
-DROP TABLE IF EXISTS organizations;
+ALTER TABLE IF EXISTS public.user_roles DROP CONSTRAINT IF EXISTS user_roles_user_id_fkey;
+ALTER TABLE IF EXISTS public.production_product DROP CONSTRAINT IF EXISTS production_product_production_id_fkey;
+ALTER TABLE IF EXISTS public.production_product DROP CONSTRAINT IF EXISTS production_product_product_id_fkey;
+ALTER TABLE IF EXISTS public.price_product DROP CONSTRAINT IF EXISTS price_product_price_id_fkey;
+ALTER TABLE IF EXISTS public.price_product DROP CONSTRAINT IF EXISTS price_product_product_id_fkey;
+ALTER TABLE IF EXISTS public.order_product DROP CONSTRAINT IF EXISTS order_product_order_id_fkey;
+ALTER TABLE IF EXISTS public.order_product DROP CONSTRAINT IF EXISTS order_product_product_id_fkey;
+ALTER TABLE IF EXISTS public.balance DROP CONSTRAINT IF EXISTS balance_product_id_fkey;
+ALTER TABLE IF EXISTS public.prices DROP CONSTRAINT IF EXISTS prices_org_id_fkey;
+ALTER TABLE IF EXISTS public.prices DROP CONSTRAINT IF EXISTS prices_pc_id_fkey;
+ALTER TABLE IF EXISTS public.orders DROP CONSTRAINT IF EXISTS orders_org_id_fkey;
+ALTER TABLE IF EXISTS public.orders DROP CONSTRAINT IF EXISTS orders_cli_id_fkey;
+ALTER TABLE IF EXISTS public.products DROP CONSTRAINT IF EXISTS products_org_id_fkey;
+ALTER TABLE IF EXISTS public.productions DROP CONSTRAINT IF EXISTS productions_org_id_fkey;
+ALTER TABLE IF EXISTS public.clients DROP CONSTRAINT IF EXISTS clients_pc_id_fkey;
+DROP TABLE IF EXISTS public.user_roles;
+DROP TABLE IF EXISTS public.production_product;
+DROP TABLE IF EXISTS public.price_product;
+DROP TABLE IF EXISTS public.order_product;
+DROP TABLE IF EXISTS public.balance;
+DROP TABLE IF EXISTS public.prices;
+DROP TABLE IF EXISTS public.orders;
+DROP TABLE IF EXISTS public.products;
+DROP TABLE IF EXISTS public.productions;
+DROP TABLE IF EXISTS public.clients;
+DROP TABLE IF EXISTS public.users;
+DROP TABLE IF EXISTS public.price_categories;
+DROP TABLE IF EXISTS public.organizations;
 DROP SEQUENCE IF EXISTS global_seq;
 DROP FUNCTION IF EXISTS update_balance();
 
@@ -44,13 +46,6 @@ CREATE TABLE user_roles
   FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );
 
-CREATE TABLE products
-(
-  id         INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
-  title       VARCHAR NOT NULL,
-  description      VARCHAR NOT NULL
-);
-
 CREATE TABLE organizations
 (
   id         INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
@@ -58,6 +53,15 @@ CREATE TABLE organizations
   full_name       VARCHAR NOT NULL,
   inn        BIGINT NOT NULL,
   address      VARCHAR NOT NULL
+);
+
+CREATE TABLE products
+(
+  id         INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+  org_id      INTEGER NOT NULL,
+  title       VARCHAR NOT NULL,
+  description      VARCHAR NOT NULL,
+  FOREIGN KEY (org_id) REFERENCES organizations (id)
 );
 
 CREATE TABLE price_categories
@@ -70,9 +74,10 @@ CREATE TABLE price_categories
 CREATE TABLE prices
 (
   id         INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
-  number      INTEGER NOT NULL,
+  org_id      INTEGER NOT NULL,
   pc_id      INTEGER NOT NULL,
   date    DATE NOT NULL,
+  FOREIGN KEY (org_id) REFERENCES organizations (id),
   FOREIGN KEY (pc_id) REFERENCES price_categories (id)
 );
 

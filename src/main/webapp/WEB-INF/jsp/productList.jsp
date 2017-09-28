@@ -21,6 +21,7 @@
                     <thead>
                     <tr>
                         <th>id</th>
+                        <th>Производитель</th>
                         <th>Название</th>
                         <th>Описание</th>
                         <th></th>
@@ -43,6 +44,14 @@
             <div class="modal-body">
                 <form:form class="form-horizontal" method="post" id="detailsForm">
                     <input type="text" hidden="hidden" id="id" name="id">
+
+                    <div class="form-group">
+                        <label for="dropdownOrg" class="control-label col-xs-3">Organization</label>
+
+                        <div class="col-xs-9">
+                            <select class="dropdown form-control" id="dropdownOrg" name="organization"></select>
+                        </div>
+                    </div>
 
                     <div class="form-group">
                         <label for="title" class="control-label col-xs-3">Title</label>

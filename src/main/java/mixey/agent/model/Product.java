@@ -9,15 +9,19 @@ public class Product {
     @Id
     @SequenceGenerator(name = "global_seq", sequenceName = "global_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
-    protected Integer id;
+    private Integer id;
+
+    @ManyToOne
+    @JoinColumn(name = "org_id")
+    private Organization organization;
 
     @Column(name = "title")
-    protected String title;
+    private String title;
 
     @Column(name = "description")
-    protected String description;
+    private String description;
 
-    public Product() {    }
+    public Product() {}
 
     public Product(String title, String description) {
         this(null, title, description);
@@ -35,6 +39,14 @@ public class Product {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Organization getOrganization() {
+        return organization;
+    }
+
+    public void setOrganization(Organization organization) {
+        this.organization = organization;
     }
 
     public String getTitle() {
@@ -55,14 +67,5 @@ public class Product {
 
     public boolean isNew() {
         return id == null;
-    }
-
-    @Override
-    public String toString() {
-        return "Product{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                '}';
     }
 }

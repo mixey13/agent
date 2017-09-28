@@ -22,7 +22,7 @@
                     <thead>
                     <tr>
                         <th>id</th>
-                        <th>Номер</th>
+                        <th>Производитель</th>
                         <th>Категория</th>
                         <th>Дата</th>
                         <th></th>
@@ -47,10 +47,10 @@
                     <input type="text" hidden="hidden" id="id" name="id">
 
                     <div class="form-group">
-                        <label for="number" class="control-label col-xs-3">Number</label>
+                        <label for="dropdownOrg" class="control-label col-xs-3">Organization</label>
 
                         <div class="col-xs-9">
-                            <input type="text" class="form-control" id="number" name="number" placeholder="Number">
+                            <select class="dropdown form-control" id="dropdownOrg" name="organization"></select>
                         </div>
                     </div>
 

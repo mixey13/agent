@@ -13,19 +13,19 @@ public class Price {
     @Id
     @SequenceGenerator(name = "global_seq", sequenceName = "global_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
-    protected Integer id;
+    private Integer id;
 
-    @Column(name = "number")
-    protected Integer number;
+    @ManyToOne
+    @JoinColumn(name = "org_id")
+    private Organization organization;
 
-
-    @ManyToOne//(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "pc_id")
-    protected PriceCategory priceCategory;
+    private PriceCategory priceCategory;
 
     @Column(name = "date", nullable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    protected LocalDate date;
+    private LocalDate date;
 
     @OneToMany(mappedBy = "price", cascade = CascadeType.ALL, orphanRemoval = true)
     protected Set<PriceProduct> priceProducts = new HashSet<>();
@@ -33,13 +33,8 @@ public class Price {
     public Price() {
     }
 
-    public Price(Integer number, LocalDate date) {
-        this(null, number, date);
-    }
-
-    public Price(Integer id, Integer number, LocalDate date) {
+    public Price(Integer id, LocalDate date) {
         this.id = id;
-        this.number = number;
         this.date = date;
     }
 
@@ -51,12 +46,12 @@ public class Price {
         this.id = id;
     }
 
-    public Integer getNumber() {
-        return number;
+    public Organization getOrganization() {
+        return organization;
     }
 
-    public void setNumber(Integer number) {
-        this.number = number;
+    public void setOrganization(Organization organization) {
+        this.organization = organization;
     }
 
     public PriceCategory getPriceCategory() {
@@ -86,15 +81,4 @@ public class Price {
     public boolean isNew() {
         return id == null;
     }
-
-//    @Override
-//    public String toString() {
-//        return "Price{" +
-//                "id=" + id +
-//                ", number=" + number +
-//                ", priceCategory=" + priceCategory +
-//                ", date=" + date +
-//                ", priceProducts=" + priceProducts +
-//                '}';
-//    }
 }

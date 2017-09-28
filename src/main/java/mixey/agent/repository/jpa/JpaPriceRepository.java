@@ -37,14 +37,13 @@ public class JpaPriceRepository {
         return query.setParameter("id", id).getSingleResult();
     }
 
-    public Price get(Integer pc, LocalDate date) {
-        TypedQuery<Price> query = em.createQuery("SELECT DISTINCT pr FROM Price pr LEFT JOIN FETCH pr.priceProducts LEFT JOIN FETCH pr.priceCategory WHERE pr.priceCategory.id=:pc AND pr.date<=:date ORDER BY pr.date DESC", Price.class);
-        return query.setParameter("pc", pc).setParameter("date", date).setMaxResults(1).getSingleResult();
+    public Price get(Integer pc, LocalDate date, Integer org) {
+        TypedQuery<Price> query = em.createQuery("SELECT DISTINCT pr FROM Price pr LEFT JOIN FETCH pr.priceProducts LEFT JOIN FETCH pr.priceCategory WHERE pr.priceCategory.id=:pc AND pr.organization.id=:org AND pr.date<=:date ORDER BY pr.date DESC", Price.class);
+        return query.setParameter("pc", pc).setParameter("date", date).setParameter("org", org).setMaxResults(1).getSingleResult();
     }
 
     public List<Price> getAll() {
         TypedQuery<Price> query = em.createQuery("SELECT pr FROM Price pr", Price.class);
-        List<Price> list = query.getResultList();
-        return list;
+        return query.getResultList();
     }
 }

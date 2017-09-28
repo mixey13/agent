@@ -7,23 +7,31 @@ function updateTable() {
 
 function updateRow(id) {
     getAdditionalJSON();
+    var ppt = [];
     $.get(ajaxUrl + id, function (data) {
         $.each(data, function (key, value) {
             form.find("input[name='" + key + "']").val(value);
-            form.find("select[name='" + key + "']").val(value);
+            form.find("select[name='" + key + "']").val(value).change();
             if (key == 'productionProductTos') {
                 form.find("input[name='amount']").val("");
                 $.each(value, function (k, v) {
-                    var tabl = form.find("tr[id='" + v.product + "']");
-                    $(tabl).find("input[name = 'amount']").val(v.amount);
+                    ppt.push(v);
                 });
             }
         });
         $('#editRow').modal();
     });
+    setTimeout(function () {
+        for(var i = 0; i < ppt.length; i++){
+            var tabl = form.find("tr[id='" + ppt[i].product + "']");
+            $(tabl).find("input[name = 'amount']").val(ppt[i].amount);
+            $('#editRow').modal();
+        }
+    }, 500);
 }
 
 function getAdditionalJSON() {
+    $('#productsTable').empty();
     $.getJSON('ajax/organizations/', function (data) {
         var option = '';
         $.each(data, function (key, value) {
@@ -31,22 +39,30 @@ function getAdditionalJSON() {
         });
         $('#dropdownOrg').empty().append(option).val("");
     });
+}
 
+$('#dropdownOrg').change(function () {
+    getProducts();
+});
 
-    $.getJSON('ajax/products/', function (data) {
-        var prod = [];
-        $.each(data, function (key, value) {
-            prod.push(value);
+function getProducts() {
+    var org = form.find("select[name='organization']").val();
+    if(org != null) {
+        $.getJSON('ajax/products/org/' + org, function (data) {
+            var prod = [];
+            $.each(data, function (key, value) {
+                prod.push(value);
+            });
+            var td = '<thead><tr><th>Наименование</th><th>Количество</th></tr></thead>';
+            for(var i = 0; i < prod.length; i++) {
+                td += '<tr class="productionProductTos" id="' + prod[i].id + '">';
+                td += '<td>' + prod[i].title + '</td>';
+                td += '<td><input type="text" class="form-control" name="amount"></td>';
+                td += '</tr>';
+            }
+            $('#productsTable').empty().append(td);
         });
-        var td = '<thead><tr><th>Наименование</th><th>Количество</th></tr></thead>';
-        for(var i = 0; i < prod.length; i++) {
-            td += '<tr class="productionProductTos" id="' + prod[i].id + '">';
-            td += '<td>' + prod[i].title + '</td>';
-            td += '<td><input type="text" class="form-control" name="amount"></td>';
-            td += '</tr>';
-        }
-        $('#productsTable').empty().append(td);
-    });
+    }
 }
 
 function createJSON() {

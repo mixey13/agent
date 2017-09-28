@@ -3,10 +3,7 @@ package mixey.agent.service;
 import mixey.agent.model.Price;
 import mixey.agent.model.PriceProduct;
 import mixey.agent.model.Product;
-import mixey.agent.repository.jpa.JpaClientRepository;
-import mixey.agent.repository.jpa.JpaPriceCategoryRepository;
-import mixey.agent.repository.jpa.JpaPriceRepository;
-import mixey.agent.repository.jpa.JpaProductRepository;
+import mixey.agent.repository.jpa.*;
 import mixey.agent.to.PriceProductTo;
 import mixey.agent.to.PriceTo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,12 +21,15 @@ public class PriceService {
     @Autowired
     private JpaPriceCategoryRepository priceCategoryRepository;
     @Autowired
+    private JpaOrganizationRepository organizationRepository;
+    @Autowired
     private JpaClientRepository clientRepository;
     @Autowired
     private JpaProductRepository productRepository;
 
     public Price save(PriceTo priceTo) {
-        Price price = new Price(priceTo.getId(), priceTo.getNumber(), LocalDate.parse(priceTo.getDate()));
+        Price price = new Price(priceTo.getId(), LocalDate.parse(priceTo.getDate()));
+        price.setOrganization(organizationRepository.getRef(priceTo.getOrganization()));
         price.setPriceCategory(priceCategoryRepository.getRef(priceTo.getPriceCategory()));
         Set<PriceProduct> priceProducts = new HashSet<>();
         for(PriceProductTo priceProductTo : priceTo.getPriceProductTos()) {
@@ -54,9 +54,9 @@ public class PriceService {
         return PriceTo.asToFull(priceRepository.get(id));
     }
 
-    public PriceTo get(Integer id, String date) {
-        Integer pc = clientRepository.get(id).getPriceCategory().getId();
-        return PriceTo.asToFull(priceRepository.get(pc, LocalDate.parse(date)));
+    public PriceTo get(Integer cli, String date, Integer org) {
+        Integer pc = clientRepository.get(cli).getPriceCategory().getId();
+        return PriceTo.asToFull(priceRepository.get(pc, LocalDate.parse(date), org));
     }
 
     public List<PriceTo> getAll() {

@@ -1,7 +1,9 @@
 package mixey.agent.service;
 
 import mixey.agent.model.Product;
+import mixey.agent.repository.jpa.JpaOrganizationRepository;
 import mixey.agent.repository.jpa.JpaProductRepository;
+import mixey.agent.to.ProductTo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,25 +12,33 @@ import java.util.List;
 @Service
 public class ProductService{
     @Autowired
-    private JpaProductRepository repository;
+    private JpaProductRepository productRepository;
+    @Autowired
+    private JpaOrganizationRepository organizationRepository;
 
-    public Product save(Product product) {
-        return repository.save(product);
+    public Product save(ProductTo productTo) {
+        Product product = new Product(productTo.getId(), productTo.getTitle(), productTo.getDescription());
+        product.setOrganization(organizationRepository.getRef(productTo.getOrganization()));
+        return productRepository.save(product);
     }
 
     public Product update(Product product) {
-        return repository.save(product);
+        return null;
     }
 
     public boolean delete(Integer id) {
-        return repository.delete(id);
+        return productRepository.delete(id);
     }
 
-    public Product get(Integer id) {
-        return repository.get(id);
+    public ProductTo get(Integer id) {
+        return ProductTo.asTo(productRepository.get(id));
     }
 
-    public List<Product> getAll() {
-        return repository.getAll();
+    public List<ProductTo> getAll() {
+        return ProductTo.listAsTo(productRepository.getAll());
+    }
+
+    public List<ProductTo> getAllByOrganization(Integer id) {
+        return ProductTo.listAsTo(productRepository.getAllByOrganization(id));
     }
 }
