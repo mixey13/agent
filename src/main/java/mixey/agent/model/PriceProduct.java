@@ -8,18 +8,18 @@ public class PriceProduct {
     @Id
     @SequenceGenerator(name = "global_seq", sequenceName = "global_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
-    protected Integer id;
+    private Integer id;
 
     @ManyToOne//(fetch = FetchType.LAZY)
     @JoinColumn(name = "price_id")
-    protected Price price;
+    private Price price;
 
     @ManyToOne//(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
-    protected Product product;
+    private Product product;
 
     @Column(name = "value")
-    protected Integer value;
+    private Integer value;
 
     public PriceProduct() {
     }

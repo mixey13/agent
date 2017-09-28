@@ -8,13 +8,13 @@ public class PriceCategory {
     @Id
     @SequenceGenerator(name = "global_seq", sequenceName = "global_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
-    protected Integer id;
+    private Integer id;
 
     @Column(name = "name")
-    protected String name;
+    private String name;
 
     @Column(name = "description")
-    protected String description;
+    private String description;
 
     public PriceCategory() {
     }

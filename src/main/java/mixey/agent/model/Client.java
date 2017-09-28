@@ -8,23 +8,23 @@ public class  Client {
     @Id
     @SequenceGenerator(name = "global_seq", sequenceName = "global_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
-    protected Integer id;
+    private Integer id;
 
     @Column(name = "name")
-    protected String name;
+    private String name;
 
     @Column(name = "full_name")
-    protected String fullName;
+    private String fullName;
 
     @Column(name = "inn")
-    protected Long inn;
+    private Long inn;
 
     @Column(name = "address")
-    protected String address;
+    private String address;
 
     @ManyToOne//(fetch = FetchType.LAZY)
     @JoinColumn(name = "pc_id")
-    protected PriceCategory priceCategory;
+    private PriceCategory priceCategory;
 
     public Client() {
     }

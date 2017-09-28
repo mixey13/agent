@@ -2,6 +2,7 @@ package mixey.agent.to;
 
 public class PriceProductTo {
     private Integer product;
+
     private Integer value;
 
     public PriceProductTo() {
