@@ -20,27 +20,47 @@
             </form:form>
         </div>
     </div>--%>
-
         <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">Приложение для работы торгового представителя</a>
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Приложение торгового представителя</a>
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">Справочники<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/products">Продукты</a></li>
+                            <li><a class="dropdown-item" href="/organizations">Организации</a></li>
+                            <li><a class="dropdown-item" href="/clients">Клиенты</a></li>
+                            <li><a class="dropdown-item" href="/pc">Категории прайс-листов</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">Документы<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/prices">Прайс-листы</a></li>
+                            <li><a href="/productions">Выходы продукции</a></li>
+                            <li><a href="/orders">Заказы</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/users">Пользователи</a></li>
+                </ul>
+            </div>
+
+            <div id="navbar" class="navbar-collapse collapse">
+                <form class="navbar-form navbar-right">
+                    <div class="form-group">
+                        <input type="text" placeholder="Email" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" placeholder="Password" class="form-control">
+                    </div>
+                    <button type="submit" class="btn btn-success">Sign in</button>
+                </form>
+            </div>
         </div>
-        <div id="navbar" class="navbar-collapse collapse">
-            <form class="navbar-form navbar-right">
-                <div class="form-group">
-                    <input type="text" placeholder="Email" class="form-control">
-                </div>
-                <div class="form-group">
-                    <input type="password" placeholder="Password" class="form-control">
-                </div>
-                <button type="submit" class="btn btn-success">Sign in</button>
-            </form>
-        </div><!--/.navbar-collapse -->
-</div>
 </div>

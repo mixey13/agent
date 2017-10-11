@@ -50,4 +50,9 @@ public class RootController {
     public String balanceList() {
         return "balanceList";
     }
+
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String startPage() {
+        return "index";
+    }
 }
