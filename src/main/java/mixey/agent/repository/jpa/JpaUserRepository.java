@@ -36,6 +36,11 @@ public class JpaUserRepository {
         return query.setParameter("id", id).getSingleResult();
     }
 
+    public User getByName(String name) {
+        TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.name=:name", User.class);
+        return query.setParameter("name", name).getSingleResult();
+    }
+
     public List<User> getAll() {
         TypedQuery<User> query = em.createQuery("SELECT u FROM User u", User.class);
         return query.getResultList();

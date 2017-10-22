@@ -11,10 +11,9 @@
 
 <div class="jumbotron">
     <div class="container">
-
+        <h2>Добро пожаловать</h2>
     </div>
 </div>
-
 <jsp:include page="fragments/footer.jsp"/>
 </body>
 <script type="text/javascript" src="webjars/jquery/2.2.4/jquery.min.js"></script>

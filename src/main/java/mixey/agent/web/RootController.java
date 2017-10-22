@@ -52,7 +52,12 @@ public class RootController {
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String loginPage() {
+        return "login";
+    }
+
+    @RequestMapping(value = "/start", method = RequestMethod.GET)
     public String startPage() {
-        return "index";
+        return "start";
     }
 }

@@ -31,19 +31,12 @@ DROP FUNCTION IF EXISTS update_balance();
 
 CREATE SEQUENCE global_seq START 100000;
 
-CREATE TABLE users
+CREATE TABLE admins
 (
   id         INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   name       VARCHAR NOT NULL,
-  password   VARCHAR NOT NULL
-);
-
-CREATE TABLE user_roles
-(
-  user_id INTEGER NOT NULL,
-  role    VARCHAR,
-  CONSTRAINT user_roles_idx UNIQUE (user_id, role),
-  FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
+  password   VARCHAR NOT NULL,
+  role       VARCHAR
 );
 
 CREATE TABLE organizations
@@ -53,6 +46,23 @@ CREATE TABLE organizations
   full_name       VARCHAR NOT NULL,
   inn        BIGINT NOT NULL,
   address      VARCHAR NOT NULL
+);
+
+CREATE TABLE users
+(
+  id         INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+  org_id      INTEGER NOT NULL,
+  name       VARCHAR NOT NULL,
+  password   VARCHAR NOT NULL,
+  FOREIGN KEY (org_id) REFERENCES organizations (id)
+);
+
+CREATE TABLE user_roles
+(
+  user_id INTEGER NOT NULL,
+  role    VARCHAR,
+  CONSTRAINT user_roles_idx UNIQUE (user_id, role),
+  FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );
 
 CREATE TABLE products

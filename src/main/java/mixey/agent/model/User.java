@@ -9,16 +9,23 @@ public class User {
     @Id
     @SequenceGenerator(name = "global_seq", sequenceName = "global_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
-    protected Integer id;
+    private Integer id;
+
+    @ManyToOne
+    @JoinColumn(name = "org_id")
+    private Organization organization;
 
     @Column(name = "name")
-    protected String name;
+    private String name;
 
     @Column(name = "password")
-    protected String password;
+    private String password;
 
-//    protected Set<Role> roles;
-
+    @Enumerated(EnumType.STRING)
+    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
+    @Column(name = "role")
+    @ElementCollection(fetch = FetchType.EAGER)
+    private Set<Role> roles;
 
     public User() {
     }
@@ -41,6 +48,14 @@ public class User {
         this.id = id;
     }
 
+    public Organization getOrganization() {
+        return organization;
+    }
+
+    public void setOrganization(Organization organization) {
+        this.organization = organization;
+    }
+
     public String getName() {
         return name;
     }
@@ -57,16 +72,15 @@ public class User {
         this.password = password;
     }
 
-    public boolean isNew() {
-        return id == null;
+    public Set<Role> getRoles() {
+        return roles;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", password='" + password + '\'' +
-                '}';
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
+    public boolean isNew() {
+        return id == null;
     }
 }
