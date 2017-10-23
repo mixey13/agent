@@ -1,6 +1,6 @@
 package mixey.agent.repository.jpa;
 
-import mixey.agent.model.User;
+import mixey.agent.model.Admin;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,33 +11,33 @@ import java.util.List;
 
 @Repository
 @Transactional(readOnly = true)
-public class JpaUserRepository {
+public class JpaAdminRepository {
     @PersistenceContext
     private EntityManager em;
 
     @Transactional
-    public User save(User user) {
-        if(user.isNew()) {
-            em.persist(user);
-            return user;
+    public Admin save(Admin admin) {
+        if(admin.isNew()) {
+            em.persist(admin);
+            return admin;
         } else {
-            return em.merge(user);
+            return em.merge(admin);
         }
     }
 
     @Transactional
     public boolean delete(Integer id) {
-        return em.createQuery("DELETE FROM User u WHERE u.id=:id")
+        return em.createQuery("DELETE FROM Admin a WHERE a.id=:id")
                 .setParameter("id", id).executeUpdate() != 0;
     }
 
-    public User get(Integer id) {
-        TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.id=:id", User.class);
+    public Admin get(Integer id) {
+        TypedQuery<Admin> query = em.createQuery("SELECT a FROM Admin a WHERE a.id=:id", Admin.class);
         return query.setParameter("id", id).getSingleResult();
     }
 
-    public List<User> getAll() {
-        TypedQuery<User> query = em.createQuery("SELECT u FROM User u", User.class);
+    public List<Admin> getAll() {
+        TypedQuery<Admin> query = em.createQuery("SELECT a FROM Admin a", Admin.class);
         return query.getResultList();
     }
 }

@@ -11,6 +11,11 @@ public class RootController {
         return "productList";
     }
 
+    @RequestMapping(value = "/admins", method = RequestMethod.GET)
+    public String adminList() {
+        return "adminList";
+    }
+
     @RequestMapping(value = "/users", method = RequestMethod.GET)
     public String userList() {
         return "userList";

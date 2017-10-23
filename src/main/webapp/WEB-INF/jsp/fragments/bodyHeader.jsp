@@ -10,6 +10,7 @@
             <a class="navbar-brand" href="start">Приложение торгового представителя</a>
             <ul class="nav navbar-nav">
                 <sec:authorize access="hasRole('ROLE_ROOT')">
+                    <li><a href="/admins">Администраторы</a></li>
                     <li><a href="/organizations">Организации</a></li>
                 </sec:authorize>
 
@@ -39,7 +40,7 @@
                     </li>
                 </sec:authorize>
 
-                <sec:authorize access="hasRole('ROLE_ADMIN')">
+                <sec:authorize access="hasAnyRole('ROLE_ROOT', 'ROLE_ADMIN')">
                     <li><a href="/users">Пользователи</a></li>
                 </sec:authorize>
             </ul>

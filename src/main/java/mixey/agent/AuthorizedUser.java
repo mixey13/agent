@@ -1,17 +1,17 @@
 package mixey.agent;
 
-import mixey.agent.model.User;
+import mixey.agent.model.BaseUser;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 public class AuthorizedUser extends org.springframework.security.core.userdetails.User {
     private static final long serialVersionUID = 1L;
 
-    private User user;
+    private BaseUser baseUser;
 
-    public AuthorizedUser(User user) {
-        super(user.getName(), user.getPassword(), user.getRoles());
-        this.user = user;
+    public AuthorizedUser(BaseUser baseUser) {
+        super(baseUser.getName(), baseUser.getPassword(), baseUser.getRoles());
+        this.baseUser = baseUser;
     }
 
 

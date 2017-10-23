@@ -35,8 +35,15 @@ CREATE TABLE admins
 (
   id         INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   name       VARCHAR NOT NULL,
-  password   VARCHAR NOT NULL,
-  role       VARCHAR
+  password   VARCHAR NOT NULL
+);
+
+CREATE TABLE admin_roles
+(
+  admin_id INTEGER NOT NULL,
+  role    VARCHAR,
+  CONSTRAINT admin_roles_idx UNIQUE (admin_id, role),
+  FOREIGN KEY (admin_id) REFERENCES admins (id) ON DELETE CASCADE
 );
 
 CREATE TABLE organizations
