@@ -1,5 +1,6 @@
 package mixey.agent.to;
 
+import mixey.agent.model.Role;
 import mixey.agent.model.User;
 
 import java.util.ArrayList;
@@ -16,19 +17,28 @@ public class UserTo {
 
     private String organizationName;
 
+    private Boolean administrator;
+
+    private Boolean operator;
+
+    private Boolean agent;
+
     public UserTo() {
     }
 
-    public UserTo(Integer id, String name, String password, Integer organization, String organizationName) {
+    public UserTo(Integer id, String name, String password, Integer organization, String organizationName, Boolean administrator, Boolean operator, Boolean agent) {
         this.id = id;
         this.name = name;
         this.password = password;
         this.organization = organization;
         this.organizationName = organizationName;
+        this.administrator = administrator;
+        this.operator = operator;
+        this.agent = agent;
     }
 
     public static UserTo asTo(User user) {
-        return new UserTo(user.getId(), user.getName(), user.getPassword(), user.getOrganization().getId(), user.getOrganization().getName());
+        return new UserTo(user.getId(), user.getName(), user.getPassword(), user.getOrganization().getId(), user.getOrganization().getName(), user.getRoles().contains(Role.ROLE_ADMIN), user.getRoles().contains(Role.ROLE_OPERATOR), user.getRoles().contains(Role.ROLE_AGENT));
     }
 
     public static List<UserTo> listAsTo(List<User> list) {
@@ -77,5 +87,29 @@ public class UserTo {
 
     public void setOrganizationName(String organizationName) {
         this.organizationName = organizationName;
+    }
+
+    public Boolean getAdministrator() {
+        return administrator;
+    }
+
+    public void setAdministrator(Boolean administrator) {
+        this.administrator = administrator;
+    }
+
+    public Boolean getOperator() {
+        return operator;
+    }
+
+    public void setOperator(Boolean operator) {
+        this.operator = operator;
+    }
+
+    public Boolean getAgent() {
+        return agent;
+    }
+
+    public void setAgent(Boolean agent) {
+        this.agent = agent;
     }
 }

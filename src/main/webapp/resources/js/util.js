@@ -36,6 +36,7 @@ function updateRowDefault(id) {
         $.each(data, function (key, value) {
             form.find("input[name='" + key + "']").val(value);
             form.find("select[name='" + key + "']").val(value);
+            form.find(":checkbox[name='" + key + "']").prop("checked", value ? "checked" : "");
         });
         $('#editRow').modal();
     });

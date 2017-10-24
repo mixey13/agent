@@ -24,7 +24,15 @@ public class UserService{
         User user = new User(userTo.getId(), userTo.getName(), userTo.getPassword());
         user.setOrganization(organizationRepository.getRef(userTo.getOrganization()));
         Set<Role> roles = new HashSet<>();
-        roles.add(Role.ROLE_AGENT);
+        if(userTo.getAdministrator()) {
+            roles.add(Role.ROLE_ADMIN);
+        }
+        if(userTo.getOperator()) {
+            roles.add(Role.ROLE_OPERATOR);
+        }
+        if(userTo.getAgent()) {
+            roles.add(Role.ROLE_AGENT);
+        }
         user.setRoles(roles);
         return repository.save(user);
     }

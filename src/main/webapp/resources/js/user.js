@@ -20,12 +20,15 @@ function getAdditionalJSON() {
 }
 
 function createJSON() {
-    var user = {};
-    user.id = form.find("input[name='id']").val();
-    user.name = form.find("input[name='name']").val();
-    user.password = form.find("input[name='password']").val();
-    user.organization = form.find("select[name='organization']").val();
-    return JSON.stringify(user);
+    var userTo = {};
+    userTo.id = form.find("input[name='id']").val();
+    userTo.name = form.find("input[name='name']").val();
+    userTo.password = form.find("input[name='password']").val();
+    userTo.organization = form.find("select[name='organization']").val();
+    userTo.administrator = form.find(":checkbox[name='administrator']").prop("checked");
+    userTo.operator = form.find(":checkbox[name='operator']").prop("checked");
+    userTo.agent = form.find(":checkbox[name='agent']").prop("checked");
+    return JSON.stringify(userTo);
 }
 
 $(function () {
@@ -48,6 +51,24 @@ $(function () {
             },
             {
                 "data": "organizationName"
+            },
+            {
+                "data": "administrator",
+                "render": function (data) {
+                    return (data === true) ? '<span class="glyphicon glyphicon-ok"></span>' : '<span class="glyphicon glyphicon-remove"></span>';
+                }
+            },
+            {
+                "data": "operator",
+                "render": function (data) {
+                    return (data === true) ? '<span class="glyphicon glyphicon-ok"></span>' : '<span class="glyphicon glyphicon-remove"></span>';
+                }
+            },
+            {
+                "data": "agent",
+                "render": function (data) {
+                    return (data === true) ? '<span class="glyphicon glyphicon-ok"></span>' : '<span class="glyphicon glyphicon-remove"></span>';
+                }
             },
             {
                 "orderable": false,

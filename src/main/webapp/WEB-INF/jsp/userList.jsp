@@ -24,6 +24,9 @@
                         <th>Имя</th>
                         <th>Пароль</th>
                         <th>Организация</th>
+                        <th>Администратор</th>
+                        <th>Оператор</th>
+                        <th>Агент</th>
                         <th></th>
                         <th></th>
                     </tr>
@@ -66,6 +69,26 @@
 
                         <div class="col-xs-9">
                             <select class="dropdown form-control" id="dropdownOrg" name="organization"></select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="administrator" class="control-label col-xs-3">Администратор</label>
+
+                        <div class="col-xs-1">
+                            <input type="checkbox" class="form-control checkbox-inline" id="administrator" name="administrator">
+                        </div>
+
+                        <label for="operator" class="control-label col-xs-3">Оператор</label>
+
+                        <div class="col-xs-1">
+                            <input type="checkbox" class="form-control checkbox-inline" id="operator" name="operator">
+                        </div>
+
+                        <label for="agent" class="control-label col-xs-3">Агент</label>
+
+                        <div class="col-xs-1">
+                            <input type="checkbox" class="form-control checkbox-inline" id="agent" name="agent">
                         </div>
                     </div>
 
