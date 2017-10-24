@@ -23,6 +23,7 @@
                         <th>id</th>
                         <th>Имя</th>
                         <th>Пароль</th>
+                        <th>Организация</th>
                         <th></th>
                         <th></th>
                     </tr>
@@ -57,6 +58,14 @@
 
                         <div class="col-xs-9">
                             <input type="text" class="form-control" id="password" name="password" placeholder="Password">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dropdownOrg" class="control-label col-xs-3">Organization</label>
+
+                        <div class="col-xs-9">
+                            <select class="dropdown form-control" id="dropdownOrg" name="organization"></select>
                         </div>
                     </div>
 

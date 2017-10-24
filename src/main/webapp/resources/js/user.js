@@ -5,6 +5,29 @@ function updateTable() {
     $.get(ajaxUrl, updateTableByData);
 }
 
+function updateRow(id) {
+    updateRowDefault(id);
+}
+
+function getAdditionalJSON() {
+    $.getJSON('ajax/organizations/', function (data) {
+        var option = '';
+        $.each(data, function (key, value) {
+            option += '<option value="' + value.id + '">' + value.name + '</option>';
+        });
+        $('#dropdownOrg').empty().append(option).val("");
+    });
+}
+
+function createJSON() {
+    var user = {};
+    user.id = form.find("input[name='id']").val();
+    user.name = form.find("input[name='name']").val();
+    user.password = form.find("input[name='password']").val();
+    user.organization = form.find("select[name='organization']").val();
+    return JSON.stringify(user);
+}
+
 $(function () {
     datatableApi = $('#datatable').DataTable({
         "ajax": {
@@ -22,6 +45,9 @@ $(function () {
             },
             {
                 "data": "password"
+            },
+            {
+                "data": "organizationName"
             },
             {
                 "orderable": false,
