@@ -11,7 +11,9 @@
 
 <div class="jumbotron">
     <div class="container">
-        <h2>Добро пожаловать</h2>
+        <h2>Добро пожаловать!</h2>
+        <h3>Вы вошли как ${pageContext.request.userPrincipal.name}</h3>
+        <h3>с правами ${pageContext.request.userPrincipal.getAuthorities()}</h3>
     </div>
 </div>
 <jsp:include page="fragments/footer.jsp"/>
