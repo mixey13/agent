@@ -10,13 +10,6 @@ function updateRow(id) {
 }
 
 function getAdditionalJSON() {
-    $.getJSON('ajax/pc/', function (data) {
-        var option = '';
-        $.each(data, function (key, value) {
-            option += '<option value="' + value.id + '">' + value.name + '</option>';
-        });
-        $('#dropdownPC').empty().append(option).val("");
-    });
 }
 
 function createJSON() {
@@ -26,7 +19,6 @@ function createJSON() {
     clientTo.fullName = form.find("input[name='fullName']").val();
     clientTo.inn = form.find("input[name='inn']").val();
     clientTo.address = form.find("input[name='address']").val();
-    clientTo.priceCategory = form.find("select[name='priceCategory']").val();
     return JSON.stringify(clientTo);
 }
 

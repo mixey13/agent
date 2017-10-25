@@ -77,14 +77,6 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="dropdownPC" class="control-label col-xs-3">Категория прайс-листа</label>
-
-                        <div class="col-xs-9">
-                            <select class="dropdown form-control" id="dropdownPC" name="priceCategory"></select>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
                         <div class="col-xs-offset-3 col-xs-9">
                             <button type="submit" class="btn btn-primary">Save</button>
                         </div>

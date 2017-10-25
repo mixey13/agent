@@ -1,7 +1,7 @@
 package mixey.agent.web;
 
+import mixey.agent.model.Client;
 import mixey.agent.service.ClientService;
-import mixey.agent.to.ClientTo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -15,18 +15,18 @@ public class ClientAjaxController {
     private ClientService service;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ClientTo get(@PathVariable("id") Integer id) {
+    public Client get(@PathVariable("id") Integer id) {
         return service.get(id);
     }
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<ClientTo> getAll() {
+    public List<Client> getAll() {
         return service.getAll();
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public void updateOrCreate(@RequestBody ClientTo clientTo) {
-        service.save(clientTo);
+    public void updateOrCreate(@RequestBody Client client) {
+        service.save(client);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)

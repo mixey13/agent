@@ -22,10 +22,6 @@ public class  Client {
     @Column(name = "address")
     private String address;
 
-    @ManyToOne//(fetch = FetchType.LAZY)
-    @JoinColumn(name = "pc_id")
-    private PriceCategory priceCategory;
-
     public Client() {
     }
 
@@ -81,27 +77,7 @@ public class  Client {
         this.address = address;
     }
 
-    public PriceCategory getPriceCategory() {
-        return priceCategory;
-    }
-
-    public void setPriceCategory(PriceCategory priceCategory) {
-        this.priceCategory = priceCategory;
-    }
-
     public boolean isNew() {
         return id == null;
-    }
-
-    @Override
-    public String toString() {
-        return "Client{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", fullName='" + fullName + '\'' +
-                ", inn=" + inn +
-                ", address='" + address + '\'' +
-                ", priceCategory=" + priceCategory +
-                '}';
     }
 }
