@@ -10,6 +10,10 @@ public class PriceCategory {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
     private Integer id;
 
+    @ManyToOne
+    @JoinColumn(name = "org_id")
+    private Organization organization;
+
     @Column(name = "name")
     private String name;
 
@@ -53,16 +57,15 @@ public class PriceCategory {
         this.description = description;
     }
 
-    public boolean isNew() {
-        return id == null;
+    public Organization getOrganization() {
+        return organization;
     }
 
-    @Override
-    public String toString() {
-        return "PriceCategory{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                '}';
+    public void setOrganization(Organization organization) {
+        this.organization = organization;
+    }
+
+    public boolean isNew() {
+        return id == null;
     }
 }

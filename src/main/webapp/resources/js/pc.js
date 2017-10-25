@@ -13,11 +13,11 @@ function getAdditionalJSON() {
 }
 
 function createJSON() {
-    var priceCategory = {};
-    priceCategory.id = form.find("input[name='id']").val();
-    priceCategory.name = form.find("input[name='name']").val();
-    priceCategory.description = form.find("input[name='description']").val();
-    return JSON.stringify(priceCategory);
+    var priceCategoryTo = {};
+    priceCategoryTo.id = form.find("input[name='id']").val();
+    priceCategoryTo.name = form.find("input[name='name']").val();
+    priceCategoryTo.description = form.find("input[name='description']").val();
+    return JSON.stringify(priceCategoryTo);
 }
 
 $(function () {
@@ -31,6 +31,9 @@ $(function () {
         "columns": [
             {
                 "data": "id"
+            },
+            {
+                "data": "organizationName"
             },
             {
                 "data": "name"

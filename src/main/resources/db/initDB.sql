@@ -84,29 +84,31 @@ CREATE TABLE products
 CREATE TABLE price_categories
 (
   id         INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
-  name       VARCHAR NOT NULL,
-  description      VARCHAR NOT NULL
-);
-
-CREATE TABLE prices
-(
-  id         INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   org_id      INTEGER NOT NULL,
-  pc_id      INTEGER NOT NULL,
-  date    DATE NOT NULL,
-  FOREIGN KEY (org_id) REFERENCES organizations (id),
-  FOREIGN KEY (pc_id) REFERENCES price_categories (id)
+  name       VARCHAR NOT NULL,
+  description      VARCHAR NOT NULL,
+  FOREIGN KEY (org_id) REFERENCES organizations (id)
 );
 
-CREATE TABLE price_product
-(
-  id         INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
-  price_id      INTEGER NOT NULL,
-  product_id      INTEGER NOT NULL,
-  value      REAL NOT NULL,
-  FOREIGN KEY (price_id) REFERENCES prices (id) ON DELETE CASCADE,
-  FOREIGN KEY (product_id) REFERENCES products (id)
-);
+-- CREATE TABLE prices
+-- (
+--   id         INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+--   org_id      INTEGER NOT NULL,
+--   pc_id      INTEGER NOT NULL,
+--   date    DATE NOT NULL,
+--   FOREIGN KEY (org_id) REFERENCES organizations (id),
+--   FOREIGN KEY (pc_id) REFERENCES price_categories (id)
+-- );
+--
+-- CREATE TABLE price_product
+-- (
+--   id         INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+--   price_id      INTEGER NOT NULL,
+--   product_id      INTEGER NOT NULL,
+--   value      REAL NOT NULL,
+--   FOREIGN KEY (price_id) REFERENCES prices (id) ON DELETE CASCADE,
+--   FOREIGN KEY (product_id) REFERENCES products (id)
+-- );
 
 CREATE TABLE clients
 (
@@ -114,80 +116,84 @@ CREATE TABLE clients
   name       VARCHAR NOT NULL,
   full_name       VARCHAR NOT NULL,
   inn        BIGINT NOT NULL,
-  address    VARCHAR NOT NULL,
-  pc_id      INTEGER NOT NULL,
-  FOREIGN KEY (pc_id) REFERENCES price_categories (id)
+  address    VARCHAR NOT NULL
 );
 
-CREATE TABLE orders
+CREATE TABLE contracts
 (
   id         INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   org_id      INTEGER NOT NULL,
   cli_id      INTEGER NOT NULL,
-  total        REAL NOT NULL,
-  date    DATE NOT NULL,
-  time    TIME NOT NULL,
+  pc_id      INTEGER NOT NULL,
   FOREIGN KEY (org_id) REFERENCES organizations (id),
-  FOREIGN KEY (cli_id) REFERENCES clients (id)
+  FOREIGN KEY (cli_id) REFERENCES clients (id),
+  FOREIGN KEY (pc_id) REFERENCES price_categories (id)
 );
 
-CREATE TABLE order_product
-(
-  id         INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
-  order_id      INTEGER NOT NULL,
-  product_id      INTEGER NOT NULL,
-  cost        REAL NOT NULL,
-  amount        REAL NOT NULL,
-  FOREIGN KEY (order_id) REFERENCES orders (id) ON DELETE CASCADE,
-  FOREIGN KEY (product_id) REFERENCES products (id)
-);
-
-CREATE TABLE productions
-(
-  id         INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
-  org_id      INTEGER NOT NULL,
-  date    DATE NOT NULL,
-  time    TIME NOT NULL,
-  FOREIGN KEY (org_id) REFERENCES organizations (id)
-);
-
-CREATE TABLE production_product
-(
-  id         INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
-  production_id      INTEGER NOT NULL,
-  product_id      INTEGER NOT NULL,
-  amount        REAL NOT NULL,
-  FOREIGN KEY (production_id) REFERENCES productions (id) ON DELETE CASCADE,
-  FOREIGN KEY (product_id) REFERENCES products (id)
-);
-
-CREATE TABLE balance
-(
-  product_id       INT NOT NULL PRIMARY KEY,
-  amount        REAL NOT NULL,
-  FOREIGN KEY (product_id) REFERENCES products (id)
-);
-
-CREATE FUNCTION update_balance() RETURNS TRIGGER AS $$
-BEGIN
-  DELETE FROM balance;
-  INSERT INTO balance
-    (SELECT T1.product_id, SUM(T1.amount) FROM
-      (SELECT product_id, amount FROM production_product UNION ALL SELECT product_id, -amount FROM order_product)
-        AS T1 GROUP BY T1.product_id ORDER BY T1.product_id);
-  RETURN NULL;
-END;
-$$ LANGUAGE plpgsql;
-
-CREATE TRIGGER tr
-AFTER INSERT OR UPDATE OR DELETE ON production_product
-FOR EACH STATEMENT EXECUTE PROCEDURE update_balance();
-
-CREATE TRIGGER tr
-AFTER INSERT OR UPDATE OR DELETE ON order_product
-FOR EACH STATEMENT EXECUTE PROCEDURE update_balance();
-
-
-
-
-
+-- CREATE TABLE orders
+-- (
+--   id         INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+--   org_id      INTEGER NOT NULL,
+--   cli_id      INTEGER NOT NULL,
+--   total        REAL NOT NULL,
+--   date    DATE NOT NULL,
+--   time    TIME NOT NULL,
+--   FOREIGN KEY (org_id) REFERENCES organizations (id),
+--   FOREIGN KEY (cli_id) REFERENCES clients (id)
+-- );
+--
+-- CREATE TABLE order_product
+-- (
+--   id         INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+--   order_id      INTEGER NOT NULL,
+--   product_id      INTEGER NOT NULL,
+--   cost        REAL NOT NULL,
+--   amount        REAL NOT NULL,
+--   FOREIGN KEY (order_id) REFERENCES orders (id) ON DELETE CASCADE,
+--   FOREIGN KEY (product_id) REFERENCES products (id)
+-- );
+--
+-- CREATE TABLE productions
+-- (
+--   id         INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+--   org_id      INTEGER NOT NULL,
+--   date    DATE NOT NULL,
+--   time    TIME NOT NULL,
+--   FOREIGN KEY (org_id) REFERENCES organizations (id)
+-- );
+--
+-- CREATE TABLE production_product
+-- (
+--   id         INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+--   production_id      INTEGER NOT NULL,
+--   product_id      INTEGER NOT NULL,
+--   amount        REAL NOT NULL,
+--   FOREIGN KEY (production_id) REFERENCES productions (id) ON DELETE CASCADE,
+--   FOREIGN KEY (product_id) REFERENCES products (id)
+-- );
+--
+-- CREATE TABLE balance
+-- (
+--   product_id       INT NOT NULL PRIMARY KEY,
+--   amount        REAL NOT NULL,
+--   FOREIGN KEY (product_id) REFERENCES products (id)
+-- );
+--
+-- CREATE FUNCTION update_balance() RETURNS TRIGGER AS $$
+-- BEGIN
+--   DELETE FROM balance;
+--   INSERT INTO balance
+--     (SELECT T1.product_id, SUM(T1.amount) FROM
+--       (SELECT product_id, amount FROM production_product UNION ALL SELECT product_id, -amount FROM order_product)
+--         AS T1 GROUP BY T1.product_id ORDER BY T1.product_id);
+--   RETURN NULL;
+-- END;
+-- $$ LANGUAGE plpgsql;
+--
+-- CREATE TRIGGER tr
+-- AFTER INSERT OR UPDATE OR DELETE ON production_product
+-- FOR EACH STATEMENT EXECUTE PROCEDURE update_balance();
+--
+-- CREATE TRIGGER tr
+-- AFTER INSERT OR UPDATE OR DELETE ON order_product
+-- FOR EACH STATEMENT EXECUTE PROCEDURE update_balance();

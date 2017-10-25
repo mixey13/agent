@@ -27,4 +27,12 @@ public class AuthorizedUser extends org.springframework.security.core.userdetail
     public static AuthorizedUser get() {
         return safeGet();
     }
+
+    public BaseUser getBaseUser() {
+        return baseUser;
+    }
+
+    public void setBaseUser(BaseUser baseUser) {
+        this.baseUser = baseUser;
+    }
 }

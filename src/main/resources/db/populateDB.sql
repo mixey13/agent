@@ -1,8 +1,8 @@
-DELETE FROM user_roles;
-DELETE FROM products;
-DELETE FROM users;
-DELETE FROM price_categories;
-DELETE FROM prices;
+-- DELETE FROM user_roles;
+-- DELETE FROM products;
+-- DELETE FROM users;
+-- DELETE FROM price_categories;
+-- DELETE FROM prices;
 ALTER SEQUENCE global_seq RESTART WITH 100000;
 
 INSERT INTO admins (name, password) VALUES
@@ -12,28 +12,35 @@ INSERT INTO admin_roles (role, admin_id) VALUES
   ('ROLE_ROOT', 100000);
 
 INSERT INTO organizations (name, full_name, inn, address) VALUES
-  ('ООО "Рога и Копыта"', 'Общество с ограниченной ответственностью "Рога и Копыта"', 8888888888, 'г.Нижний Новгород');
+  ('ООО "Мясокомбинат"', 'Общество с ограниченной ответственностью "Мясокомбинат"', 8888888888, 'г.Нижний Новгород'),
+  ('ООО "Хлебзавод"', 'Общество с ограниченной ответственностью "Хлебзавод"', 9999999999, 'г.Нижний Новгород');
 
 INSERT INTO users (org_id, name, password) VALUES
-  (100001, 'admin', '123'),
-  (100001, 'operator', '123'),
-  (100001, 'agent', '123');
+  (100001, 'admin', 'admin'),
+  (100001, 'operator', 'operator'),
+  (100001, 'agent', 'agent'),
+  (100002, 'user', 'user');
 
 INSERT INTO user_roles (role, user_id) VALUES
-  ('ROLE_ADMIN', 100002),
-  ('ROLE_OPERATOR', 100003),
-  ('ROLE_AGENT', 100004);
+  ('ROLE_ADMIN', 100003),
+  ('ROLE_OPERATOR', 100004),
+  ('ROLE_AGENT', 100005),
+  ('ROLE_ADMIN', 100006),
+  ('ROLE_OPERATOR', 100006),
+  ('ROLE_AGENT', 100006);
 
--- INSERT INTO products (org_id, title, description) VALUES
---   (100001, 'Колбаса', 'Описание колбасы'),
---   (100001, 'Ветчина', 'Описание ветчины'),
---   (100001, 'Сосиски', 'Описание сосисок');
---
--- INSERT INTO price_categories (name, description) VALUES
---   ('ИП', 'Прайс для индивидуального предпринимателя'),
---   ('ЮЛ', 'Прайс для юридического лица');
---
---
+INSERT INTO products (org_id, title, description) VALUES
+  (100001, 'Колбаса', 'Описание колбасы'),
+  (100001, 'Ветчина', 'Описание ветчины'),
+  (100001, 'Сосиски', 'Описание сосисок'),
+  (100002, 'Хлеб', 'Хлеб ржаной'),
+  (100002, 'Пирог', 'Пирог с мясом');
+
+INSERT INTO price_categories (org_id, name, description) VALUES
+  (100001, 'ИП', 'Прайс для индивидуального предпринимателя'),
+  (100001, 'ЮЛ', 'Прайс для юридического лица'),
+  (100002, 'Базовый', 'Базовый прайс');
+
 -- INSERT INTO prices (org_id, pc_id, date) VALUES
 --   (100001, 100008, '2017-08-20'),
 --   (100001, 100008, '2017-09-20'),

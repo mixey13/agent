@@ -40,9 +40,10 @@
             </div>
         </c:if>
         <button type="submit" class="btn btn-lg btn-primary" onclick="setCredentials('root', 'root')">ROOT</button>
-        <button type="submit" class="btn btn-lg btn-primary" onclick="setCredentials('admin', '123')">Администратор</button>
-        <button type="submit" class="btn btn-lg btn-primary" onclick="setCredentials('operator', '123')">Оператор</button>
-        <button type="submit" class="btn btn-lg btn-primary" onclick="setCredentials('agent', '123')">Агент</button>
+        <button type="submit" class="btn btn-lg btn-primary" onclick="setCredentials('admin', 'admin')">Администратор</button>
+        <button type="submit" class="btn btn-lg btn-primary" onclick="setCredentials('operator', 'operator')">Оператор</button>
+        <button type="submit" class="btn btn-lg btn-primary" onclick="setCredentials('agent', 'agent')">Агент</button>
+        <button type="submit" class="btn btn-lg btn-primary" onclick="setCredentials('user', 'user')">Пользователь</button>
     </div>
 </div>
 

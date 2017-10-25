@@ -41,6 +41,11 @@ public class JpaPriceCategoryRepository {
         return query.getResultList();
     }
 
+    public List<PriceCategory> getAllByOrganization(Integer org) {
+        TypedQuery<PriceCategory> query = em.createQuery("SELECT pc FROM PriceCategory pc LEFT JOIN FETCH pc.organization WHERE pc.organization.id=:org", PriceCategory.class);
+        return query.setParameter("org", org).getResultList();
+    }
+
     public PriceCategory getRef(Integer id) {
         return em.getReference(PriceCategory.class, id);
     }
