@@ -10,22 +10,14 @@ function updateRow(id) {
 }
 
 function getAdditionalJSON() {
-    $.getJSON('ajax/organizations/', function (data) {
-        var option = '';
-        $.each(data, function (key, value) {
-            option += '<option value="' + value.id + '">' + value.name + '</option>';
-        });
-        $('#dropdownOrg').empty().append(option).val("");
-    });
 }
 
 function createJSON() {
-    var product = {};
-    product.id = form.find("input[name='id']").val();
-    product.organization = form.find("select[name='organization']").val();
-    product.title = form.find("input[name='title']").val();
-    product.description = form.find("input[name='description']").val();
-    return JSON.stringify(product);
+    var productTo = {};
+    productTo.id = form.find("input[name='id']").val();
+    productTo.title = form.find("input[name='title']").val();
+    productTo.description = form.find("input[name='description']").val();
+    return JSON.stringify(productTo);
 }
 
 $(function () {

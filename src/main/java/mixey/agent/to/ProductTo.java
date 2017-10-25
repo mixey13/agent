@@ -8,8 +8,6 @@ import java.util.List;
 public class ProductTo {
     private Integer id;
 
-    private Integer organization;
-
     private String organizationName;
 
     private String title;
@@ -19,16 +17,15 @@ public class ProductTo {
     public ProductTo() {
     }
 
-    public ProductTo(Integer id, Integer organization, String organizationName, String title, String description) {
+    public ProductTo(Integer id, String organizationName, String title, String description) {
         this.id = id;
-        this.organization = organization;
         this.organizationName = organizationName;
         this.title = title;
         this.description = description;
     }
 
     public static ProductTo asTo(Product product) {
-        return new ProductTo(product.getId(), product.getOrganization().getId(), product.getOrganization().getName(), product.getTitle(), product.getDescription());
+        return new ProductTo(product.getId(), product.getOrganization().getName(), product.getTitle(), product.getDescription());
     }
 
     public static List<ProductTo> listAsTo(List<Product> list) {
@@ -45,14 +42,6 @@ public class ProductTo {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Integer getOrganization() {
-        return organization;
-    }
-
-    public void setOrganization(Integer organization) {
-        this.organization = organization;
     }
 
     public String getOrganizationName() {

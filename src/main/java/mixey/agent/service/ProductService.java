@@ -1,6 +1,8 @@
 package mixey.agent.service;
 
+import mixey.agent.AuthorizedUser;
 import mixey.agent.model.Product;
+import mixey.agent.model.User;
 import mixey.agent.repository.jpa.JpaOrganizationRepository;
 import mixey.agent.repository.jpa.JpaProductRepository;
 import mixey.agent.to.ProductTo;
@@ -13,12 +15,11 @@ import java.util.List;
 public class ProductService{
     @Autowired
     private JpaProductRepository productRepository;
-    @Autowired
-    private JpaOrganizationRepository organizationRepository;
 
     public Product save(ProductTo productTo) {
         Product product = new Product(productTo.getId(), productTo.getTitle(), productTo.getDescription());
-        product.setOrganization(organizationRepository.getRef(productTo.getOrganization()));
+        User user = (User) AuthorizedUser.get().getBaseUser();
+        product.setOrganization(user.getOrganization());
         return productRepository.save(product);
     }
 
@@ -35,10 +36,7 @@ public class ProductService{
     }
 
     public List<ProductTo> getAll() {
-        return ProductTo.listAsTo(productRepository.getAll());
-    }
-
-    public List<ProductTo> getAllByOrganization(Integer id) {
-        return ProductTo.listAsTo(productRepository.getAllByOrganization(id));
+        User user = (User) AuthorizedUser.get().getBaseUser();
+        return ProductTo.listAsTo(productRepository.getAllByOrganization(user.getOrganization().getId()));
     }
 }

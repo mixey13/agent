@@ -20,15 +20,9 @@ public class ProductAjaxController {
         return service.get(id);
     }
 
-
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<ProductTo> getAll() {
         return service.getAll();
-    }
-
-    @RequestMapping(value = "/org/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<ProductTo> getAllByOrganization(@PathVariable("id") Integer id) {
-        return service.getAllByOrganization(id);
     }
 
     @RequestMapping(method = RequestMethod.POST)
