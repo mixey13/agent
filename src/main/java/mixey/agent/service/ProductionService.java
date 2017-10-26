@@ -1,9 +1,9 @@
 package mixey.agent.service;
 
+import mixey.agent.AuthorizedUser;
 import mixey.agent.model.Product;
 import mixey.agent.model.Production;
 import mixey.agent.model.ProductionProduct;
-import mixey.agent.repository.jpa.JpaOrganizationRepository;
 import mixey.agent.repository.jpa.JpaProductRepository;
 import mixey.agent.repository.jpa.JpaProductionRepository;
 import mixey.agent.to.ProductionProductTo;
@@ -22,13 +22,11 @@ public class ProductionService {
     @Autowired
     private JpaProductionRepository productionRepository;
     @Autowired
-    private JpaOrganizationRepository organizationRepository;
-    @Autowired
     private JpaProductRepository productRepository;
 
     public Production save(ProductionTo productionTo) {
         Production production = new Production(productionTo.getId(), LocalDate.parse(productionTo.getDate()), LocalTime.parse(productionTo.getTime()));
-        production.setOrganization(organizationRepository.getRef(productionTo.getOrganization()));
+        production.setOrganization(AuthorizedUser.getOrganization());
         Set<ProductionProduct> productionProducts = new HashSet<>();
         for(ProductionProductTo productionProductTo : productionTo.getProductionProductTos()) {
             Product product = productRepository.getRef(productionProductTo.getProduct());
@@ -49,6 +47,6 @@ public class ProductionService {
     }
 
     public List<ProductionTo> getAll() {
-        return ProductionTo.listAsTo(productionRepository.getAll());
+        return ProductionTo.listAsTo(productionRepository.getAllByOrganization(AuthorizedUser.getOrganization().getId()));
     }
 }

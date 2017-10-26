@@ -31,38 +31,20 @@ function updateRow(id) {
 }
 
 function getAdditionalJSON() {
-    $('#productsTable').empty();
-    $.getJSON('ajax/organizations/', function (data) {
-        var option = '';
+    $.getJSON('ajax/products/', function (data) {
+        var prod = [];
         $.each(data, function (key, value) {
-            option += '<option value="' + value.id + '">' + value.name + '</option>';
+            prod.push(value);
         });
-        $('#dropdownOrg').empty().append(option).val("");
+        var td = '<thead><tr><th>Наименование</th><th>Количество</th></tr></thead>';
+        for(var i = 0; i < prod.length; i++) {
+            td += '<tr class="productionProductTos" id="' + prod[i].id + '">';
+            td += '<td>' + prod[i].title + '</td>';
+            td += '<td><input type="text" class="form-control" name="amount"></td>';
+            td += '</tr>';
+        }
+        $('#productsTable').empty().append(td);
     });
-}
-
-$('#dropdownOrg').change(function () {
-    getProducts();
-});
-
-function getProducts() {
-    var org = form.find("select[name='organization']").val();
-    if(org != null) {
-        $.getJSON('ajax/products/org/' + org, function (data) {
-            var prod = [];
-            $.each(data, function (key, value) {
-                prod.push(value);
-            });
-            var td = '<thead><tr><th>Наименование</th><th>Количество</th></tr></thead>';
-            for(var i = 0; i < prod.length; i++) {
-                td += '<tr class="productionProductTos" id="' + prod[i].id + '">';
-                td += '<td>' + prod[i].title + '</td>';
-                td += '<td><input type="text" class="form-control" name="amount"></td>';
-                td += '</tr>';
-            }
-            $('#productsTable').empty().append(td);
-        });
-    }
 }
 
 function createJSON() {

@@ -9,8 +9,6 @@ import java.util.List;
 public class ProductionTo {
     private Integer id;
 
-    private Integer organization;
-
     private String organizationName;
 
     private String date;
@@ -22,13 +20,12 @@ public class ProductionTo {
     public ProductionTo() {
     }
 
-    public ProductionTo(Integer id, Integer organization, String organizationName, String date, String time) {
-        this(id, organization, organizationName, date, time, null);
+    public ProductionTo(Integer id, String organizationName, String date, String time) {
+        this(id, organizationName, date, time, null);
     }
 
-    public ProductionTo(Integer id, Integer organization, String organizationName, String date, String time, List<ProductionProductTo> productionProductTos) {
+    public ProductionTo(Integer id, String organizationName, String date, String time, List<ProductionProductTo> productionProductTos) {
         this.id = id;
-        this.organization = organization;
         this.organizationName = organizationName;
         this.date = date;
         this.time = time;
@@ -36,7 +33,7 @@ public class ProductionTo {
     }
 
     public static ProductionTo asTo(Production production) {
-        return new ProductionTo(production.getId(), production.getOrganization().getId(), production.getOrganization().getName(), production.getDate().toString(), production.getTime().toString());
+        return new ProductionTo(production.getId(), production.getOrganization().getName(), production.getDate().toString(), production.getTime().toString());
     }
 
     public static ProductionTo asToFull(Production production) {
@@ -64,14 +61,6 @@ public class ProductionTo {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Integer getOrganization() {
-        return organization;
-    }
-
-    public void setOrganization(Integer organization) {
-        this.organization = organization;
     }
 
     public String getOrganizationName() {
