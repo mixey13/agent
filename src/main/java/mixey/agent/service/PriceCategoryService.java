@@ -2,7 +2,6 @@ package mixey.agent.service;
 
 import mixey.agent.AuthorizedUser;
 import mixey.agent.model.PriceCategory;
-import mixey.agent.model.User;
 import mixey.agent.repository.jpa.JpaPriceCategoryRepository;
 import mixey.agent.to.PriceCategoryTo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +16,7 @@ public class PriceCategoryService {
 
     public PriceCategory save(PriceCategoryTo priceCategoryTo) {
         PriceCategory priceCategory = new PriceCategory(priceCategoryTo.getId(), priceCategoryTo.getName(), priceCategoryTo.getDescription());
-        User user = (User)AuthorizedUser.get().getBaseUser();
-        priceCategory.setOrganization(user.getOrganization());
+        priceCategory.setOrganization(AuthorizedUser.getOrganization());
         return repository.save(priceCategory);
     }
 
@@ -35,7 +33,6 @@ public class PriceCategoryService {
     }
 
     public List<PriceCategoryTo> getAll() {
-        User user = (User)AuthorizedUser.get().getBaseUser();
-        return PriceCategoryTo.listAsTo(repository.getAllByOrganization(user.getOrganization().getId()));
+        return PriceCategoryTo.listAsTo(repository.getAllByOrganization(AuthorizedUser.getOrganization().getId()));
     }
 }

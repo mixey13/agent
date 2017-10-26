@@ -2,8 +2,6 @@ package mixey.agent.service;
 
 import mixey.agent.AuthorizedUser;
 import mixey.agent.model.Product;
-import mixey.agent.model.User;
-import mixey.agent.repository.jpa.JpaOrganizationRepository;
 import mixey.agent.repository.jpa.JpaProductRepository;
 import mixey.agent.to.ProductTo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +16,7 @@ public class ProductService{
 
     public Product save(ProductTo productTo) {
         Product product = new Product(productTo.getId(), productTo.getTitle(), productTo.getDescription());
-        User user = (User) AuthorizedUser.get().getBaseUser();
-        product.setOrganization(user.getOrganization());
+        product.setOrganization(AuthorizedUser.getOrganization());
         return productRepository.save(product);
     }
 
@@ -36,7 +33,6 @@ public class ProductService{
     }
 
     public List<ProductTo> getAll() {
-        User user = (User) AuthorizedUser.get().getBaseUser();
-        return ProductTo.listAsTo(productRepository.getAllByOrganization(user.getOrganization().getId()));
+        return ProductTo.listAsTo(productRepository.getAllByOrganization(AuthorizedUser.getOrganization().getId()));
     }
 }

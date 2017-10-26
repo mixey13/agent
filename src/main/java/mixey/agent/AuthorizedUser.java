@@ -1,6 +1,8 @@
 package mixey.agent;
 
 import mixey.agent.model.BaseUser;
+import mixey.agent.model.Organization;
+import mixey.agent.model.User;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -34,5 +36,10 @@ public class AuthorizedUser extends org.springframework.security.core.userdetail
 
     public void setBaseUser(BaseUser baseUser) {
         this.baseUser = baseUser;
+    }
+
+    public static Organization getOrganization() {
+        User user = (User)get().getBaseUser();
+        return user.getOrganization();
     }
 }
