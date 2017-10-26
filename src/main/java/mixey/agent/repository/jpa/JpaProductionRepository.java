@@ -38,7 +38,11 @@ public class JpaProductionRepository {
 
     public List<Production> getAll() {
         TypedQuery<Production> query = em.createQuery("SELECT prod FROM Production prod", Production.class);
-        List<Production> list = query.getResultList();
-        return list;
+        return query.getResultList();
+    }
+
+    public List<Production> getAllByOrganization(Integer org) {
+        TypedQuery<Production> query = em.createQuery("SELECT prod FROM Production prod LEFT JOIN FETCH prod.organization WHERE prod.organization.id=:org", Production.class);
+        return query.setParameter("org", org).getResultList();
     }
 }
