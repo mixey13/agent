@@ -46,4 +46,9 @@ public class JpaPriceRepository {
         TypedQuery<Price> query = em.createQuery("SELECT pr FROM Price pr", Price.class);
         return query.getResultList();
     }
+
+    public List<Price> getAllByOrganization(Integer org) {
+        TypedQuery<Price> query = em.createQuery("SELECT pr FROM Price pr LEFT JOIN FETCH pr.organization WHERE pr.organization.id=:org", Price.class);
+        return query.setParameter("org", org).getResultList();
+    }
 }

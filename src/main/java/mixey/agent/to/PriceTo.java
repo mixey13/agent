@@ -8,8 +8,6 @@ import java.util.*;
 public class PriceTo {
     private Integer id;
 
-    private Integer organization;
-
     private String organizationName;
 
     private Integer priceCategory;
@@ -23,13 +21,12 @@ public class PriceTo {
     public PriceTo() {
     }
 
-    public PriceTo(Integer id, Integer organization, String organizationName, Integer priceCategory, String priceCategoryName, String date) {
-        this(id, organization, organizationName, priceCategory, priceCategoryName, date, null);
+    public PriceTo(Integer id, String organizationName, Integer priceCategory, String priceCategoryName, String date) {
+        this(id, organizationName, priceCategory, priceCategoryName, date, null);
     }
 
-    public PriceTo(Integer id, Integer organization, String organizationName, Integer priceCategory, String priceCategoryName, String date, List<PriceProductTo> priceProductTos) {
+    public PriceTo(Integer id, String organizationName, Integer priceCategory, String priceCategoryName, String date, List<PriceProductTo> priceProductTos) {
         this.id = id;
-        this.organization = organization;
         this.organizationName = organizationName;
         this.priceCategory = priceCategory;
         this.priceCategoryName = priceCategoryName;
@@ -38,7 +35,7 @@ public class PriceTo {
     }
 
     public static PriceTo asTo(Price price) {
-        return new PriceTo(price.getId(), price.getOrganization().getId(), price.getOrganization().getName(), price.getPriceCategory().getId(), price.getPriceCategory().getName(), price.getDate().toString());
+        return new PriceTo(price.getId(), price.getOrganization().getName(), price.getPriceCategory().getId(), price.getPriceCategory().getName(), price.getDate().toString());
     }
 
     public static PriceTo asToFull(Price price) {
@@ -66,14 +63,6 @@ public class PriceTo {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Integer getOrganization() {
-        return organization;
-    }
-
-    public void setOrganization(Integer organization) {
-        this.organization = organization;
     }
 
     public String getOrganizationName() {

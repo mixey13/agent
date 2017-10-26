@@ -19,10 +19,10 @@ public class PriceAjaxController {
         return service.get(id);
     }
 
-    @RequestMapping(value = "/{cli}/{date}/{org}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public PriceTo getByDate(@PathVariable("cli") Integer cli, @PathVariable("date") String date, @PathVariable("org") Integer org) {
-        return service.get(cli, date, org);
-    }
+//    @RequestMapping(value = "/{cli}/{date}/{org}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+//    public PriceTo getByDate(@PathVariable("cli") Integer cli, @PathVariable("date") String date) {
+//        return service.get(cli, date);
+//    }
 
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<PriceTo> getAll() {

@@ -90,25 +90,25 @@ CREATE TABLE price_categories
   FOREIGN KEY (org_id) REFERENCES organizations (id)
 );
 
--- CREATE TABLE prices
--- (
---   id         INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
---   org_id      INTEGER NOT NULL,
---   pc_id      INTEGER NOT NULL,
---   date    DATE NOT NULL,
---   FOREIGN KEY (org_id) REFERENCES organizations (id),
---   FOREIGN KEY (pc_id) REFERENCES price_categories (id)
--- );
---
--- CREATE TABLE price_product
--- (
---   id         INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
---   price_id      INTEGER NOT NULL,
---   product_id      INTEGER NOT NULL,
---   value      REAL NOT NULL,
---   FOREIGN KEY (price_id) REFERENCES prices (id) ON DELETE CASCADE,
---   FOREIGN KEY (product_id) REFERENCES products (id)
--- );
+CREATE TABLE prices
+(
+  id         INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+  org_id      INTEGER NOT NULL,
+  pc_id      INTEGER NOT NULL,
+  date    DATE NOT NULL,
+  FOREIGN KEY (org_id) REFERENCES organizations (id),
+  FOREIGN KEY (pc_id) REFERENCES price_categories (id)
+);
+
+CREATE TABLE price_product
+(
+  id         INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+  price_id      INTEGER NOT NULL,
+  product_id      INTEGER NOT NULL,
+  value      REAL NOT NULL,
+  FOREIGN KEY (price_id) REFERENCES prices (id) ON DELETE CASCADE,
+  FOREIGN KEY (product_id) REFERENCES products (id)
+);
 
 CREATE TABLE clients
 (

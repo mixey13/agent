@@ -1,5 +1,6 @@
 package mixey.agent.service;
 
+import mixey.agent.AuthorizedUser;
 import mixey.agent.model.Price;
 import mixey.agent.model.PriceProduct;
 import mixey.agent.model.Product;
@@ -21,15 +22,13 @@ public class PriceService {
     @Autowired
     private JpaPriceCategoryRepository priceCategoryRepository;
     @Autowired
-    private JpaOrganizationRepository organizationRepository;
-    @Autowired
     private JpaClientRepository clientRepository;
     @Autowired
     private JpaProductRepository productRepository;
 
     public Price save(PriceTo priceTo) {
         Price price = new Price(priceTo.getId(), LocalDate.parse(priceTo.getDate()));
-        price.setOrganization(organizationRepository.getRef(priceTo.getOrganization()));
+        price.setOrganization(AuthorizedUser.getOrganization());
         price.setPriceCategory(priceCategoryRepository.getRef(priceTo.getPriceCategory()));
         Set<PriceProduct> priceProducts = new HashSet<>();
         for(PriceProductTo priceProductTo : priceTo.getPriceProductTos()) {
@@ -54,12 +53,12 @@ public class PriceService {
         return PriceTo.asToFull(priceRepository.get(id));
     }
 
-    public PriceTo get(Integer cli, String date, Integer org) {
-        Integer pc = clientRepository.get(cli).getPriceCategory().getId();
-        return PriceTo.asToFull(priceRepository.get(pc, LocalDate.parse(date), org));
-    }
+//    public PriceTo get(Integer cli, String date) {
+//        Integer pc = clientRepository.get(cli).getPriceCategory().getId();
+//        return PriceTo.asToFull(priceRepository.get(pc, LocalDate.parse(date), org));
+//    }
 
     public List<PriceTo> getAll() {
-        return PriceTo.listAsTo(priceRepository.getAll());
+        return PriceTo.listAsTo(priceRepository.getAllByOrganization(AuthorizedUser.getOrganization().getId()));
     }
 }
