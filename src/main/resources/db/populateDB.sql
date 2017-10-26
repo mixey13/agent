@@ -65,6 +65,14 @@ INSERT INTO clients (name, full_name, inn, address) VALUES
   ('ИП Иванов И.И.', 'Индивидуальный предприниматель Иванов Иван Иванович', 111111111111, 'г.Нижний Новгород'),
   ('ООО "Маг"', 'Общество с ограниченной ответственностью Магазин', 2222222222, 'г.Нижний Новгород');
 
+INSERT INTO productions (org_id, date, time) VALUES
+  (100001, '2017-08-28', '10:00');
+
+INSERT INTO production_product (production_id, product_id, amount) VALUES
+  (100033, 100007, 5),
+  (100033, 100008, 5),
+  (100033, 100009, 5);
+
 -- INSERT INTO orders (org_id, cli_id, total, date, time) VALUES
 --   (100003, 100025, 750, '2017-08-28', '12:00:00');
 --
@@ -72,11 +80,3 @@ INSERT INTO clients (name, full_name, inn, address) VALUES
 --   (100027, 100004, 150, 3),
 --   (100027, 100005, 180, 1),
 --   (100027, 100006, 120, 1);
---
--- INSERT INTO productions (org_id, date, time) VALUES
---   (100003, '2017-08-28', '10:00');
---
--- INSERT INTO production_product (production_id, product_id, amount) VALUES
---   (100031, 100004, 5),
---   (100031, 100005, 5),
---   (100031, 100006, 5);
