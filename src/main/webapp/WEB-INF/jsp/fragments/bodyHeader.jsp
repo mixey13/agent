@@ -9,19 +9,22 @@
         <div class="navbar-header">
             <a class="navbar-brand" href="start">Приложение торгового представителя</a>
             <ul class="nav navbar-nav">
-                <sec:authorize access="hasRole('ROLE_ROOT')">
-                    <li><a href="/admins">Администраторы</a></li>
-                    <li><a href="/organizations">Организации</a></li>
-                </sec:authorize>
-
-                <sec:authorize access="hasRole('ROLE_OPERATOR')">
+                <sec:authorize access="hasAnyRole('ROLE_ROOT', 'ROLE_ADMIN', 'ROLE_OPERATOR')">
                     <li class="dropdown">
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">Справочники<b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/products">Продукты</a></li>
-                            <li><a class="dropdown-item" href="/contracts">Контракты</a></li>
-                            <li><a class="dropdown-item" href="/clients">Клиенты</a></li>
-                            <li><a class="dropdown-item" href="/pc">Категории прайс-листов</a></li>
+                            <sec:authorize access="hasRole('ROLE_ROOT')">
+                                <li><a class="dropdown-item" href="/admins">Администраторы</a></li>
+                                <li><a class="dropdown-item" href="/organizations">Организации</a></li>
+                                <li><a class="dropdown-item" href="/clients">Клиенты</a></li>
+                            </sec:authorize>
+                            <sec:authorize access="hasAnyRole('ROLE_ROOT', 'ROLE_ADMIN')">
+                                <li><a class="dropdown-item" href="/users">Пользователи</a></li>
+                            </sec:authorize>
+                            <sec:authorize access="hasRole('ROLE_OPERATOR')">
+                                <li><a class="dropdown-item" href="/products">Продукты</a></li>
+                                <li><a class="dropdown-item" href="/pc">Категории прайс-листов</a></li>
+                            </sec:authorize>
                         </ul>
                     </li>
                 </sec:authorize>
@@ -31,18 +34,15 @@
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">Документы<b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <sec:authorize access="hasRole('ROLE_OPERATOR')">
-                                <li><a href="/prices">Прайс-листы</a></li>
-                                <li><a href="/productions">Выходы продукции</a></li>
+                                <li><a class="dropdown-item" href="/contracts">Контракты</a></li>
+                                <li><a class="dropdown-item" href="/prices">Прайс-листы</a></li>
+                                <li><a class="dropdown-item" href="/productions">Выходы продукции</a></li>
                             </sec:authorize>
                             <sec:authorize access="hasRole('ROLE_AGENT')">
-                                <li><a href="/orders">Заказы</a></li>
+                                <li><a class="dropdown-item" href="/orders">Заказы</a></li>
                             </sec:authorize>
                         </ul>
                     </li>
-                </sec:authorize>
-
-                <sec:authorize access="hasAnyRole('ROLE_ROOT', 'ROLE_ADMIN')">
-                    <li><a href="/users">Пользователи</a></li>
                 </sec:authorize>
             </ul>
         </div>
