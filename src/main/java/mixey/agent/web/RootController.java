@@ -51,6 +51,11 @@ public class RootController {
         return "productionList";
     }
 
+    @RequestMapping(value = "/contracts", method = RequestMethod.GET)
+    public String contractList() {
+        return "contractList";
+    }
+
     @RequestMapping(value = "/balance", method = RequestMethod.GET)
     public String balanceList() {
         return "balanceList";

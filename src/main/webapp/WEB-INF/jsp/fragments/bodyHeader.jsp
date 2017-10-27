@@ -19,6 +19,7 @@
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">Справочники<b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="/products">Продукты</a></li>
+                            <li><a class="dropdown-item" href="/contracts">Контракты</a></li>
                             <li><a class="dropdown-item" href="/clients">Клиенты</a></li>
                             <li><a class="dropdown-item" href="/pc">Категории прайс-листов</a></li>
                         </ul>

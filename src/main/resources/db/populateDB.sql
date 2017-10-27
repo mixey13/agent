@@ -73,6 +73,9 @@ INSERT INTO production_product (production_id, product_id, amount) VALUES
   (100033, 100008, 5),
   (100033, 100009, 5);
 
+INSERT INTO contracts (org_id, cli_id, pc_id) VALUES
+  (100001, 100031, 100012);
+
 -- INSERT INTO orders (org_id, cli_id, total, date, time) VALUES
 --   (100003, 100025, 750, '2017-08-28', '12:00:00');
 --

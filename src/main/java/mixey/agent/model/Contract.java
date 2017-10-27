@@ -25,6 +25,10 @@ public class Contract {
     public Contract() {
     }
 
+    public Contract(Integer id) {
+        this.id = id;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -55,5 +59,9 @@ public class Contract {
 
     public void setPriceCategory(PriceCategory priceCategory) {
         this.priceCategory = priceCategory;
+    }
+
+    public boolean isNew() {
+        return id == null;
     }
 }

@@ -20,6 +20,7 @@
         <intercept-url pattern="/pc" access="hasRole('ROLE_OPERATOR')"/>
         <intercept-url pattern="/prices" access="hasRole('ROLE_OPERATOR')"/>
         <intercept-url pattern="/productions" access="hasRole('ROLE_OPERATOR')"/>
+        <intercept-url pattern="/contracts" access="hasRole('ROLE_OPERATOR')"/>
         <intercept-url pattern="/orders" access="hasRole('ROLE_AGENT')"/>
 
         <intercept-url pattern="/**" access="isAuthenticated()"/>
