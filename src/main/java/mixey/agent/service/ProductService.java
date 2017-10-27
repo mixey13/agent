@@ -33,6 +33,6 @@ public class ProductService{
     }
 
     public List<ProductTo> getAll() {
-        return ProductTo.listAsTo(productRepository.getAllByOrganization(AuthorizedUser.getOrganization().getId()));
+        return ProductTo.listAsTo(productRepository.getAllByOrganization(AuthorizedUser.getOrganization()));
     }
 }

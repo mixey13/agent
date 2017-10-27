@@ -1,6 +1,7 @@
 package mixey.agent.repository.jpa;
 
 import mixey.agent.model.Client;
+import mixey.agent.model.Organization;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,6 +40,11 @@ public class JpaClientRepository {
     public List<Client> getAll() {
         TypedQuery<Client> query = em.createQuery("SELECT c FROM Client c", Client.class);
         return query.getResultList();
+    }
+
+    public List<Client> getAllByOrganization(Organization org) {
+        TypedQuery<Client> query = em.createQuery("SELECT cl FROM Client cl JOIN Contract co ON cl=co.client WHERE co.organization=:org", Client.class);
+        return query.setParameter("org", org).getResultList();
     }
 
     public Client getRef(Integer id) {

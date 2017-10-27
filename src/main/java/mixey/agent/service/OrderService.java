@@ -1,5 +1,6 @@
 package mixey.agent.service;
 
+import mixey.agent.AuthorizedUser;
 import mixey.agent.model.Order;
 import mixey.agent.model.OrderProduct;
 import mixey.agent.model.Product;
@@ -23,15 +24,13 @@ public class OrderService {
     @Autowired
     private JpaOrderRepository orderRepository;
     @Autowired
-    private JpaOrganizationRepository organizationRepository;
-    @Autowired
     private JpaClientRepository clientRepository;
     @Autowired
     private JpaProductRepository productRepository;
 
     public Order save(OrderTo orderTo) {
         Order order = new Order(orderTo.getId(), LocalDate.parse(orderTo.getDate()), LocalTime.parse(orderTo.getTime()));
-        order.setOrganization(organizationRepository.getRef(orderTo.getOrganization()));
+        order.setOrganization(AuthorizedUser.getOrganization());
         order.setClient(clientRepository.getRef(orderTo.getClient()));
         Set<OrderProduct> orderProducts = new HashSet<>();
         Double total = 0.0;
@@ -58,6 +57,6 @@ public class OrderService {
     }
 
     public List<OrderTo> getAll() {
-        return OrderTo.listAsTo(orderRepository.getAll());
+        return OrderTo.listAsTo(orderRepository.getAllByOrganization(AuthorizedUser.getOrganization()));
     }
 }

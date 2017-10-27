@@ -149,28 +149,28 @@ CREATE TABLE contracts
   FOREIGN KEY (pc_id) REFERENCES price_categories (id)
 );
 
--- CREATE TABLE orders
--- (
---   id         INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
---   org_id      INTEGER NOT NULL,
---   cli_id      INTEGER NOT NULL,
---   total        REAL NOT NULL,
---   date    DATE NOT NULL,
---   time    TIME NOT NULL,
---   FOREIGN KEY (org_id) REFERENCES organizations (id),
---   FOREIGN KEY (cli_id) REFERENCES clients (id)
--- );
---
--- CREATE TABLE order_product
--- (
---   id         INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
---   order_id      INTEGER NOT NULL,
---   product_id      INTEGER NOT NULL,
---   cost        REAL NOT NULL,
---   amount        REAL NOT NULL,
---   FOREIGN KEY (order_id) REFERENCES orders (id) ON DELETE CASCADE,
---   FOREIGN KEY (product_id) REFERENCES products (id)
--- );
+CREATE TABLE orders
+(
+  id         INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+  org_id      INTEGER NOT NULL,
+  cli_id      INTEGER NOT NULL,
+  total        REAL NOT NULL,
+  date    DATE NOT NULL,
+  time    TIME NOT NULL,
+  FOREIGN KEY (org_id) REFERENCES organizations (id),
+  FOREIGN KEY (cli_id) REFERENCES clients (id)
+);
+
+CREATE TABLE order_product
+(
+  id         INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+  order_id      INTEGER NOT NULL,
+  product_id      INTEGER NOT NULL,
+  cost        REAL NOT NULL,
+  amount        REAL NOT NULL,
+  FOREIGN KEY (order_id) REFERENCES orders (id) ON DELETE CASCADE,
+  FOREIGN KEY (product_id) REFERENCES products (id)
+);
 
 
 

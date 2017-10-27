@@ -1,5 +1,6 @@
 package mixey.agent.repository.jpa;
 
+import mixey.agent.model.Organization;
 import mixey.agent.model.PriceCategory;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,8 +42,8 @@ public class JpaPriceCategoryRepository {
         return query.getResultList();
     }
 
-    public List<PriceCategory> getAllByOrganization(Integer org) {
-        TypedQuery<PriceCategory> query = em.createQuery("SELECT pc FROM PriceCategory pc LEFT JOIN FETCH pc.organization WHERE pc.organization.id=:org", PriceCategory.class);
+    public List<PriceCategory> getAllByOrganization(Organization org) {
+        TypedQuery<PriceCategory> query = em.createQuery("SELECT pc FROM PriceCategory pc LEFT JOIN FETCH pc.organization WHERE pc.organization=:org", PriceCategory.class);
         return query.setParameter("org", org).getResultList();
     }
 

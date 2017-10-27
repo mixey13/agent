@@ -1,6 +1,8 @@
 package mixey.agent.repository.jpa;
 
+import mixey.agent.model.Client;
 import mixey.agent.model.Contract;
+import mixey.agent.model.Organization;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,13 +38,18 @@ public class JpaContractRepository {
         return query.setParameter("id", id).getSingleResult();
     }
 
+    public Contract getByClient(Client cli, Organization org) {
+        TypedQuery<Contract> query = em.createQuery("SELECT c FROM Contract c WHERE c.client=:cli AND c.organization=:org", Contract.class);
+        return query.setParameter("cli", cli).setParameter("org", org).getSingleResult();
+    }
+
     public List<Contract> getAll() {
         TypedQuery<Contract> query = em.createQuery("SELECT c FROM Client c", Contract.class);
         return query.getResultList();
     }
 
-    public List<Contract> getAllByOrganization(Integer org) {
-        TypedQuery<Contract> query = em.createQuery("SELECT c FROM Contract c LEFT JOIN FETCH c.organization WHERE c.organization.id=:org", Contract.class);
+    public List<Contract> getAllByOrganization(Organization org) {
+        TypedQuery<Contract> query = em.createQuery("SELECT c FROM Contract c LEFT JOIN FETCH c.organization WHERE c.organization=:org", Contract.class);
         return query.setParameter("org", org).getResultList();
     }
 }

@@ -41,6 +41,6 @@ public class ContractService {
     }
 
     public List<ContractTo> getAll() {
-        return ContractTo.listAsTo(contractRepository.getAllByOrganization(AuthorizedUser.getOrganization().getId()));
+        return ContractTo.listAsTo(contractRepository.getAllByOrganization(AuthorizedUser.getOrganization()));
     }
 }

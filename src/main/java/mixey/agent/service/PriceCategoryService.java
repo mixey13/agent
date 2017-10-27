@@ -33,6 +33,6 @@ public class PriceCategoryService {
     }
 
     public List<PriceCategoryTo> getAll() {
-        return PriceCategoryTo.listAsTo(repository.getAllByOrganization(AuthorizedUser.getOrganization().getId()));
+        return PriceCategoryTo.listAsTo(repository.getAllByOrganization(AuthorizedUser.getOrganization()));
     }
 }

@@ -9,8 +9,6 @@ import java.util.List;
 public class OrderTo {
     private Integer id;
 
-    private Integer organization;
-
     private String organizationName;
 
     private Integer client;
@@ -28,13 +26,12 @@ public class OrderTo {
     public OrderTo() {
     }
 
-    public OrderTo(Integer id, Integer organization, String organizationName, Integer client, String clientName, Double total, String date, String time) {
-        this(id, organization, organizationName, client, clientName, total, date, time, null);
+    public OrderTo(Integer id, String organizationName, Integer client, String clientName, Double total, String date, String time) {
+        this(id, organizationName, client, clientName, total, date, time, null);
     }
 
-    public OrderTo(Integer id, Integer organization, String organizationName, Integer client, String clientName, Double total, String date, String time, List<OrderProductTo> orderProductTos) {
+    public OrderTo(Integer id, String organizationName, Integer client, String clientName, Double total, String date, String time, List<OrderProductTo> orderProductTos) {
         this.id = id;
-        this.organization = organization;
         this.organizationName = organizationName;
         this.client = client;
         this.clientName = clientName;
@@ -45,7 +42,7 @@ public class OrderTo {
     }
 
     public static OrderTo asTo(Order order) {
-        return new OrderTo(order.getId(), order.getOrganization().getId(), order.getOrganization().getName(), order.getClient().getId(), order.getClient().getName(), order.getTotal(), order.getDate().toString(), order.getTime().toString());
+        return new OrderTo(order.getId(), order.getOrganization().getName(), order.getClient().getId(), order.getClient().getName(), order.getTotal(), order.getDate().toString(), order.getTime().toString());
     }
 
     public static OrderTo asToFull(Order order) {
@@ -73,14 +70,6 @@ public class OrderTo {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Integer getOrganization() {
-        return organization;
-    }
-
-    public void setOrganization(Integer organization) {
-        this.organization = organization;
     }
 
     public String getOrganizationName() {

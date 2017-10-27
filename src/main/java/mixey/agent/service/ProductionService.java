@@ -47,6 +47,6 @@ public class ProductionService {
     }
 
     public List<ProductionTo> getAll() {
-        return ProductionTo.listAsTo(productionRepository.getAllByOrganization(AuthorizedUser.getOrganization().getId()));
+        return ProductionTo.listAsTo(productionRepository.getAllByOrganization(AuthorizedUser.getOrganization()));
     }
 }

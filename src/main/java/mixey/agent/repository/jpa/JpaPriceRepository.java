@@ -1,6 +1,8 @@
 package mixey.agent.repository.jpa;
 
+import mixey.agent.model.Organization;
 import mixey.agent.model.Price;
+import mixey.agent.model.PriceCategory;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,8 +39,8 @@ public class JpaPriceRepository {
         return query.setParameter("id", id).getSingleResult();
     }
 
-    public Price get(Integer pc, LocalDate date, Integer org) {
-        TypedQuery<Price> query = em.createQuery("SELECT DISTINCT pr FROM Price pr LEFT JOIN FETCH pr.priceProducts LEFT JOIN FETCH pr.priceCategory WHERE pr.priceCategory.id=:pc AND pr.organization.id=:org AND pr.date<=:date ORDER BY pr.date DESC", Price.class);
+    public Price get(PriceCategory pc, LocalDate date, Organization org) {
+        TypedQuery<Price> query = em.createQuery("SELECT DISTINCT pr FROM Price pr LEFT JOIN FETCH pr.priceProducts LEFT JOIN FETCH pr.priceCategory WHERE pr.priceCategory=:pc AND pr.organization=:org AND pr.date<=:date ORDER BY pr.date DESC", Price.class);
         return query.setParameter("pc", pc).setParameter("date", date).setParameter("org", org).setMaxResults(1).getSingleResult();
     }
 
@@ -47,8 +49,8 @@ public class JpaPriceRepository {
         return query.getResultList();
     }
 
-    public List<Price> getAllByOrganization(Integer org) {
-        TypedQuery<Price> query = em.createQuery("SELECT pr FROM Price pr LEFT JOIN FETCH pr.organization WHERE pr.organization.id=:org", Price.class);
+    public List<Price> getAllByOrganization(Organization org) {
+        TypedQuery<Price> query = em.createQuery("SELECT pr FROM Price pr LEFT JOIN FETCH pr.organization WHERE pr.organization=:org", Price.class);
         return query.setParameter("org", org).getResultList();
     }
 }

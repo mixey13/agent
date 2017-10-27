@@ -24,6 +24,11 @@ public class ClientAjaxController {
         return service.getAll();
     }
 
+    @RequestMapping(value = "/org", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Client> getAllByOrganization() {
+        return service.getAllByOrganization();
+    }
+
     @RequestMapping(method = RequestMethod.POST)
     public void updateOrCreate(@RequestBody Client client) {
         service.save(client);

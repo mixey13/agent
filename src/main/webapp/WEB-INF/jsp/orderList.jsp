@@ -49,14 +49,6 @@
                     <input type="text" hidden="hidden" id="id" name="id">
 
                     <div class="form-group">
-                        <label for="dropdownOrg" class="control-label col-xs-3">Organization</label>
-
-                        <div class="col-xs-9">
-                            <select class="dropdown form-control" id="dropdownOrg" name="organization"></select>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
                         <label for="dropdownClient" class="control-label col-xs-3">Client</label>
 
                         <div class="col-xs-9">

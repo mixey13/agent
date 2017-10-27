@@ -1,5 +1,6 @@
 package mixey.agent.repository.jpa;
 
+import mixey.agent.model.Organization;
 import mixey.agent.model.Product;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,8 +42,8 @@ public class JpaProductRepository {
         return query.getResultList();
     }
 
-    public List<Product> getAllByOrganization(Integer org) {
-        TypedQuery<Product> query = em.createQuery("SELECT p FROM Product p LEFT JOIN FETCH p.organization WHERE p.organization.id=:org", Product.class);
+    public List<Product> getAllByOrganization(Organization org) {
+        TypedQuery<Product> query = em.createQuery("SELECT p FROM Product p LEFT JOIN FETCH p.organization WHERE p.organization=:org", Product.class);
         return query.setParameter("org", org).getResultList();
     }
 

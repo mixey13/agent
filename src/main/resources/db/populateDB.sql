@@ -76,10 +76,10 @@ INSERT INTO production_product (production_id, product_id, amount) VALUES
 INSERT INTO contracts (org_id, cli_id, pc_id) VALUES
   (100001, 100031, 100012);
 
--- INSERT INTO orders (org_id, cli_id, total, date, time) VALUES
---   (100003, 100025, 750, '2017-08-28', '12:00:00');
---
--- INSERT INTO order_product (order_id, product_id, cost, amount) VALUES
---   (100027, 100004, 150, 3),
---   (100027, 100005, 180, 1),
---   (100027, 100006, 120, 1);
+INSERT INTO orders (org_id, cli_id, total, date, time) VALUES
+  (100001, 100031, 750, '2017-08-28', '12:00:00');
+
+INSERT INTO order_product (order_id, product_id, cost, amount) VALUES
+  (100038, 100007, 150, 3),
+  (100038, 100008, 180, 1),
+  (100038, 100009, 120, 1);

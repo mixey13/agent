@@ -33,16 +33,23 @@ function updateRow(id) {
 }
 
 function getAdditionalJSON() {
-    $('#productsTable').empty();
-    $.getJSON('ajax/organizations/', function (data) {
-        var option = '';
+    $.getJSON('ajax/products', function (data) {
+        var prod = [];
         $.each(data, function (key, value) {
-            option += '<option value="' + value.id + '">' + value.name + '</option>';
+            prod.push(value);
         });
-        $('#dropdownOrg').empty().append(option).val("");
+        var td = '<thead><tr><th>Наименование</th><th>Цена</th><th>Количество</th></tr></thead>';
+        for(var i = 0; i < prod.length; i++) {
+            td += '<tr class="orderProductTos" id="' + prod[i].id + '">';
+            td += '<td>' + prod[i].title + '</td>';
+            td += '<td><input type="text" class="form-control" name="cost"></td>';
+            td += '<td><input type="text" class="form-control" name="amount"></td>';
+            td += '</tr>';
+        }
+        $('#productsTable').empty().append(td);
     });
 
-    $.getJSON('ajax/clients/', function (data) {
+    $.getJSON('ajax/clients/org', function (data) {
         var option = '';
         $.each(data, function (key, value) {
             option += '<option value="' + value.id + '">' + value.name + '</option>';
@@ -51,42 +58,16 @@ function getAdditionalJSON() {
     });
 }
 
-$('#dropdownOrg').change(function () {
-    form.find("select[name='client']").val("");
-    getProducts();
-});
-
 $('#dropdownClient').change(function () {
     getPrice();
 });
 
-function getProducts() {
-    var org = form.find("select[name='organization']").val();
-    if(org != null) {
-        $.getJSON('ajax/products/org/' + org, function (data) {
-            var prod = [];
-            $.each(data, function (key, value) {
-                prod.push(value);
-            });
-            var td = '<thead><tr><th>Наименование</th><th>Цена</th><th>Количество</th></tr></thead>';
-            for(var i = 0; i < prod.length; i++) {
-                td += '<tr class="orderProductTos" id="' + prod[i].id + '">';
-                td += '<td>' + prod[i].title + '</td>';
-                td += '<td><input type="text" class="form-control" name="cost"></td>';
-                td += '<td><input type="text" class="form-control" name="amount"></td>';
-                td += '</tr>';
-            }
-            $('#productsTable').empty().append(td);
-        });
-    }
-}
-
 function getPrice() {
+    form.find("input[name='cost']").val("");
     var client = form.find("select[name='client']").val();
     var date = form.find("input[name='date']").val();
-    var org = form.find("select[name='organization']").val();
     if(client != null && date != "") {
-        $.getJSON('ajax/prices/' + client + '/' + date + '/' + org, function (data) {
+        $.getJSON('ajax/prices/' + client + '/' + date, function (data) {
             $.each(data, function (key, value) {
                 if (key == 'priceProductTos') {
                     form.find("input[name='cost']").val("");
@@ -103,7 +84,6 @@ function getPrice() {
 function createJSON() {
     var orderTo = {};
     orderTo.id = form.find("input[name='id']").val();
-    orderTo.organization = form.find("select[name='organization']").val();
     orderTo.client = form.find("select[name='client']").val();
     orderTo.date = form.find("input[name='date']").val();
     orderTo.time = form.find("input[name='time']").val();

@@ -1,5 +1,6 @@
 package mixey.agent.service;
 
+import mixey.agent.AuthorizedUser;
 import mixey.agent.model.Client;
 import mixey.agent.repository.jpa.JpaClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,5 +31,9 @@ public class ClientService {
 
     public List<Client> getAll() {
         return repository.getAll();
+    }
+
+    public List<Client> getAllByOrganization() {
+        return repository.getAllByOrganization(AuthorizedUser.getOrganization());
     }
 }
