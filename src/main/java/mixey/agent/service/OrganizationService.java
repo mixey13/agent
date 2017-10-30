@@ -1,10 +1,13 @@
 package mixey.agent.service;
 
+import mixey.agent.AuthorizedUser;
 import mixey.agent.model.Organization;
+import mixey.agent.model.Role;
 import mixey.agent.repository.jpa.JpaOrganizationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -29,6 +32,10 @@ public class OrganizationService {
     }
 
     public List<Organization> getAll() {
-        return repository.getAll();
+        if (AuthorizedUser.get().getAuthorities().contains(Role.ROLE_ROOT)) {
+            return repository.getAll();
+        } else {
+            return Collections.singletonList(AuthorizedUser.getOrganization());
+        }
     }
 }

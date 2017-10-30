@@ -1,5 +1,6 @@
 package mixey.agent.repository.jpa;
 
+import mixey.agent.model.Organization;
 import mixey.agent.model.User;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,5 +40,10 @@ public class JpaUserRepository {
     public List<User> getAll() {
         TypedQuery<User> query = em.createQuery("SELECT u FROM User u", User.class);
         return query.getResultList();
+    }
+
+    public List<User> getAllByOrganization(Organization org) {
+        TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.organization=:org", User.class);
+        return query.setParameter("org", org).getResultList();
     }
 }

@@ -1,5 +1,6 @@
 package mixey.agent.service;
 
+import mixey.agent.AuthorizedUser;
 import mixey.agent.model.Role;
 import mixey.agent.model.User;
 
@@ -50,6 +51,10 @@ public class UserService{
     }
 
     public List<UserTo> getAll() {
-        return UserTo.listAsTo(repository.getAll());
+        if (AuthorizedUser.get().getAuthorities().contains(Role.ROLE_ROOT)) {
+            return UserTo.listAsTo(repository.getAll());
+        } else {
+            return UserTo.listAsTo(repository.getAllByOrganization(AuthorizedUser.getOrganization()));
+        }
     }
 }
