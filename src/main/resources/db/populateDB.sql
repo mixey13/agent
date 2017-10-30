@@ -1,8 +1,13 @@
--- DELETE FROM user_roles;
--- DELETE FROM products;
--- DELETE FROM users;
--- DELETE FROM price_categories;
--- DELETE FROM prices;
+DELETE FROM orders;
+DELETE FROM contracts;
+DELETE FROM productions;
+DELETE FROM clients;
+DELETE FROM prices;
+DELETE FROM price_categories;
+DELETE FROM products;
+DELETE FROM users;
+DELETE FROM organizations;
+DELETE FROM admins;
 ALTER SEQUENCE global_seq RESTART WITH 100000;
 
 INSERT INTO admins (name, password) VALUES

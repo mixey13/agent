@@ -1,3 +1,4 @@
+DROP VIEW IF EXISTS public.balance RESTRICT;
 ALTER TABLE IF EXISTS public.user_roles DROP CONSTRAINT IF EXISTS user_roles_user_id_fkey;
 ALTER TABLE IF EXISTS public.production_product DROP CONSTRAINT IF EXISTS production_product_production_id_fkey;
 ALTER TABLE IF EXISTS public.production_product DROP CONSTRAINT IF EXISTS production_product_product_id_fkey;
@@ -5,29 +6,34 @@ ALTER TABLE IF EXISTS public.price_product DROP CONSTRAINT IF EXISTS price_produ
 ALTER TABLE IF EXISTS public.price_product DROP CONSTRAINT IF EXISTS price_product_product_id_fkey;
 ALTER TABLE IF EXISTS public.order_product DROP CONSTRAINT IF EXISTS order_product_order_id_fkey;
 ALTER TABLE IF EXISTS public.order_product DROP CONSTRAINT IF EXISTS order_product_product_id_fkey;
-ALTER TABLE IF EXISTS public.balance DROP CONSTRAINT IF EXISTS balance_product_id_fkey;
+ALTER TABLE IF EXISTS public.contracts DROP CONSTRAINT IF EXISTS contracts_org_id_fkey;
+ALTER TABLE IF EXISTS public.contracts DROP CONSTRAINT IF EXISTS contracts_cli_id_fkey;
+ALTER TABLE IF EXISTS public.contracts DROP CONSTRAINT IF EXISTS contracts_pc_id_fkey;
+ALTER TABLE IF EXISTS public.admin_roles DROP CONSTRAINT IF EXISTS admin_roles_admin_id_fkey;
 ALTER TABLE IF EXISTS public.prices DROP CONSTRAINT IF EXISTS prices_org_id_fkey;
 ALTER TABLE IF EXISTS public.prices DROP CONSTRAINT IF EXISTS prices_pc_id_fkey;
 ALTER TABLE IF EXISTS public.orders DROP CONSTRAINT IF EXISTS orders_org_id_fkey;
 ALTER TABLE IF EXISTS public.orders DROP CONSTRAINT IF EXISTS orders_cli_id_fkey;
+ALTER TABLE IF EXISTS public.users DROP CONSTRAINT IF EXISTS users_org_id_fkey;
 ALTER TABLE IF EXISTS public.products DROP CONSTRAINT IF EXISTS products_org_id_fkey;
 ALTER TABLE IF EXISTS public.productions DROP CONSTRAINT IF EXISTS productions_org_id_fkey;
-ALTER TABLE IF EXISTS public.clients DROP CONSTRAINT IF EXISTS clients_pc_id_fkey;
+ALTER TABLE IF EXISTS public.price_categories DROP CONSTRAINT IF EXISTS price_categories_org_id_fkey;
 DROP TABLE IF EXISTS public.user_roles;
 DROP TABLE IF EXISTS public.production_product;
 DROP TABLE IF EXISTS public.price_product;
 DROP TABLE IF EXISTS public.order_product;
-DROP TABLE IF EXISTS public.balance;
+DROP TABLE IF EXISTS public.contracts;
+DROP TABLE IF EXISTS public.admin_roles;
 DROP TABLE IF EXISTS public.prices;
 DROP TABLE IF EXISTS public.orders;
+DROP TABLE IF EXISTS public.users;
 DROP TABLE IF EXISTS public.products;
 DROP TABLE IF EXISTS public.productions;
-DROP TABLE IF EXISTS public.clients;
-DROP TABLE IF EXISTS public.users;
 DROP TABLE IF EXISTS public.price_categories;
 DROP TABLE IF EXISTS public.organizations;
+DROP TABLE IF EXISTS public.clients;
+DROP TABLE IF EXISTS public.admins;
 DROP SEQUENCE IF EXISTS global_seq;
-DROP FUNCTION IF EXISTS update_balance();
 
 CREATE SEQUENCE global_seq START 100000;
 
@@ -172,30 +178,9 @@ CREATE TABLE order_product
   FOREIGN KEY (product_id) REFERENCES products (id)
 );
 
-
-
--- CREATE TABLE balance
--- (
---   product_id       INT NOT NULL PRIMARY KEY,
---   amount        REAL NOT NULL,
---   FOREIGN KEY (product_id) REFERENCES products (id)
--- );
---
--- CREATE FUNCTION update_balance() RETURNS TRIGGER AS $$
--- BEGIN
---   DELETE FROM balance;
---   INSERT INTO balance
---     (SELECT T1.product_id, SUM(T1.amount) FROM
---       (SELECT product_id, amount FROM production_product UNION ALL SELECT product_id, -amount FROM order_product)
---         AS T1 GROUP BY T1.product_id ORDER BY T1.product_id);
---   RETURN NULL;
--- END;
--- $$ LANGUAGE plpgsql;
---
--- CREATE TRIGGER tr
--- AFTER INSERT OR UPDATE OR DELETE ON production_product
--- FOR EACH STATEMENT EXECUTE PROCEDURE update_balance();
---
--- CREATE TRIGGER tr
--- AFTER INSERT OR UPDATE OR DELETE ON order_product
--- FOR EACH STATEMENT EXECUTE PROCEDURE update_balance();
+CREATE VIEW balance AS
+  SELECT id, product_id, amount, org_id, date FROM
+    (SELECT production_product.id, product_id, amount, org_id, date FROM productions LEFT JOIN production_product ON productions.id = production_product.production_id
+     UNION ALL
+     SELECT order_product.id, product_id, -amount, org_id, date FROM orders LEFT JOIN order_product ON orders.id = order_product.order_id
+    ) AS T

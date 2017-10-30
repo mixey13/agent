@@ -41,6 +41,7 @@
                             <sec:authorize access="hasRole('ROLE_AGENT')">
                                 <li><a class="dropdown-item" href="/orders">Заказы</a></li>
                             </sec:authorize>
+                            <li><a class="dropdown-item" href="/balance">Остаток</a></li>
                         </ul>
                     </li>
                 </sec:authorize>

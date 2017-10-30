@@ -2,6 +2,12 @@ var ajaxUrl = 'ajax/balance/';
 var datatableApi;
 
 function updateTable() {
+    var filter = $('#datePicker').val();
+    $.get(ajaxUrl + filter, updateTableByData);
+}
+
+function clearFilter() {
+    $('#datePicker').val("");
     $.get(ajaxUrl, updateTableByData);
 }
 
@@ -15,10 +21,7 @@ $(function () {
         "info": true,
         "columns": [
             {
-                "data": "product.id"
-            },
-            {
-                "data": "product.title"
+                "data": "product"
             },
             {
                 "data": "amount"
@@ -31,5 +34,11 @@ $(function () {
             ]
         ],
         "initComplete": makeEditable
-    })
+    });
+
+    $('#datePicker').datetimepicker({
+        timepicker: false,
+        lang: 'ru',
+        format: 'Y-m-d'
+    });
 });
