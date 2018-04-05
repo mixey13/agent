@@ -103,16 +103,4 @@ $(function () {
         ],
         "initComplete": makeEditable
     });
-
-    $('#datePicker').datetimepicker({
-        timepicker: false,
-        lang: 'ru',
-        format: 'Y-m-d'
-    });
-
-    $('#timePicker').datetimepicker({
-        datepicker: false,
-        lang: 'ru',
-        format: 'H:i'
-    });
 });

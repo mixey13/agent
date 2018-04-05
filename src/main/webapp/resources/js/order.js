@@ -62,6 +62,10 @@ $('#dropdownClient').change(function () {
     getPrice();
 });
 
+$('#datePicker').change(function () {
+    getPrice();
+});
+
 function getPrice() {
     form.find("input[name='cost']").val("");
     var client = form.find("select[name='client']").val();
@@ -143,20 +147,5 @@ $(function () {
             ]
         ],
         "initComplete": makeEditable
-    });
-
-    $('#datePicker').datetimepicker({
-        timepicker: false,
-        lang: 'ru',
-        format: 'Y-m-d',
-        onSelectDate: function () {
-            getPrice();
-        }
-    });
-
-    $('#timePicker').datetimepicker({
-        datepicker: false,
-        lang: 'ru',
-        format: 'H:i'
     });
 });

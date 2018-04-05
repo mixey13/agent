@@ -114,10 +114,4 @@ $(function () {
         ],
         "initComplete": makeEditable
     });
-
-    $('#datePicker').datetimepicker({
-        timepicker: false,
-        lang: 'ru',
-        format: 'Y-m-d'
-    });
 });

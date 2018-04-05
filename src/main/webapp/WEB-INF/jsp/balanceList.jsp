@@ -15,7 +15,7 @@
         <div class="shadow">
             <h3>Остаток</h3>
             <div class="row">
-                <div class="col-sm-4">
+                <div class="col-sm-5">
                     <div class="panel panel-default">
                         <div class="panel-body">
                             <div class="form-group">
@@ -57,7 +57,6 @@
 <script type="text/javascript" src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="webjars/datatables/1.10.12/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="webjars/noty/2.3.8/js/noty/packaged/jquery.noty.packaged.min.js"></script>
-<script type="text/javascript" src="webjars/datetimepicker/2.5.4/build/jquery.datetimepicker.full.min.js"></script>
 <script type="text/javascript" src="resources/js/util.js"></script>
 <script type="text/javascript" src="resources/js/balance.js"></script>
 </html>
